@@ -3,11 +3,11 @@ using System;
 
 public partial class Car : Vehicle
 {
-    Car car = new Car()
+    Car car = new()
     {
         speed = 50,
-        roadToUse = "Road1",
+        roadToUse = "CarRoad",
         isMoving = true,
-        spawnChance = 50
+        spawnChance = 80
     };
 }
