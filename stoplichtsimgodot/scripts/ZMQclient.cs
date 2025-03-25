@@ -7,7 +7,7 @@ public partial class ZMQClient : Node
 	public override void _Ready()
 	{
 		GD.Print("Verbinding maken met ZeroMQ Server...");
-		using (var client = new RequestSocket(">tcp://localhost:5555"))
+		using (var client = new RequestSocket(">tcp://127.0.0.1:5556"))
 		{
 			client.SendFrame("Hallo, ZeroMQ Server!");
 			

@@ -17,9 +17,9 @@ public partial class ZMQServer : Node
 
 	private void ServerLoop()
 	{
-		using (var server = new ResponseSocket("@tcp://*:5555")) // Luistert op poort 5555
+		using (var server = new ResponseSocket("@tcp:/127.0.0.1:5556")) // Luistert op poort 5555
 		{
-			GD.Print("ZeroMQ Server gestart op poort 5555...");
+			GD.Print("ZeroMQ Server gestart op poort 5556...");
 			
 			while (_isRunning)
 			{
