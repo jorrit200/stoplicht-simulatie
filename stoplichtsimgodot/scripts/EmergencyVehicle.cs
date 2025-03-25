@@ -10,4 +10,8 @@ public partial class EmergencyVehicle : Vehicle
 		isMoving = true,
 		spawnChance = 0.5f
 	};
+	
+	public override void _Ready(){
+		
+	}
 }

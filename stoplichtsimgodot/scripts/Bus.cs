@@ -10,4 +10,8 @@ public partial class Bus : Vehicle
 		isMoving = true,
 		spawnChance = 5
 	};
+	
+public override void _Ready(){
+	
+	}
 }

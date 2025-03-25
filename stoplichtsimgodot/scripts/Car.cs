@@ -10,4 +10,8 @@ public partial class Car : Vehicle
 		isMoving = true,
 		spawnChance = 80
 	};
+	
+	public override void _Ready(){
+		
+	}
 }

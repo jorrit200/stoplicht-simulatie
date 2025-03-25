@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class VehicleSpawner : Node
+public partial class VehicleSpawner : Node2D
 {
 	// Lijst van PackedScenes
 	private List<PackedScene> vehicles = new List<PackedScene>();
@@ -60,8 +60,8 @@ public partial class VehicleSpawner : Node
 		}
 
 		// Kies een willekeurig voertuig en pad
-		int vehicleIndex = (int)(GD.Randi() % vehicles.Count);
-		int pathIndex = (int)(GD.Randi() % paths.Count);
+		int vehicleIndex = (int)(GD.Randi() % vehicles.Count + 1);
+		int pathIndex = (int)(GD.Randi() % paths.Count + 1);
 
 		GD.Print($"Gekozen voertuig index: {vehicleIndex}, Gekozen pad index: {pathIndex}");
 
