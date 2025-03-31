@@ -94,6 +94,8 @@ public partial class VehicleSpawner : Node2D
 		// Voeg het voertuig toe aan het pad
 		chosenPath.AddChild(vehicle);
 		vehicle.GlobalPosition = chosenPath.GlobalPosition;
+		
+		vehicle.StartMoving(chosenPath);
 
 		GD.Print($"Voertuig {vehicle.Name} succesvol toegevoegd!");
 	}
