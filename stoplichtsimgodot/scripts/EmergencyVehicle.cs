@@ -3,15 +3,11 @@ using System;
 
 public partial class EmergencyVehicle : Vehicle
 {
-	EmergencyVehicle emergencyVehicle = new()
+	public override void _Ready()
 	{
-		speed = 100,
-		roadToUse = "MainRoad",
-		isMoving = true,
-		spawnChance = 0.5f
-	};
-	
-	public override void _Ready(){
-		
+		speed = 100;
+		roadToUse = "MainRoad";
+		isMoving = true;
+		spawnChance = 0.5f;
 	}
 }

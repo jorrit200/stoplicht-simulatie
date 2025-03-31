@@ -3,15 +3,11 @@ using System;
 
 public partial class Bus : Vehicle
 {
-	Bus bus = new()
+	public override void _Ready()
 	{
-		speed = 50,
-		roadToUse = "MainRoad",
-		isMoving = true,
-		spawnChance = 5
-	};
-	
-public override void _Ready(){
-	
+		speed = 50;
+		roadToUse = "MainRoad";
+		isMoving = true;
+		spawnChance = 5;
 	}
 }

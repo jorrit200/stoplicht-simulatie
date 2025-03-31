@@ -60,13 +60,13 @@ public partial class VehicleSpawner : Node2D
 		}
 
 		// Kies een willekeurig voertuig en pad
-		int vehicleIndex = (int)(GD.Randi() % vehicles.Count + 1);
-		int pathIndex = (int)(GD.Randi() % paths.Count + 1);
+		int vehicleIndex = (int)(GD.Randi() % vehicles.Count);
+		int pathIndex = (int)(GD.Randi() % paths.Count);
 
 		GD.Print($"Gekozen voertuig index: {vehicleIndex}, Gekozen pad index: {pathIndex}");
 
 		PackedScene vehicleScene = vehicles[vehicleIndex];  // Haal de juiste scene op
-		PathFollow2D chosenPath = paths[1];  // Haal het juiste pad op
+		PathFollow2D chosenPath = paths[pathIndex];  // Haal het juiste pad op
 
 		if (vehicleScene == null || chosenPath == null)
 		{
@@ -88,7 +88,7 @@ public partial class VehicleSpawner : Node2D
 		// Zet de Vehicle specifieke eigenschappen
 		Vehicle vehicle = (Vehicle)vehicleInstance;  // Zorg dat het voertuig het juiste type is
 		vehicle.isMoving = true;
-		vehicle.speed = 100.0f; // Bijv. stel snelheid in
+		vehicle.speed = 50.0f; // Bijv. stel snelheid in
 		vehicle.roadToUse = "Path" + (pathIndex + 1);  // Geef het pad een naam (Path1, Path2, etc.)
 
 		// Voeg het voertuig toe aan het pad
