@@ -28,8 +28,8 @@ public partial class VehicleSpawner : Node2D
 		vehicles.Add(EmergencyVehicle);
 
 		// Haal de PathFollow2D nodes op (paden)
-		paths.Add(GetNode<PathFollow2D>("Path2D/Path1"));
-		paths.Add(GetNode<PathFollow2D>("Path2D2/Path2"));
+		paths.Add(GetNode<PathFollow2D>("../Path2D/Path1"));
+		paths.Add(GetNode<PathFollow2D>("../Path2D2/Path2"));
 
 		if (vehicles.Count == 0 || paths.Count == 0)
 		{
@@ -66,7 +66,7 @@ public partial class VehicleSpawner : Node2D
 		GD.Print($"Gekozen voertuig index: {vehicleIndex}, Gekozen pad index: {pathIndex}");
 
 		PackedScene vehicleScene = vehicles[vehicleIndex];  // Haal de juiste scene op
-		PathFollow2D chosenPath = paths[pathIndex];  // Haal het juiste pad op
+		PathFollow2D chosenPath = paths[1];  // Haal het juiste pad op
 
 		if (vehicleScene == null || chosenPath == null)
 		{
