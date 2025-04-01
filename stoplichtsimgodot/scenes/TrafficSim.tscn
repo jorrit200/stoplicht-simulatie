@@ -11,15 +11,15 @@
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1148, 331, 0, 0, 0, 0, 839, 326, 0, 0, 0, 0, 795, 310, 0, 0, 0, 0, 751, 273, 0, 0, 0, 0, 747, 122, 0, 0, 0, 0, 748, 3)
+"points": PackedVector2Array(0, 0, 0, 0, 1919, 482, 0, 0, 0, 0, 1800, 448, 0, 0, 0, 0, 1694, 406, 0, 0, 0, 0, 1602, 375, 0, 0, 0, 0, 1357, 315, 0, 0, 0, 0, 1249, 294, 0, 0, 0, 0, 1132, 274, 0, 0, 0, 0, 935, 256, 0, 0, 0, 0, 849, 234, 0, 0, 0, 0, 726, 228, 0, 0, 0, 0, 610, 225, 0, 0, 0, 0, 514, 224, 0, 0, 0, 0, 456, 218, 0, 0, 0, 0, 430, 204, 0, 0, 0, 0, 414, 161, 0, 0, 0, 0, 416, 2)
 }
-point_count = 6
+point_count = 16
 
 [sub_resource type="Curve2D" id="Curve2D_67ex8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1151, 380, 0, 0, 0, 0, 745, 371, 0, 0, 0, 0, 466, 371, 0, 0, 0, 0, 5, 365)
+"points": PackedVector2Array(0, 0, 0, 0, -1, 324, 0, 0, 0, 0, 308, 329, 0, 0, 0, 0, 332, 338, 0, 0, 0, 0, 369, 365, 0, 0, 0, 0, 366, 530)
 }
-point_count = 4
+point_count = 5
 
 [node name="TrafficSim" type="Node2D"]
 
@@ -33,15 +33,15 @@ script = ExtResource("2_67ex8")
 curve = SubResource("Curve2D_qbjlm")
 
 [node name="Path1" type="PathFollow2D" parent="Path2D"]
-position = Vector2(1148, 331)
-rotation = -3.12541
+position = Vector2(1919, 482)
+rotation = -2.86329
 
 [node name="Path2D2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_67ex8")
 
 [node name="Path2" type="PathFollow2D" parent="Path2D2"]
-position = Vector2(1151, 380)
-rotation = -3.11943
+position = Vector2(-1, 324)
+rotation = 0.0161798
 
 [node name="VehicleSpawner" type="Node2D" parent="."]
 script = ExtResource("3_67ex8")
@@ -50,12 +50,12 @@ Bus = ExtResource("5_10emi")
 EmergencyVehicle = ExtResource("6_6tk20")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 324)
+position = Vector2(960, 325)
 
 [node name="KruispuntEnBrugRealistisch" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(2438, 475.5)
-scale = Vector2(0.9732, 0.953)
+position = Vector2(1365, 324)
+scale = Vector2(0.5461, 0.65)
 texture = ExtResource("7_10emi")
 
 [node name="Node2D" type="Node2D" parent="."]
