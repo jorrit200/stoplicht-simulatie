@@ -14,9 +14,6 @@ public partial class VehicleSpawner : Node2D
 	[Export] public PackedScene Car;
 	[Export] public PackedScene Bus;
 	[Export] public PackedScene EmergencyVehicle;
-	
-	//[Export] public PathFollow2D Path1;
-	//[Export] public PathFollow2D Path2;
 
 	public override void _Ready()
 	{
@@ -87,8 +84,6 @@ public partial class VehicleSpawner : Node2D
 
 		// Zet de Vehicle specifieke eigenschappen
 		Vehicle vehicle = (Vehicle)vehicleInstance;  // Zorg dat het voertuig het juiste type is
-		vehicle.isMoving = true;
-		vehicle.speed = 50.0f; // Bijv. stel snelheid in
 		vehicle.roadToUse = "Path" + (pathIndex + 1);  // Geef het pad een naam (Path1, Path2, etc.)
 
 		// Voeg het voertuig toe aan het pad
