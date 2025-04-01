@@ -38,7 +38,7 @@ public partial class VehicleSpawner : Node2D
 
 		// Start een timer om te spawnen
 		Timer spawnTimer = new Timer();
-		spawnTimer.WaitTime = 5.0f;  // Tijd tussen spawns
+		spawnTimer.WaitTime = 2.0f;  // Tijd tussen spawns
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += () => {
