@@ -49,49 +49,49 @@ public partial class VehicleSpawner : Node2D
 	}
 
 	private void SpawnRandomVehicle()
+{
+	if (vehicles.Count == 0 || paths.Count == 0)
 	{
-		if (vehicles.Count == 0 || paths.Count == 0)
-		{
-			GD.PrintErr("FOUT: Geen voertuigen of paden beschikbaar!");
-			return;
-		}
+		GD.PrintErr("FOUT: Geen voertuigen of paden beschikbaar!");
+		return;
+	}
 
-		// Kies een willekeurig voertuig en pad
-		int vehicleIndex = (int)(GD.Randi() % vehicles.Count);
-		int pathIndex = (int)(GD.Randi() % paths.Count);
+	// Kies een willekeurig voertuig en pad
+	int vehicleIndex = (int)(GD.Randi() % vehicles.Count);
+	int pathIndex = (int)(GD.Randi() % paths.Count);
 
-		GD.Print($"Gekozen voertuig index: {vehicleIndex}, Gekozen pad index: {pathIndex}");
+	GD.Print($"Gekozen voertuig index: {vehicleIndex}, Gekozen pad index: {pathIndex}");
 
-		PackedScene vehicleScene = vehicles[vehicleIndex];  // Haal de juiste scene op
-		PathFollow2D chosenPath = paths[pathIndex];  // Haal het juiste pad op
+	PackedScene vehicleScene = vehicles[vehicleIndex];  // Haal de juiste scene op
+	Path2D chosenPath = paths[pathIndex].GetParent<Path2D>();  // Haal het Path2D-object op
 
-		if (vehicleScene == null || chosenPath == null)
-		{
-			GD.PrintErr("FOUT: Geen voertuig of pad gevonden!");
-			return;
-		}
+	if (vehicleScene == null || chosenPath == null)
+	{
+		GD.PrintErr("FOUT: Geen voertuig of pad gevonden!");
+		return;
+	}
 
-		// Maak een nieuw voertuig aan (deze is nu van de Vehicle klasse)
-		Node vehicleInstance = vehicleScene.Instantiate();
-		
-		if (vehicleInstance == null)
-		{
-			GD.PrintErr("FOUT: Kon voertuig niet instantieren!");
-			return;
-		}
+	// Maak een nieuw PathFollow2D aan voor dit voertuig
+	PathFollow2D pathFollow = new PathFollow2D();
+	chosenPath.AddChild(pathFollow);
+	pathFollow.Progress = 0.0f;  // Zorg dat het voertuig aan het begin start
 
-		GD.Print($"Voertuig {vehicleInstance.Name} geïnstantieerd!");
+	// Maak een nieuw voertuig aan
+	Vehicle vehicle = (Vehicle)vehicleScene.Instantiate();
+	
+	if (vehicle == null)
+	{
+		GD.PrintErr("FOUT: Kon voertuig niet instantieren!");
+		return;
+	}
 
-		// Zet de Vehicle specifieke eigenschappen
-		Vehicle vehicle = (Vehicle)vehicleInstance;  // Zorg dat het voertuig het juiste type is
-		vehicle.roadToUse = "Path" + (pathIndex + 1);  // Geef het pad een naam (Path1, Path2, etc.)
+	GD.Print($"Voertuig {vehicle.Name} geïnstantieerd!");
 
-		// Voeg het voertuig toe aan het pad
-		chosenPath.AddChild(vehicle);
-		vehicle.GlobalPosition = chosenPath.GlobalPosition;
-		
-		vehicle.StartMoving(chosenPath);
+	// Zet de Vehicle specifieke eigenschappen
+	vehicle.roadToUse = "Path" + (pathIndex + 1);
+	pathFollow.AddChild(vehicle);  // Voeg het voertuig toe aan het PathFollow2D
+	vehicle.StartMoving(pathFollow);  // Laat het voertuig bewegen
 
-		GD.Print($"Voertuig {vehicle.Name} succesvol toegevoegd!");
+	GD.Print($"Voertuig {vehicle.Name} succesvol toegevoegd!");
 	}
 }

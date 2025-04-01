@@ -18,11 +18,14 @@ public partial class Vehicle : Node2D
 
 	public override void _Process(double delta)
 	{
-		GD.Print(isMoving, pathFollow);
 		if (isMoving && pathFollow != null)
 		{
 			pathFollow.Progress += speed * (float)delta;
-			GD.Print(pathFollow.Progress);
+			
+			if(pathFollow.ProgressRatio >= 0.99f)
+			{
+				QueueFree();
+			}
 		}
 	}
 }
