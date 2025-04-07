@@ -25,10 +25,11 @@ public partial class VehicleSpawner : Node2D
 		vehicles.Add(EmergencyVehicle);
 
 		// Haal de PathFollow2D nodes op (paden)
-		paths.Add(GetNode<PathFollow2D>("../Path2D/Path1"));
-		paths.Add(GetNode<PathFollow2D>("../Path2D2/Path2"));
-		paths.Add(GetNode<PathFollow2D>("../Path2D3/Path3"));
-		paths.Add(GetNode<PathFollow2D>("../Path2D4/Path4"));
+		for (int i = 1; i < 13; i++){
+			paths.Add(GetNode<PathFollow2D>($"../Path2D{i}/Path{i}"));	
+		}
+		paths.Add(GetNode<PathFollow2D>("../Path2D2_2/Path2_2"));
+		paths.Add(GetNode<PathFollow2D>("../Path2D8_2/Path8_2"));
 
 		if (vehicles.Count == 0 || paths.Count == 0)
 		{
