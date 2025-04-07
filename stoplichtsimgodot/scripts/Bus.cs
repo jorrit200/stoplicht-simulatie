@@ -3,7 +3,7 @@ using System;
 
 public partial class Bus : Vehicle
 {
-	public override void _Ready()
+	public Bus()
 	{
 		speed = 50;
 		roadToUse = "MainRoad";

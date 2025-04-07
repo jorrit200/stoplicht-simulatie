@@ -15,6 +15,10 @@ run/main_scene="uid://bp7gt715smulk"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1920
+
 [dotnet]
 
 project/assembly_name="StoplichtSimGodot"

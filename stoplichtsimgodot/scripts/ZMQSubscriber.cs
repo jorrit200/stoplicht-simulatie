@@ -9,10 +9,10 @@ public partial class ZMQSubscriber : Node
 	public override void _Ready()
 	{
 		subscriber = new SubscriberSocket();
-		subscriber.Connect("tcp://127.0.0.1:5556"); // Verbinden met de publisher
-		subscriber.Subscribe("sensoren_rijbaan"); // Abonneer op "topic1"
+		subscriber.Connect("tcp://10.121.17.6:5556"); // Verbinden met de publisher
+		subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
 
-		GD.Print("Subscriber verbonden en geabonneerd op topic1...");
+		GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
 
 		// Start een thread om berichten te ontvangen zonder = teken
 		System.Threading.Thread receiveThread = new System.Threading.Thread(ReceiveMessages);

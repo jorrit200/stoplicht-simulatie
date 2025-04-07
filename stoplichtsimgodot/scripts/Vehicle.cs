@@ -13,21 +13,18 @@ public partial class Vehicle : Node2D
 	public void StartMoving(PathFollow2D followPath)
 	{
 		pathFollow = followPath;
-		pathFollow.Progress = 0.0f; // Begin bij het startpunt van het pad
 		isMoving = true;
 	}
 
-	public void Process(float delta)
+	public override void _Process(double delta)
 	{
 		if (isMoving && pathFollow != null)
 		{
-			// Verhoog de voortgang op basis van de snelheid en tijd
-			pathFollow.Progress += speed * delta / 1;
-
-			// Herstart de voortgang als het einde van het pad is bereikt
-			if (pathFollow.Progress >= 1.0f)
+			pathFollow.Progress += speed * (float)delta;
+			
+			if(pathFollow.ProgressRatio >= 0.99f)
 			{
-				pathFollow.Progress = 0.0f;
+				QueueFree();
 			}
 		}
 	}

@@ -3,11 +3,11 @@ using System;
 
 public partial class Car : Vehicle
 {
-	public override void _Ready()
+	public Car()
 	{
 		speed = 50;
 		roadToUse = "MainRoad";
 		isMoving = true;
-		spawnChance = 90;
+		spawnChance = 75;
 	}
 }

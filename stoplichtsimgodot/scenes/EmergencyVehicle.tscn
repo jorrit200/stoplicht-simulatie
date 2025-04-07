@@ -5,14 +5,14 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c35m8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
-size = Vector2(60, 20)
+size = Vector2(50, 17)
 
 [node name="EmergencyVehicle" type="Node2D"]
 modulate = Color(0.937847, 0.995327, 2.31028e-06, 1)
 script = ExtResource("1_ckidl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(60, 20)
+scale = Vector2(50, 17)
 texture = SubResource("PlaceholderTexture2D_c35m8")
 
 [node name="Area2D" type="Area2D" parent="."]
