@@ -38,7 +38,7 @@ public partial class VehicleSpawner : Node2D
 
 		// Start een timer om te spawnen
 		Timer spawnTimer = new Timer();
-		spawnTimer.WaitTime = 0.5f;  // Tijd tussen spawns
+		spawnTimer.WaitTime = 1; 
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += () => {
@@ -77,11 +77,10 @@ public partial class VehicleSpawner : Node2D
 				{
 					Loop = false,
 					Rotates = true,
-					ProgressRatio = 0.0f,
 					Name = $"PathFollow_{GD.Randi()}"
 				};
 
-				basePath.AddChild(vehicleFollow); // Voeg toe aan Path2D zelf, niet aan een bestaande PathFollow2D
+				basePath.AddChild(vehicleFollow);
 
 				// Instantieer het voertuig
 				Vehicle vehicle = vehicleScene.Instantiate<Vehicle>();
