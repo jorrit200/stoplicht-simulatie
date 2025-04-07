@@ -3,7 +3,7 @@ using System;
 
 public partial class EmergencyVehicle : Vehicle
 {
-	public override void _Ready()
+	public EmergencyVehicle()
 	{
 		speed = 100;
 		roadToUse = "MainRoad";
