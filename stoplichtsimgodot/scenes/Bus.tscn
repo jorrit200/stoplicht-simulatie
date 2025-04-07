@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl0wrq8imlb6q"]
+
+[ext_resource type="Script" uid="uid://bup4h4us4x5ej" path="res://scripts/Bus.cs" id="1_wr10d"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c35m8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
+size = Vector2(60, 20)
+
+[node name="Bus" type="Node2D"]
+modulate = Color(0, 0.99639, 0.648572, 1)
+script = ExtResource("1_wr10d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.99639, 0.648572, 1)
+scale = Vector2(60, 20)
+texture = SubResource("PlaceholderTexture2D_c35m8")
+
+[node name="Area2D" type="Area2D" parent="."]
+modulate = Color(0, 0.99639, 0.648572, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color(0, 0.99639, 0.648572, 1)
+shape = SubResource("RectangleShape2D_c35m8")

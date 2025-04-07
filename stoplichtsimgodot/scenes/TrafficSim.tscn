@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://bp7gt715smulk"]
+
+[ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZMQPublisher.cs" id="1_qbjlm"]
+[ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/ZMQSubscriber.cs" id="2_67ex8"]
+[ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/VehicleSpawner.cs" id="3_67ex8"]
+[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
+[ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
+[ext_resource type="Texture2D" uid="uid://5omfjq7gkw5b" path="res://art/Kruispunt_en_brug_realistisch.png" id="7_10emi"]
+
+[sub_resource type="Curve2D" id="Curve2D_qbjlm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1148, 331, 0, 0, 0, 0, 839, 326, 0, 0, 0, 0, 795, 310, 0, 0, 0, 0, 760, 286, 0, 0, 0, 0, 734, 124, 0, 0, 0, 0, 730, 1)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_67ex8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1151, 380, 0, 0, 0, 0, 745, 371, 0, 0, 0, 0, 466, 371, 0, 0, 0, 0, 5, 369)
+}
+point_count = 4
+
+[node name="TrafficSim" type="Node2D"]
+
+[node name="ZMQPublisher" type="Node" parent="."]
+script = ExtResource("1_qbjlm")
+
+[node name="ZMQSubscriber" type="Node" parent="."]
+script = ExtResource("2_67ex8")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_qbjlm")
+
+[node name="Path1" type="PathFollow2D" parent="Path2D"]
+position = Vector2(1148, 331)
+rotation = -3.12541
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource("Curve2D_67ex8")
+
+[node name="Path2" type="PathFollow2D" parent="Path2D2"]
+position = Vector2(1151, 380)
+rotation = -3.11943
+
+[node name="VehicleSpawner" type="Node2D" parent="."]
+script = ExtResource("3_67ex8")
+Car = ExtResource("4_ruvsc")
+Bus = ExtResource("5_10emi")
+EmergencyVehicle = ExtResource("6_6tk20")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="KruispuntEnBrugRealistisch" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(2438, 475.5)
+scale = Vector2(0.9732, 0.953)
+texture = ExtResource("7_10emi")
