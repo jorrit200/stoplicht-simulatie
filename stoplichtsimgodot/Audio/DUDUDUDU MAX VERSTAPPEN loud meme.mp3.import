@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://be71fl8eu4ylo"
+path="res://.godot/imported/DUDUDUDU MAX VERSTAPPEN loud meme.mp3-0187f21f7702a77415f2de6c4891532a.mp3str"
+
+[deps]
+
+source_file="res://Audio/DUDUDUDU MAX VERSTAPPEN loud meme.mp3"
+dest_files=["res://.godot/imported/DUDUDUDU MAX VERSTAPPEN loud meme.mp3-0187f21f7702a77415f2de6c4891532a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

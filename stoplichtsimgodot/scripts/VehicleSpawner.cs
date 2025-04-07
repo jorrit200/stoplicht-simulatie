@@ -50,7 +50,7 @@ public partial class VehicleSpawner : Node2D
 
 		// Start een timer om te spawnen
 		Timer spawnTimer = new Timer();
-		spawnTimer.WaitTime = 1.0f; 
+		spawnTimer.WaitTime = 1.3f; 
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += () => {
@@ -118,6 +118,14 @@ public partial class VehicleSpawner : Node2D
 					}
 
 				GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
+				
+				if (vehicle is EmergencyVehicle)
+				{
+					// Ga omhoog naar root en zoek de SirenPlayer
+					var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
+					if (maxSound != null && !maxSound.Playing)
+					maxSound?.Play();
+				}
 			}
 		}
 	}
