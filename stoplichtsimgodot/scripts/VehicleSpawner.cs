@@ -27,6 +27,8 @@ public partial class VehicleSpawner : Node2D
 		// Haal de PathFollow2D nodes op (paden)
 		paths.Add(GetNode<PathFollow2D>("../Path2D/Path1"));
 		paths.Add(GetNode<PathFollow2D>("../Path2D2/Path2"));
+		paths.Add(GetNode<PathFollow2D>("../Path2D3/Path3"));
+		paths.Add(GetNode<PathFollow2D>("../Path2D4/Path4"));
 
 		if (vehicles.Count == 0 || paths.Count == 0)
 		{
@@ -38,7 +40,7 @@ public partial class VehicleSpawner : Node2D
 
 		// Start een timer om te spawnen
 		Timer spawnTimer = new Timer();
-		spawnTimer.WaitTime = 1; 
+		spawnTimer.WaitTime = 1.5f; 
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += () => {
