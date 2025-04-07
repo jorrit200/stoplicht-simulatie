@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5omfjq7gkw5b"
-path="res://.godot/imported/Kruispunt_en_brug_realistisch.png-657fb7d9cf23357b8610db0ada758bfc.ctex"
+path="res://.godot/imported/Kruispunt_en_brug_realistisch.png-b61082f7116429b1cc5e8d1aeb096b33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Kruispunt_en_brug_realistisch.png"
-dest_files=["res://.godot/imported/Kruispunt_en_brug_realistisch.png-657fb7d9cf23357b8610db0ada758bfc.ctex"]
+source_file="res://art/Backgrounds/Kruispunt_en_brug_realistisch.png"
+dest_files=["res://.godot/imported/Kruispunt_en_brug_realistisch.png-b61082f7116429b1cc5e8d1aeb096b33.ctex"]
 
 [params]
 

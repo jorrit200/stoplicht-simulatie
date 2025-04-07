@@ -14,6 +14,10 @@ public partial class VehicleSpawner : Node2D
 	[Export] public PackedScene Car;
 	[Export] public PackedScene Bus;
 	[Export] public PackedScene EmergencyVehicle;
+	
+	private HashSet<Path2D> sharedSpawnPaths = new HashSet<Path2D>();
+	private float sharedCooldown = 0f;
+	private float sharedCooldownTime = 1.5f;
 
 	public override void _Ready()
 	{
@@ -25,10 +29,16 @@ public partial class VehicleSpawner : Node2D
 		vehicles.Add(EmergencyVehicle);
 
 		// Haal de PathFollow2D nodes op (paden)
-		paths.Add(GetNode<PathFollow2D>("../Path2D/Path1"));
-		paths.Add(GetNode<PathFollow2D>("../Path2D2/Path2"));
-		paths.Add(GetNode<PathFollow2D>("../Path2D3/Path3"));
-		paths.Add(GetNode<PathFollow2D>("../Path2D4/Path4"));
+		for (int i = 1; i < 13; i++){
+			paths.Add(GetNode<PathFollow2D>($"../Path2D{i}/Path{i}"));	
+		}
+		paths.Add(GetNode<PathFollow2D>("../Path2D2_2/Path2_2"));
+		paths.Add(GetNode<PathFollow2D>("../Path2D8_2/Path8_2"));
+		
+		sharedSpawnPaths.Add(GetNode<Path2D>("../Path2D1"));
+		sharedSpawnPaths.Add(GetNode<Path2D>("../Path2D2"));
+		sharedSpawnPaths.Add(GetNode<Path2D>("../Path2D2_2"));
+		sharedSpawnPaths.Add(GetNode<Path2D>("../Path2D3"));
 
 		if (vehicles.Count == 0 || paths.Count == 0)
 		{
@@ -40,7 +50,7 @@ public partial class VehicleSpawner : Node2D
 
 		// Start een timer om te spawnen
 		Timer spawnTimer = new Timer();
-		spawnTimer.WaitTime = 1.5f; 
+		spawnTimer.WaitTime = 1.3f; 
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += () => {
@@ -48,6 +58,12 @@ public partial class VehicleSpawner : Node2D
 			SpawnRandomVehicle();
 		};
 		AddChild(spawnTimer);
+	}
+	
+	public override void _Process(double delta)
+	{
+		if (sharedCooldown > 0f)
+			sharedCooldown -= (float)delta;
 	}
 
 	private void SpawnRandomVehicle()
@@ -74,6 +90,11 @@ public partial class VehicleSpawner : Node2D
 				int pathIndex = (int)(GD.Randi() % paths.Count);
 				Path2D basePath = (Path2D)paths[pathIndex].GetParent();
 
+				if (sharedSpawnPaths.Contains(basePath) && sharedCooldown > 0f)
+				{
+					GD.Print($"Cooldown actief voor {basePath.Name}, voertuig wordt niet gespawnd.");
+					return;
+				}
 				// Maak een nieuwe PathFollow2D aan
 				PathFollow2D vehicleFollow = new PathFollow2D
 				{
@@ -90,8 +111,21 @@ public partial class VehicleSpawner : Node2D
 
 				// Start beweging
 				vehicle.StartMoving(vehicleFollow);
+				
+				if (sharedSpawnPaths.Contains(basePath))
+					{
+						sharedCooldown = sharedCooldownTime;
+					}
 
 				GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
+				
+				if (vehicle is EmergencyVehicle)
+				{
+					// Ga omhoog naar root en zoek de SirenPlayer
+					var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
+					if (maxSound != null && !maxSound.Playing)
+					maxSound?.Play();
+				}
 			}
 		}
 	}
