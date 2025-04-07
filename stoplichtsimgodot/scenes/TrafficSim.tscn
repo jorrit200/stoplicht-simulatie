@@ -6,20 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
-[ext_resource type="Texture2D" uid="uid://5omfjq7gkw5b" path="res://art/Kruispunt_en_brug_realistisch.png" id="7_10emi"]
+[ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/cross_section.png" id="7_6tk20"]
 [ext_resource type="Script" uid="uid://7yh58ifpv35f" path="res://scripts/Vehicle.cs" id="8_6tk20"]
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1919, 482, 0, 0, 0, 0, 1800, 448, 0, 0, 0, 0, 1694, 406, 0, 0, 0, 0, 1602, 375, 0, 0, 0, 0, 1357, 315, 0, 0, 0, 0, 1249, 294, 0, 0, 0, 0, 1132, 274, 0, 0, 0, 0, 935, 256, 0, 0, 0, 0, 849, 234, 0, 0, 0, 0, 726, 228, 0, 0, 0, 0, 610, 225, 0, 0, 0, 0, 514, 224, 0, 0, 0, 0, 456, 218, 0, 0, 0, 0, 430, 204, 0, 0, 0, 0, 414, 161, 0, 0, 0, 0, 416, 2)
+"points": PackedVector2Array(0, 0, 0, 0, 1919, 482, 0, 0, 0, 0, 1914, 466, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1682, 437, 0, 0, 0, 0, 1577, 399, 0, 0, 0, 0, 1468, 364, 0, 0, 0, 0, 1353, 334, 0, 0, 0, 0, 1239, 314, 0, 0, 0, 0, 1154, 299, 0, 0, 0, 0, 1065, 285, 0, 0, 0, 0, 850, 264, 0, 0, 0, 0, 783, 254, 0, 0, 0, 0, 730, 241, 0, 0, 0, 0, 608, 232, 0, 0, 0, 0, 512, 229, 0, 0, 0, 0, 451, 229, 0, 0, 0, 0, 335, 225, 0, 0, 0, 0, 301, 203, 0, 0, 0, 0, 297, 153, 0, 0, 0, 0, 296, 2)
 }
-point_count = 16
+point_count = 20
 
 [sub_resource type="Curve2D" id="Curve2D_67ex8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -1, 324, 0, 0, 0, 0, 308, 329, 0, 0, 0, 0, 332, 338, 0, 0, 0, 0, 369, 365, 0, 0, 0, 0, 366, 530)
+"points": PackedVector2Array(0, 0, 0, 0, -1, 324, 0, 0, 0, 0, 211, 334, 0, 0, 0, 0, 238, 352, 0, 0, 0, 0, 249, 388, 0, 0, 0, 0, 251, 420, 0, 0, 0, 0, 250, 486, 0, 0, 0, 0, 243, 565, 0, 0, 0, 0, 217, 649)
 }
-point_count = 5
+point_count = 8
 
 [node name="TrafficSim" type="Node2D"]
 
@@ -34,14 +34,14 @@ curve = SubResource("Curve2D_qbjlm")
 
 [node name="Path1" type="PathFollow2D" parent="Path2D"]
 position = Vector2(1919, 482)
-rotation = -2.86329
+rotation = -1.87368
 
 [node name="Path2D2" type="Path2D" parent="."]
 curve = SubResource("Curve2D_67ex8")
 
 [node name="Path2" type="PathFollow2D" parent="Path2D2"]
 position = Vector2(-1, 324)
-rotation = 0.0161798
+rotation = 0.0471349
 
 [node name="VehicleSpawner" type="Node2D" parent="."]
 script = ExtResource("3_67ex8")
@@ -54,9 +54,9 @@ position = Vector2(960, 325)
 
 [node name="KruispuntEnBrugRealistisch" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(1365, 324)
-scale = Vector2(0.5461, 0.65)
-texture = ExtResource("7_10emi")
+position = Vector2(960.228, 324.478)
+scale = Vector2(0.359937, 0.400892)
+texture = ExtResource("7_6tk20")
 
 [node name="Node2D" type="Node2D" parent="."]
 script = ExtResource("8_6tk20")
