@@ -17,7 +17,7 @@ public partial class VehicleSpawner : Node2D
 	
 	private HashSet<Path2D> sharedSpawnPaths = new HashSet<Path2D>();
 	private float sharedCooldown = 0f;
-	private float sharedCooldownTime = 1.0f;
+	private float sharedCooldownTime = 1.5f;
 
 	public override void _Ready()
 	{
