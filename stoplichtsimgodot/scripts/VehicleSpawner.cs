@@ -119,13 +119,12 @@ public partial class VehicleSpawner : Node2D
 
 				//GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
 				
-				//if (vehicle is EmergencyVehicle)
-				//{
-					//// Ga omhoog naar root en zoek de SirenPlayer
-					//var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
-					//if (maxSound != null && !maxSound.Playing)
-					//maxSound?.Play();
-				//}
+				if (vehicle is EmergencyVehicle)
+				{
+					var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
+					if (maxSound != null && !maxSound.Playing)
+					maxSound?.Play();
+				}
 			}
 		}
 	}
