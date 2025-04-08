@@ -8,6 +8,6 @@ public partial class EmergencyVehicle : Vehicle
 		speed = 100;
 		roadToUse = "MainRoad";
 		isMoving = true;
-		spawnChance = 10;
+		spawnChance = 1;
 	}
 }

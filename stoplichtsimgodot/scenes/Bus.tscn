@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dl0wrq8imlb6q"]
+[gd_scene load_steps=5 format=3 uid="uid://dl0wrq8imlb6q"]
 
 [ext_resource type="Script" uid="uid://bup4h4us4x5ej" path="res://scripts/Bus.cs" id="1_wr10d"]
 
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
 size = Vector2(50, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr10d"]
+size = Vector2(20, 17)
 
 [node name="Bus" type="CharacterBody2D"]
 modulate = Color(0, 0.99639, 0.648572, 1)
@@ -19,3 +22,13 @@ texture = SubResource("PlaceholderTexture2D_c35m8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color(0, 0.99639, 0.648572, 1)
 shape = SubResource("RectangleShape2D_c35m8")
+
+[node name="VoorSensor" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensor"]
+position = Vector2(35, 0)
+shape = SubResource("RectangleShape2D_wr10d")
+
+[connection signal="body_entered" from="VoorSensor" to="." method="_on_voor_sensor_body_entered"]
+[connection signal="body_exited" from="VoorSensor" to="." method="_on_voor_sensor_body_exited"]
