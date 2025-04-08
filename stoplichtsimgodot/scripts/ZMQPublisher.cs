@@ -9,9 +9,9 @@ public partial class ZMQPublisher : Node
 	public override void _Ready()
 	{
 		publisher = new PublisherSocket();
-		publisher.Bind("tcp://10.121.17.54:6969"); // Bind naar poort
+		publisher.Bind("tcp://10.121.17.54:5557"); // Bind naar poort
 
-		GD.Print("Publisher gestart op poort 5556...");
+		GD.Print("Publisher gestart op poort 5557...");
 
 		// Start een thread om berichten te sturen zonder = teken
 		System.Threading.Thread sendThread = new System.Threading.Thread(SendMessages);
