@@ -1,17 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://bp7gt715smulk"]
-
+[gd_scene load_steps=23 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZMQPublisher.cs" id="1_qbjlm"]
 [ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/ZMQSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/VehicleSpawner.cs" id="3_67ex8"]
-[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
-[ext_resource type="Script" uid="uid://7yh58ifpv35f" path="res://scripts/Vehicle.cs" id="8_6tk20"]
-[ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="9_byrp8"]
 [ext_resource type="AudioStream" uid="uid://be71fl8eu4ylo" path="res://Audio/DUDUDUDU MAX VERSTAPPEN loud meme.mp3" id="9_byrp8"]
-
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
@@ -217,14 +213,6 @@ z_index = -1
 position = Vector2(960.228, 324.478)
 scale = Vector2(0.359937, 0.400892)
 texture = ExtResource("7_6tk20")
-
-[node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("8_6tk20")
-
-
-[node name="TrafficLight" parent="." instance=ExtResource("9_byrp8")]
-position = Vector2(290, 194)
-scale = Vector2(6.27, 6.27)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(960.228, 324.478)

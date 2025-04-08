@@ -54,7 +54,7 @@ public partial class VehicleSpawner : Node2D
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += () => {
-			GD.Print("Timer triggered! Spawning vehicle...");
+			//GD.Print("Timer triggered! Spawning vehicle...");
 			SpawnRandomVehicle();
 		};
 		AddChild(spawnTimer);
@@ -82,7 +82,7 @@ public partial class VehicleSpawner : Node2D
 			float chance = tempVehicle.spawnChance;
 
 			float roll = GD.Randf() * 100f;
-			GD.Print($"[{vehicleScene.ResourcePath}] spawn roll: {roll} vs chance {chance}");
+			//GD.Print($"[{vehicleScene.ResourcePath}] spawn roll: {roll} vs chance {chance}");
 
 			if (roll <= chance)
 			{
@@ -92,7 +92,7 @@ public partial class VehicleSpawner : Node2D
 
 				if (sharedSpawnPaths.Contains(basePath) && sharedCooldown > 0f)
 				{
-					GD.Print($"Cooldown actief voor {basePath.Name}, voertuig wordt niet gespawnd.");
+					//GD.Print($"Cooldown actief voor {basePath.Name}, voertuig wordt niet gespawnd.");
 					return;
 				}
 				// Maak een nieuwe PathFollow2D aan
@@ -117,15 +117,15 @@ public partial class VehicleSpawner : Node2D
 						sharedCooldown = sharedCooldownTime;
 					}
 
-				GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
+				//GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
 				
-				if (vehicle is EmergencyVehicle)
-				{
-					// Ga omhoog naar root en zoek de SirenPlayer
-					var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
-					if (maxSound != null && !maxSound.Playing)
-					maxSound?.Play();
-				}
+				//if (vehicle is EmergencyVehicle)
+				//{
+					//// Ga omhoog naar root en zoek de SirenPlayer
+					//var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
+					//if (maxSound != null && !maxSound.Playing)
+					//maxSound?.Play();
+				//}
 			}
 		}
 	}
