@@ -272,14 +272,14 @@ shape = SubResource("RectangleShape2D_e4muc")
 position = Vector2(521, 229)
 shape = SubResource("RectangleShape2D_e4muc")
 
-[node name="1_2_voor" type="Area2D" parent="Sensors"]
+[node name="2_1_voor" type="Area2D" parent="Sensors"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_2_voor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/2_1_voor"]
 position = Vector2(409, 244)
 shape = SubResource("RectangleShape2D_e4muc")
 
-[node name="1_2_achter" type="Area2D" parent="Sensors"]
+[node name="2_1_achter" type="Area2D" parent="Sensors"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_2_achter"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/2_1_achter"]
 position = Vector2(521, 246)
 shape = SubResource("RectangleShape2D_e4muc")

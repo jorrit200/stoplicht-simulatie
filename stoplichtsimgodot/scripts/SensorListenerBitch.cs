@@ -54,7 +54,6 @@ public partial class SensorListenerBitch : Node
 		string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 
 		_publisher?.Send(topicName, json);
-		GD.Print(_publisher);
 	}
 
 	private void OnSensorBodyExited(Area2D sensor, Node body)
