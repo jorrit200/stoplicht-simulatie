@@ -42,8 +42,12 @@ public partial class Vehicle : CharacterBody2D
 		if (body is Vehicle && body != this)
 		{
 			overlapCount++;
-			GD.Print($"{Name} slowing down for: {body.Name}");
-			speed = originalSpeed * 0.5f; // of een andere vertraging
+			
+			GetTree().CreateTween().Kill();
+			
+			var tween = CreateTween();
+			tween.TweenProperty(this, "speed", 0.0f, 1.0f)
+			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
 		}
 	}
 
@@ -54,8 +58,14 @@ public partial class Vehicle : CharacterBody2D
 			overlapCount = Math.Max(0, overlapCount - 1);
 			if (overlapCount == 0)
 			{
-				GD.Print($"{Name} hervat originele snelheid.");
-				speed = originalSpeed;
+				// Stop eventuele actieve tweens om conflicten te voorkomen
+				GetTree().CreateTween().Kill();
+
+				// Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
+				var tween = CreateTween();
+				tween.TweenProperty(this, "speed", originalSpeed, 1.0f)
+					 .SetTrans(Tween.TransitionType.Sine)
+					 .SetEase(Tween.EaseType.In);
 			}
 		}
 	}

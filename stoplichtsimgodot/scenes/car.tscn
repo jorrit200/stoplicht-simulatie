@@ -8,7 +8,7 @@
 size = Vector2(50, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u4s5"]
-size = Vector2(26, 17)
+size = Vector2(25, 12.125)
 
 [node name="Car" type="CharacterBody2D"]
 script = ExtResource("1_7u4s5")
@@ -24,7 +24,7 @@ shape = SubResource("RectangleShape2D_c35m8")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensor"]
-position = Vector2(38, 0)
+position = Vector2(37.5, 0)
 shape = SubResource("RectangleShape2D_7u4s5")
 
 [connection signal="body_entered" from="VoorSensor" to="." method="_on_voor_sensor_body_entered"]

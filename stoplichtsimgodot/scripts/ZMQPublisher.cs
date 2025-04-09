@@ -1,32 +1,23 @@
+using System.Diagnostics;
 using Godot;
 using NetMQ;
 using NetMQ.Sockets;
 
-public partial class ZMQPublisher : Node
+public partial class ZMQPublisher : Node, IMessagePublisher
 {
 	private PublisherSocket publisher;
+	private string ip = "tcp://10.121.17.54:5557";
 
 	public override void _Ready()
 	{
 		publisher = new PublisherSocket();
-		publisher.Bind("tcp://10.121.17.54:5557"); // Bind naar poort
-
-		GD.Print("Publisher gestart op poort 5557...");
-
-		// Start een thread om berichten te sturen zonder = teken
-		System.Threading.Thread sendThread = new System.Threading.Thread(SendMessages);
-		sendThread.Start();  // Start de thread
+		publisher.Bind(ip); // Bind naar poort
 	}
 
-	private void SendMessages()
+	public void Send(string topic, string message)
 	{
-		while (true)
-		{
-			// Stuur berichten naar een topic
-			publisher.SendMoreFrame("sensoren_rijbaan").SendFrame("{\"1.1\": {\"voor\": false,\"achter\": false}}");
-			// Wacht even tussen berichten
-			System.Threading.Thread.Sleep(1000);  // Bericht elke seconde
-		}
+		publisher.SendMoreFrame(topic).SendFrame(message);
+		GD.Print(topic, "", message);
 	}
 
 	public override void _ExitTree()
