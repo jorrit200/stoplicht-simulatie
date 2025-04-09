@@ -42,7 +42,6 @@ public partial class Vehicle : CharacterBody2D
 		if (body is Vehicle && body != this)
 		{
 			overlapCount++;
-			GD.Print($"{Name} slowing down for: {body.Name}");
 			
 			GetTree().CreateTween().Kill();
 			
@@ -59,8 +58,6 @@ public partial class Vehicle : CharacterBody2D
 			overlapCount = Math.Max(0, overlapCount - 1);
 			if (overlapCount == 0)
 			{
-				GD.Print($"{Name} hervat originele snelheid.");
-
 				// Stop eventuele actieve tweens om conflicten te voorkomen
 				GetTree().CreateTween().Kill();
 

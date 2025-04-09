@@ -1,5 +1,6 @@
-[gd_scene load_steps=23 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=26 format=3 uid="uid://bp7gt715smulk"]
 
+[ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZMQPublisher.cs" id="1_qbjlm"]
 [ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/ZMQSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/VehicleSpawner.cs" id="3_67ex8"]
@@ -7,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
+[ext_resource type="Script" uid="uid://bwndjd26cnl0h" path="res://scripts/SensorListenerBitch.cs" id="9_6sd47"]
 [ext_resource type="AudioStream" uid="uid://be71fl8eu4ylo" path="res://Audio/DUDUDUDU MAX VERSTAPPEN loud meme.mp3" id="9_byrp8"]
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
@@ -93,7 +95,11 @@ _data = {
 }
 point_count = 22
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
+size = Vector2(35.25, 6.9375)
+
 [node name="TrafficSim" type="Node2D"]
+script = ExtResource("1_6sd47")
 
 [node name="ZMQPublisher" type="Node" parent="."]
 script = ExtResource("1_qbjlm")
@@ -101,103 +107,11 @@ script = ExtResource("1_qbjlm")
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
 
-[node name="Path2D1" type="Path2D" parent="."]
-curve = SubResource("Curve2D_qbjlm")
-
-[node name="Path1" type="PathFollow2D" parent="Path2D1"]
-position = Vector2(1922, 465)
-rotation = 3.01724
-
-[node name="Path2D2" type="Path2D" parent="."]
-curve = SubResource("Curve2D_6sd47")
-
-[node name="Path2" type="PathFollow2D" parent="Path2D2"]
-position = Vector2(1920, 466)
-rotation = 3.08196
-
-[node name="Path2D2_2" type="Path2D" parent="."]
-curve = SubResource("Curve2D_e4muc")
-
-[node name="Path2_2" type="PathFollow2D" parent="Path2D2_2"]
-position = Vector2(1920, 466)
-rotation = 3.0682
-
-[node name="Path2D3" type="Path2D" parent="."]
-curve = SubResource("Curve2D_wl330")
-
-[node name="Path3" type="PathFollow2D" parent="Path2D3"]
-position = Vector2(1921, 466)
-rotation = 3.06765
-
-[node name="Path2D4" type="Path2D" parent="."]
-curve = SubResource("Curve2D_byrp8")
-
-[node name="Path4" type="PathFollow2D" parent="Path2D4"]
-position = Vector2(272, 651)
-rotation = -1.30868
-
-[node name="Path2D5" type="Path2D" parent="."]
-curve = SubResource("Curve2D_tdxnf")
-
-[node name="Path5" type="PathFollow2D" parent="Path2D5"]
-position = Vector2(257, 649)
-rotation = -1.32334
-
-[node name="Path2D6" type="Path2D" parent="."]
-curve = SubResource("Curve2D_3yxpi")
-
-[node name="Path6" type="PathFollow2D" parent="Path2D6"]
-position = Vector2(244, 649)
-rotation = -1.31203
-
-[node name="Path2D7" type="Path2D" parent="."]
-curve = SubResource("Curve2D_67ex8")
-
-[node name="Path7" type="PathFollow2D" parent="Path2D7"]
-position = Vector2(0, 325)
-rotation = 0.0272042
-
-[node name="Path2D8" type="Path2D" parent="."]
-curve = SubResource("Curve2D_r54nr")
-
-[node name="Path8" type="PathFollow2D" parent="Path2D8"]
-position = Vector2(0, 313)
-rotation = 0.00719412
-
-[node name="Path2D8_2" type="Path2D" parent="."]
-curve = SubResource("Curve2D_fwia5")
-
-[node name="Path8_2" type="PathFollow2D" parent="Path2D8_2"]
-position = Vector2(1, 296)
-rotation = 0.0172397
-
-[node name="Path2D9" type="Path2D" parent="."]
-curve = SubResource("Curve2D_c24n3")
-
-[node name="Path9" type="PathFollow2D" parent="Path2D9"]
-position = Vector2(0, 282)
-rotation = 0.0232516
-
-[node name="Path2D10" type="Path2D" parent="."]
-curve = SubResource("Curve2D_6tk20")
-
-[node name="Path10" type="PathFollow2D" parent="Path2D10"]
-position = Vector2(237, 2)
-rotation = 1.56477
-
-[node name="Path2D11" type="Path2D" parent="."]
-curve = SubResource("Curve2D_q3d0v")
-
-[node name="Path11" type="PathFollow2D" parent="Path2D11"]
-position = Vector2(252, 2)
-rotation = 1.57664
-
-[node name="Path2D12" type="Path2D" parent="."]
-curve = SubResource("Curve2D_nlmth")
-
-[node name="Path12" type="PathFollow2D" parent="Path2D12"]
-position = Vector2(266, 0)
-rotation = 1.5754
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(960.228, 324.478)
+scale = Vector2(0.359937, 0.400892)
+texture = ExtResource("7_6tk20")
 
 [node name="VehicleSpawner" type="Node2D" parent="."]
 script = ExtResource("3_67ex8")
@@ -208,13 +122,164 @@ EmergencyVehicle = ExtResource("6_6tk20")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 325)
 
-[node name="KruispuntEnBrugRealistisch" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(960.228, 324.478)
-scale = Vector2(0.359937, 0.400892)
-texture = ExtResource("7_6tk20")
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(960.228, 324.478)
 scale = Vector2(0.359937, 0.400892)
 stream = ExtResource("9_byrp8")
+
+[node name="Paths" type="Node2D" parent="."]
+position = Vector2(960.228, 324.478)
+scale = Vector2(0.359937, 0.400892)
+
+[node name="Path2D1" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_qbjlm")
+
+[node name="Path1" type="PathFollow2D" parent="Paths/Path2D1"]
+position = Vector2(1922, 465)
+rotation = 3.01724
+
+[node name="Path2D2" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_6sd47")
+
+[node name="Path2" type="PathFollow2D" parent="Paths/Path2D2"]
+position = Vector2(1920, 466)
+rotation = 3.08196
+
+[node name="Path2D2_2" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_e4muc")
+
+[node name="Path2_2" type="PathFollow2D" parent="Paths/Path2D2_2"]
+position = Vector2(1920, 466)
+rotation = 3.0682
+
+[node name="Path2D3" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_wl330")
+
+[node name="Path3" type="PathFollow2D" parent="Paths/Path2D3"]
+position = Vector2(1921, 466)
+rotation = 3.06765
+
+[node name="Path2D4" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_byrp8")
+
+[node name="Path4" type="PathFollow2D" parent="Paths/Path2D4"]
+position = Vector2(272, 651)
+rotation = -1.30868
+
+[node name="Path2D5" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_tdxnf")
+
+[node name="Path5" type="PathFollow2D" parent="Paths/Path2D5"]
+position = Vector2(257, 649)
+rotation = -1.32334
+
+[node name="Path2D6" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_3yxpi")
+
+[node name="Path6" type="PathFollow2D" parent="Paths/Path2D6"]
+position = Vector2(244, 649)
+rotation = -1.31203
+
+[node name="Path2D7" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_67ex8")
+
+[node name="Path7" type="PathFollow2D" parent="Paths/Path2D7"]
+position = Vector2(0, 325)
+rotation = 0.0272042
+
+[node name="Path2D8" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_r54nr")
+
+[node name="Path8" type="PathFollow2D" parent="Paths/Path2D8"]
+position = Vector2(0, 313)
+rotation = 0.00719412
+
+[node name="Path2D8_2" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_fwia5")
+
+[node name="Path8_2" type="PathFollow2D" parent="Paths/Path2D8_2"]
+position = Vector2(1, 296)
+rotation = 0.0172397
+
+[node name="Path2D9" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_c24n3")
+
+[node name="Path9" type="PathFollow2D" parent="Paths/Path2D9"]
+position = Vector2(0, 282)
+rotation = 0.0232516
+
+[node name="Path2D10" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_6tk20")
+
+[node name="Path10" type="PathFollow2D" parent="Paths/Path2D10"]
+position = Vector2(237, 2)
+rotation = 1.56477
+
+[node name="Path2D11" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_q3d0v")
+
+[node name="Path11" type="PathFollow2D" parent="Paths/Path2D11"]
+position = Vector2(252, 2)
+rotation = 1.57664
+
+[node name="Path2D12" type="Path2D" parent="Paths"]
+position = Vector2(-2667.77, -809.39)
+scale = Vector2(2.77826, 2.49444)
+curve = SubResource("Curve2D_nlmth")
+
+[node name="Path12" type="PathFollow2D" parent="Paths/Path2D12"]
+position = Vector2(266, 0)
+rotation = 1.5754
+
+[node name="Sensors" type="Node2D" parent="."]
+script = ExtResource("9_6sd47")
+
+[node name="1_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_1_voor"]
+position = Vector2(408, 227)
+shape = SubResource("RectangleShape2D_e4muc")
+
+[node name="1_1_achter" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_1_achter"]
+position = Vector2(521, 229)
+shape = SubResource("RectangleShape2D_e4muc")
+
+[node name="1_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_2_voor"]
+position = Vector2(409, 244)
+shape = SubResource("RectangleShape2D_e4muc")
+
+[node name="1_2_achter" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_2_achter"]
+position = Vector2(521, 246)
+shape = SubResource("RectangleShape2D_e4muc")
