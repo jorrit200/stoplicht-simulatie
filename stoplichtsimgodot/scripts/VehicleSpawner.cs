@@ -6,50 +6,50 @@ namespace StoplichtSimGodot.scripts;
 public partial class VehicleSpawner : Node2D
 {
     // Lijst van PackedScenes
-    private List<PackedScene> vehicles = new List<PackedScene>();
+    private readonly List<PackedScene> _vehicles = new List<PackedScene>();
 
     // Lijst van PathFollow2D nodes
-    private List<PathFollow2D> paths = new List<PathFollow2D>();
+    private readonly List<PathFollow2D> _paths = new List<PathFollow2D>();
 
     // Referenties naar de verschillende voertuigen
     [Export] public PackedScene Car;
     [Export] public PackedScene Bus;
     [Export] public PackedScene EmergencyVehicle;
 
-    private HashSet<Path2D> sharedSpawnPaths = new HashSet<Path2D>();
-    private float sharedCooldown = 0f;
-    private float sharedCooldownTime = 1.5f;
+    private readonly HashSet<Path2D> _sharedSpawnPaths = new HashSet<Path2D>();
+    private float _sharedCooldown = 0f;
+    private float _sharedCooldownTime = 1.5f;
 
     public override void _Ready()
     {
         GD.Print("VehicleSpawner is gestart!");
 
         // Voeg de voertuigen toe aan de lijst
-        vehicles.Add(Car);
-        vehicles.Add(Bus);
-        vehicles.Add(EmergencyVehicle);
+        _vehicles.Add(Car);
+        _vehicles.Add(Bus);
+        _vehicles.Add(EmergencyVehicle);
 
         // Haal de PathFollow2D nodes op (paden)
         for (int i = 1; i < 13; i++)
         {
-            paths.Add(GetNode<PathFollow2D>($"../Paths/Path2D{i}/Path{i}"));
+            _paths.Add(GetNode<PathFollow2D>($"../Paths/Path2D{i}/Path{i}"));
         }
 
-        paths.Add(GetNode<PathFollow2D>("../Paths/Path2D2_2/Path2_2"));
-        paths.Add(GetNode<PathFollow2D>("../Paths/Path2D8_2/Path8_2"));
+        _paths.Add(GetNode<PathFollow2D>("../Paths/Path2D2_2/Path2_2"));
+        _paths.Add(GetNode<PathFollow2D>("../Paths/Path2D8_2/Path8_2"));
 
-        sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D1"));
-        sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D2"));
-        sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D2_2"));
-        sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D3"));
+        _sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D1"));
+        _sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D2"));
+        _sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D2_2"));
+        _sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D3"));
 
-        if (vehicles.Count == 0 || paths.Count == 0)
+        if (_vehicles.Count == 0 || _paths.Count == 0)
         {
             GD.PrintErr("FOUT: Geen voertuigen of paden beschikbaar!");
             return;
         }
 
-        GD.Print($"Aantal voertuigen: {vehicles.Count}, Aantal paden: {paths.Count}");
+        GD.Print($"Aantal voertuigen: {_vehicles.Count}, Aantal paden: {_paths.Count}");
 
         // Start een timer om te spawnen
         Timer spawnTimer = new Timer();
@@ -66,25 +66,25 @@ public partial class VehicleSpawner : Node2D
 
     public override void _Process(double delta)
     {
-        if (sharedCooldown > 0f)
-            sharedCooldown -= (float)delta;
+        if (_sharedCooldown > 0f)
+            _sharedCooldown -= (float)delta;
     }
 
     private void SpawnRandomVehicle()
     {
-        if (vehicles.Count == 0 || paths.Count == 0)
+        if (_vehicles.Count == 0 || _paths.Count == 0)
         {
             GD.PrintErr("FOUT: Geen voertuigen of paden beschikbaar!");
             return;
         }
 
         // Loop door elk voertuigtype en bepaal of deze moet spawnen
-        foreach (PackedScene vehicleScene in vehicles)
+        foreach (PackedScene vehicleScene in _vehicles)
         {
             // Maak een tijdelijke instantie om de spawnChance te lezen
-            StoplichtSimGodot.scripts.Vehicle tempVehicle =
-                vehicleScene.Instantiate<StoplichtSimGodot.scripts.Vehicle>();
-            float chance = tempVehicle.spawnChance;
+            Vehicle tempVehicle =
+                vehicleScene.Instantiate<Vehicle>();
+            float chance = tempVehicle.SpawnChance;
 
             float roll = GD.Randf() * 100f;
             //GD.Print($"[{vehicleScene.ResourcePath}] spawn roll: {roll} vs chance {chance}");
@@ -92,10 +92,10 @@ public partial class VehicleSpawner : Node2D
             if (roll <= chance)
             {
                 // Selecteer willekeurig pad
-                int pathIndex = (int)(GD.Randi() % paths.Count);
-                Path2D basePath = (Path2D)paths[pathIndex].GetParent();
+                int pathIndex = (int)(GD.Randi() % _paths.Count);
+                Path2D basePath = (Path2D)_paths[pathIndex].GetParent();
 
-                if (sharedSpawnPaths.Contains(basePath) && sharedCooldown > 0f)
+                if (_sharedSpawnPaths.Contains(basePath) && _sharedCooldown > 0f)
                 {
                     //GD.Print($"Cooldown actief voor {basePath.Name}, voertuig wordt niet gespawnd.");
                     return;
@@ -112,25 +112,24 @@ public partial class VehicleSpawner : Node2D
                 basePath.AddChild(vehicleFollow);
 
                 // Instantieer het voertuig
-                StoplichtSimGodot.scripts.Vehicle vehicle =
-                    vehicleScene.Instantiate<StoplichtSimGodot.scripts.Vehicle>();
+                Vehicle vehicle = vehicleScene.Instantiate<Vehicle>();
                 vehicleFollow.AddChild(vehicle);
 
                 // Start beweging
                 vehicle.StartMoving(vehicleFollow);
 
-                if (sharedSpawnPaths.Contains(basePath))
+                if (_sharedSpawnPaths.Contains(basePath))
                 {
-                    sharedCooldown = sharedCooldownTime;
+                    _sharedCooldown = _sharedCooldownTime;
                 }
 
                 //GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
 
-                if (vehicle is StoplichtSimGodot.scripts.EmergencyVehicle)
+                if (vehicle is EmergencyVehicle)
                 {
                     var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
                     if (maxSound != null && !maxSound.Playing)
-                        maxSound?.Play();
+                        maxSound.Play();
                 }
             }
         }

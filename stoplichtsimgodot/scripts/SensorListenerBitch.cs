@@ -9,13 +9,12 @@ public partial class SensorListenerBitch : Node
 {
     private IMessagePublisher _publisher;
     private SensorStatusData _sensoren = new SensorStatusData();
+    private string _topicName = "sensoren_rijbaan";
 
     public void InjectPublisher(IMessagePublisher publisher)
     {
         _publisher = publisher;
     }
-
-    private string topicName = "sensoren_rijbaan";
 
     public override void _Ready()
     {
@@ -25,9 +24,9 @@ public partial class SensorListenerBitch : Node
             {
                 sensor.BodyEntered += (body) => OnSensorBodyEntered(sensor, body);
                 sensor.BodyExited += (body) => OnSensorBodyExited(sensor, body);
-                Sensoren_Rijbaan sensoren_Rijbaan = new Sensoren_Rijbaan { Voor = false, Achter = false };
+                SensorenRijbaan sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
                 string id = ParseSensorId(child.Name);
-                _sensoren[id] = sensoren_Rijbaan;
+                _sensoren[id] = sensorenRijbaan;
             }
         }
     }
@@ -53,7 +52,7 @@ public partial class SensorListenerBitch : Node
         //Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
         string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 
-        _publisher?.Send(topicName, json);
+        _publisher?.Send(_topicName, json);
     }
 
     private void OnSensorBodyExited(Area2D sensor, Node body)
@@ -79,7 +78,7 @@ public partial class SensorListenerBitch : Node
         //Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
         string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 
-        _publisher?.Send(topicName, json);
+        _publisher?.Send(_topicName, json);
     }
 
     private string ParseSensorId(string sensorName)

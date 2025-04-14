@@ -6,8 +6,8 @@ public partial class TrafficSim : Node2D
 {
     public override void _Ready()
     {
-        var publisher = GetNode<ZMQPublisher>("ZMQPublisher");
-        var sensorListener = GetNode<StoplichtSimGodot.scripts.SensorListenerBitch>("Sensors");
+        var publisher = GetNode<ZmqPublisher>("ZMQPublisher");
+        var sensorListener = GetNode<SensorListenerBitch>("Sensors");
 
         sensorListener.InjectPublisher(publisher);
     }

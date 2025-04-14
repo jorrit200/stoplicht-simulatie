@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace StoplichtSimGodot.dto;
 
-public class Sensoren_Rijbaan
+public class SensorenRijbaan
 {
     [JsonPropertyName("voor")] 
     public bool Voor { get; set; }
@@ -12,4 +12,4 @@ public class Sensoren_Rijbaan
     public bool Achter { get; set; }
 }
 
-public class SensorStatusData : Dictionary<string, Sensoren_Rijbaan>;
+public class SensorStatusData : Dictionary<string, SensorenRijbaan>;

@@ -3,17 +3,17 @@ using Godot;
 
 namespace StoplichtSimGodot.scripts;
 
-public partial class TrafficLightMaster : ZMQSubscriber
+public partial class TrafficLightMaster : ZmqSubscriber
 {
-    private Dictionary<string, TrafficLight> subscribedLights = new();
+    private readonly Dictionary<string, TrafficLight> _subscribedLights = new();
 
     public void BindTrafficLight(TrafficLight light)
     {
-        string lightname = light.Name;
+        string lightName = light.Name;
 
-        lightname = lightname.Replace("_", ".");
+        lightName = lightName.Replace("_", ".");
 
-        subscribedLights.Add(lightname, light);
+        _subscribedLights.Add(lightName, light);
     }
 
     private void OnMessage((string topic, string message) message)

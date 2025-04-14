@@ -5,36 +5,36 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class Vehicle : CharacterBody2D
 {
-    public float speed;
-    public string roadToUse;
-    public bool isMoving;
-    public float spawnChance;
+    public float Speed;
+    public string RoadToUse;
+    public bool IsMoving;
+    public float SpawnChance;
 
-    private float originalSpeed;
-    private int overlapCount = 0;
+    private float _originalSpeed;
+    private int _overlapCount = 0;
 
-    private int lightOverlapCount = 0;
+    private int _lightOverlapCount = 0;
 
-    private PathFollow2D pathFollow;
+    private PathFollow2D _pathFollow;
 
     public void StartMoving(PathFollow2D followPath)
     {
-        pathFollow = followPath;
-        isMoving = true;
+        _pathFollow = followPath;
+        IsMoving = true;
     }
 
     public override void _Ready()
     {
-        originalSpeed = speed;
+        _originalSpeed = Speed;
     }
 
     public override void _Process(double delta)
     {
-        if (isMoving && pathFollow != null)
+        if (IsMoving && _pathFollow != null)
         {
-            pathFollow.Progress += speed * (float)delta;
+            _pathFollow.Progress += Speed * (float)delta;
 
-            if (pathFollow.ProgressRatio >= 0.99f)
+            if (_pathFollow.ProgressRatio >= 0.99f)
             {
                 QueueFree();
             }
@@ -45,7 +45,7 @@ public partial class Vehicle : CharacterBody2D
     {
         if (body is Vehicle && body != this)
         {
-            overlapCount++;
+            _overlapCount++;
 
             GetTree().CreateTween().Kill();
 
@@ -59,15 +59,15 @@ public partial class Vehicle : CharacterBody2D
     {
         if (body is Vehicle && body != this)
         {
-            overlapCount = Math.Max(0, overlapCount - 1);
-            if (overlapCount == 0)
+            _overlapCount = Math.Max(0, _overlapCount - 1);
+            if (_overlapCount == 0)
             {
                 // Stop eventuele actieve tweens om conflicten te voorkomen
                 GetTree().CreateTween().Kill();
 
                 // Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
                 var tween = CreateTween();
-                tween.TweenProperty(this, "speed", originalSpeed, 1.0f)
+                tween.TweenProperty(this, "speed", _originalSpeed, 1.0f)
                     .SetTrans(Tween.TransitionType.Sine)
                     .SetEase(Tween.EaseType.In);
             }
@@ -78,7 +78,7 @@ public partial class Vehicle : CharacterBody2D
     {
         if (area is TrafficLight light)
         {
-            lightOverlapCount++;
+            _lightOverlapCount++;
 
             GetTree().CreateTween().Kill();
 
@@ -92,15 +92,15 @@ public partial class Vehicle : CharacterBody2D
     {
         if (area is TrafficLight light)
         {
-            lightOverlapCount = Math.Max(0, lightOverlapCount - 1);
-            if (lightOverlapCount == 0)
+            _lightOverlapCount = Math.Max(0, _lightOverlapCount - 1);
+            if (_lightOverlapCount == 0)
             {
                 // Stop eventuele actieve tweens om conflicten te voorkomen
                 GetTree().CreateTween().Kill();
 
                 // Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
                 var tween = CreateTween();
-                tween.TweenProperty(this, "speed", originalSpeed, 1.0f)
+                tween.TweenProperty(this, "speed", _originalSpeed, 1.0f)
                     .SetTrans(Tween.TransitionType.Sine)
                     .SetEase(Tween.EaseType.In);
             }

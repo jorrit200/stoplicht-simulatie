@@ -5,15 +5,15 @@ using StoplichtSimGodot.interfaces;
 
 namespace StoplichtSimGodot.scripts;
 
-public partial class ZMQPublisher : Node, IMessagePublisher
+public partial class ZmqPublisher : Node, IMessagePublisher
 {
     private PublisherSocket publisher;
-    private string ip = "tcp://10.121.17.6:5559";
+    private string _ip = "tcp://10.121.17.6:5559";
 
     public override void _Ready()
     {
         publisher = new PublisherSocket();
-        publisher.Bind(ip); // Bind naar poort
+        publisher.Bind(_ip); // Bind naar poort
     }
 
     public void Send(string topic, string message)

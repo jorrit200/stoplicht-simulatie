@@ -4,9 +4,9 @@ public partial class Bus : Vehicle
 {
     public Bus()
     {
-        speed = 50;
-        roadToUse = "MainRoad";
-        isMoving = true;
-        spawnChance = 5;
+        Speed = 50;
+        RoadToUse = "MainRoad";
+        IsMoving = true;
+        SpawnChance = 5;
     }
 }
