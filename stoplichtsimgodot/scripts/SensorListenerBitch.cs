@@ -32,7 +32,7 @@ public partial class SensorListenerBitch : Node
 
 	private void OnSensorBodyEntered(Area2D sensor, Node body)
 	{
-		GD.Print($"[ENTER] {sensor.Name} detected body: {body.Name}");
+		//GD.Print($"[ENTER] {sensor.Name} detected body: {body.Name}");
 
 		string sensorName = sensor.Name;
 		string id = ParseSensorId(sensor.Name);
@@ -58,7 +58,7 @@ public partial class SensorListenerBitch : Node
 
 	private void OnSensorBodyExited(Area2D sensor, Node body)
 	{
-		GD.Print($"[ENTER] {sensor.Name} detected body: {body.Name}");
+		//GD.Print($"[EXIT] {sensor.Name} detected body: {body.Name}");
 
 		string sensorName = sensor.Name;
 		string id = ParseSensorId(sensor.Name);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=28 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZMQPublisher.cs" id="1_qbjlm"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
 [ext_resource type="Script" uid="uid://bwndjd26cnl0h" path="res://scripts/SensorListenerBitch.cs" id="9_6sd47"]
 [ext_resource type="AudioStream" uid="uid://be71fl8eu4ylo" path="res://Audio/DUDUDUDU MAX VERSTAPPEN loud meme.mp3" id="9_byrp8"]
+[ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
@@ -442,3 +443,8 @@ position = Vector2(521, 278)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/12_1_achter"]
 position = Vector2(-255, -203)
 shape = SubResource("RectangleShape2D_6sd47")
+
+[node name="Stoplichten" type="Node2D" parent="."]
+
+[node name="TrafficLight" parent="Stoplichten" instance=ExtResource("11_e4muc")]
+position = Vector2(379, 227)
