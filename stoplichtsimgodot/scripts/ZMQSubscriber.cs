@@ -9,7 +9,7 @@ public partial class ZMQSubscriber : Node
 	public override void _Ready()
 	{
 		subscriber = new SubscriberSocket();
-		subscriber.Connect("tcp://10.121.17.6:5556"); // Verbinden met de publisher
+		subscriber.Connect("tcp://10.121.17.88:5555"); // Verbinden met de publisher
 		subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
 
 		GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
