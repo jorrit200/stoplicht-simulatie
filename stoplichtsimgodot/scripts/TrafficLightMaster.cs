@@ -27,7 +27,7 @@ public partial class TrafficLightMaster : ZMQSubscriber
 	public override void _Process(double delta)
 	{
 		base._Process(delta);
-		base.DoOnMessage(OnMessage);
+		DoOnMessage(OnMessage);
 
 	}
 

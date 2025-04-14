@@ -6,7 +6,7 @@ using NetMQ.Sockets;
 public partial class ZMQPublisher : Node, IMessagePublisher
 {
 	private PublisherSocket publisher;
-	private string ip = "tcp://10.121.17.54:5559";
+	private string ip = "tcp://10.121.17.6:5559";
 
 	public override void _Ready()
 	{
