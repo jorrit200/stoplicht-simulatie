@@ -5,13 +5,11 @@ namespace StoplichtSimGodot.dto;
 
 public class Sensoren_Rijbaan
 {
-	[JsonPropertyName("voor")]
-	public bool Voor { get; set; }
+    [JsonPropertyName("voor")] 
+    public bool Voor { get; set; }
 
-	[JsonPropertyName("achter")]
-	public bool Achter { get; set; }
+    [JsonPropertyName("achter")] 
+    public bool Achter { get; set; }
 }
 
-public class SensorStatusData : Dictionary<string, Sensoren_Rijbaan>
-{
-}
+public class SensorStatusData : Dictionary<string, Sensoren_Rijbaan>;

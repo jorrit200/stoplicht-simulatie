@@ -5,27 +5,25 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class TrafficLightMaster : ZMQSubscriber
 {
-	private Dictionary<string, TrafficLight> subscribedLights = new();
+    private Dictionary<string, TrafficLight> subscribedLights = new();
 
-	public void BindTrafficLight(TrafficLight light)
-	{
-		string lightname = light.Name;
+    public void BindTrafficLight(TrafficLight light)
+    {
+        string lightname = light.Name;
 
-		lightname = lightname.Replace("_", ".");
+        lightname = lightname.Replace("_", ".");
 
-		subscribedLights.Add(lightname, light);
-	}
+        subscribedLights.Add(lightname, light);
+    }
 
-	private void OnMessage((string topic, string message) message)
-	{
-		GD.Print("Master ontvangt dingen");
-	}
+    private void OnMessage((string topic, string message) message)
+    {
+        GD.Print("Master ontvangt dingen");
+    }
 
-	public override void _Process(double delta)
-	{
-		base._Process(delta);
-		DoOnMessage(OnMessage);
-
-	}
-
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        DoOnMessage(OnMessage);
+    }
 }
