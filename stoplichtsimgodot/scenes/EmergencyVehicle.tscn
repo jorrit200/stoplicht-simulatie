@@ -11,6 +11,8 @@ size = Vector2(25, 11.6875)
 
 [node name="EmergencyVehicle" type="CharacterBody2D"]
 modulate = Color(0.937847, 0.995327, 2.31028e-06, 1)
+z_index = -1
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_ckidl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

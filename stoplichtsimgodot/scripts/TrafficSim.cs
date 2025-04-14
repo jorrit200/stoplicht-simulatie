@@ -22,7 +22,7 @@ public partial class TrafficSim : Node2D
 		{
 			_timeAccumulator = 0;
 
-			var stoplicht = GetNode<TrafficLight>("Stoplichten/TrafficLight");
+			var stoplicht = GetNode<TrafficLight>("TrafficLightMaster/1_1");
 			if (stoplicht.State == TrafficLightState.Green)
 			{
 				stoplicht.SetState(TrafficLightState.Orange);

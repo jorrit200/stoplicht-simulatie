@@ -12,6 +12,8 @@ size = Vector2(25, 11.75)
 
 [node name="Bus" type="CharacterBody2D"]
 modulate = Color(0, 0.99639, 0.648572, 1)
+z_index = -1
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_wr10d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

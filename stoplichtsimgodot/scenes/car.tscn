@@ -11,6 +11,8 @@ size = Vector2(50, 17)
 size = Vector2(25, 12.125)
 
 [node name="Car" type="CharacterBody2D"]
+z_index = -1
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_7u4s5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

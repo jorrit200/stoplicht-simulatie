@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using NetMQ;
 using NetMQ.Sockets;
@@ -6,6 +9,10 @@ public partial class ZMQSubscriber : Node
 {
 	private SubscriberSocket subscriber;
 
+	private Task recieveLoop;
+
+	private List<Action<(string topic, string message)>> onRecieveMessage = [];
+
 	public override void _Ready()
 	{
 		subscriber = new SubscriberSocket();
@@ -13,21 +20,35 @@ public partial class ZMQSubscriber : Node
 		subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
 
 		GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
-
-		// Start een thread om berichten te ontvangen zonder = teken
-		System.Threading.Thread receiveThread = new System.Threading.Thread(ReceiveMessages);
-		receiveThread.Start();  // Start de thread
+		recieveLoop = RecieveMessageLoop();
 	}
 
-	private void ReceiveMessages()
+
+	public void DoOnMessage(Action<(string topic, string message)> action) {
+		onRecieveMessage.Add(action);
+	}
+
+
+	// todo: deze method neemt aan dat het een multipart message krijgt met precies 2 parts. Als 1 bericht buiten de beugel valt gaat dit kapot.
+	private async Task<(string topic, string message)> ReceiveMessages()
+	{
+		// Wacht tot er een bericht aankomt
+		var (topic, continueing) = await subscriber.ReceiveFrameStringAsync();
+		var (message, continueinger) = await subscriber.ReceiveFrameStringAsync();
+
+		GD.Print($"Ontvangen bericht op {topic}: {message}");
+		return (topic, message);
+	}
+
+	private async Task RecieveMessageLoop()
 	{
 		while (true)
 		{
-			// Wacht tot er een bericht aankomt
-			string topic = subscriber.ReceiveFrameString();
-			string message = subscriber.ReceiveFrameString();
-
-			GD.Print($"Ontvangen bericht op {topic}: {message}");
+			var message = await ReceiveMessages();
+			foreach (Action<(string topic, string message)> action in onRecieveMessage)
+			{
+				action.Invoke(message);
+			}
 		}
 	}
 

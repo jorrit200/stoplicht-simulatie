@@ -20,7 +20,7 @@ public partial class TrafficLight : Area2D
 
 	public override void _Draw()
 	{
-		const float lightRadius = 2f;
+		const float lightRadius = 2.4f;
 		const float offset = 5.5f;
 		DrawCircle(Vector2.Up * offset, lightRadius, new Color(1f, 0f, 0f, State == TrafficLightState.Red ? 1f : 0.4f), antialiased: State == TrafficLightState.Red);
 		DrawCircle(Vector2.Zero, lightRadius, new Color(0.8f, 0.6f, 0.2f, State == TrafficLightState.Orange ? 1f : 0.4f), antialiased: State == TrafficLightState.Orange);
@@ -41,6 +41,11 @@ public partial class TrafficLight : Area2D
 		}
 	}
 
+	public override void _Ready()
+	{
+		TrafficLightMaster master = this.GetParent<TrafficLightMaster>();
+		master.BindTrafficLight(this);
+	}
 }
 
 
