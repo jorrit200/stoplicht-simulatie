@@ -7,86 +7,87 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class SensorListenerBitch : Node
 {
-    private IMessagePublisher _publisher;
-    private SensorStatusData _sensoren = new SensorStatusData();
-    private string _topicName = "sensoren_rijbaan";
+	private IMessagePublisher _publisher;
+	private readonly SensorStatusData _sensoren = new();
+	private string _topicName = "sensoren_rijbaan";
 
-    public void InjectPublisher(IMessagePublisher publisher)
-    {
-        _publisher = publisher;
-    }
+	public void InjectPublisher(IMessagePublisher publisher)
+	{
+		GD.Print("Injecting that publisher");
+		_publisher = publisher;
+	}
 
-    public override void _Ready()
-    {
-        foreach (Node child in GetChildren())
-        {
-            if (child is Area2D sensor)
-            {
-                sensor.BodyEntered += (body) => OnSensorBodyEntered(sensor, body);
-                sensor.BodyExited += (body) => OnSensorBodyExited(sensor, body);
-                SensorenRijbaan sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
-                string id = ParseSensorId(child.Name);
-                _sensoren[id] = sensorenRijbaan;
-            }
-        }
-    }
+	public override void _Ready()
+	{
+		foreach (Node child in GetChildren())
+		{
+			if (child is Area2D sensor)
+			{
+				sensor.BodyEntered += (body) => OnSensorBodyEntered(sensor, body);
+				sensor.BodyExited += (body) => OnSensorBodyExited(sensor, body);
+				SensorenRijbaan sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
+				string id = ParseSensorId(child.Name);
+				_sensoren[id] = sensorenRijbaan;
+			}
+		}
+	}
 
-    private void OnSensorBodyEntered(Area2D sensor, Node body)
-    {
-        string sensorName = sensor.Name;
-        string id = ParseSensorId(sensor.Name);
+	private void OnSensorBodyEntered(Area2D sensor, Node body)
+	{
+		string sensorName = sensor.Name;
+		string id = ParseSensorId(sensor.Name);
 
-        var currentSensor = _sensoren.GetValueOrDefault(id)!;
+		var currentSensor = _sensoren.GetValueOrDefault(id)!;
 
-        if (sensorName.Contains("voor"))
-        {
-            currentSensor.Voor = true;
-        }
-        else if (sensorName.Contains("achter"))
-        {
-            currentSensor.Achter = true;
-        }
+		if (sensorName.Contains("voor"))
+		{
+			currentSensor.Voor = true;
+		}
+		else if (sensorName.Contains("achter"))
+		{
+			currentSensor.Achter = true;
+		}
 
-        _sensoren[id] = currentSensor;
+		_sensoren[id] = currentSensor;
 
-        //Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
-        string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
+		//Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
+		string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 
-        _publisher?.Send(_topicName, json);
-    }
+		_publisher!.Send(_topicName, json);
+	}
 
-    private void OnSensorBodyExited(Area2D sensor, Node body)
-    {
-        //GD.Print($"[EXIT] {sensor.Name} detected body: {body.Name}");
+	private void OnSensorBodyExited(Area2D sensor, Node body)
+	{
+		//GD.Print($"[EXIT] {sensor.Name} detected body: {body.Name}");
 
-        string sensorName = sensor.Name;
-        string id = ParseSensorId(sensor.Name);
+		string sensorName = sensor.Name;
+		string id = ParseSensorId(sensor.Name);
 
-        var currentSensor = _sensoren.GetValueOrDefault(id)!;
+		var currentSensor = _sensoren.GetValueOrDefault(id)!;
 
-        if (sensorName.Contains("voor"))
-        {
-            currentSensor.Voor = false;
-        }
-        else if (sensorName.Contains("achter"))
-        {
-            currentSensor.Achter = false;
-        }
+		if (sensorName.Contains("voor"))
+		{
+			currentSensor.Voor = false;
+		}
+		else if (sensorName.Contains("achter"))
+		{
+			currentSensor.Achter = false;
+		}
 
-        _sensoren[id] = currentSensor;
+		_sensoren[id] = currentSensor;
 
-        //Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
-        string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
+		//Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
+		string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 
-        _publisher?.Send(_topicName, json);
-    }
+		_publisher!.Send(_topicName, json);
+	}
 
-    private string ParseSensorId(string sensorName)
-    {
-        if (sensorName.Contains("voor") || sensorName.Contains("achter"))
-            return sensorName.Replace("_", ".").Replace(".voor", "").Replace(".achter", "");
+	private string ParseSensorId(string sensorName)
+	{
+		if (sensorName.Contains("voor") || sensorName.Contains("achter"))
+			return sensorName.Replace("_", ".").Replace(".voor", "").Replace(".achter", "");
 
-        GD.Print($"[ERROR] {sensorName} is not a valid sensor name.");
-        return null;
-    }
+		GD.Print($"[ERROR] {sensorName} is not a valid sensor name.");
+		return null;
+	}
 }
