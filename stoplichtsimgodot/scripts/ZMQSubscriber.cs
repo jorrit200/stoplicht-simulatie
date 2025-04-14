@@ -13,14 +13,14 @@ public partial class ZMQSubscriber : Node
 
 	private List<Action<(string topic, string message)>> onRecieveMessage = [];
 
-	public override void _Ready()
+	public override async void _Ready()
 	{
 		subscriber = new SubscriberSocket();
 		subscriber.Connect("tcp://10.121.17.45:5558"); // Verbinden met de publisher
 		subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
 
 		GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
-		recieveLoop = RecieveMessageLoop();
+		await RecieveMessageLoop();
 	}
 
 
@@ -34,7 +34,7 @@ public partial class ZMQSubscriber : Node
 	private async Task<(string topic, string message)> ReceiveMessages()
 	{
 		// Wacht tot er een bericht aankomt
-		var message = await subscriber.ReceiveMultipartMessageAsync();
+		var message = await subscriber.ReceiveMultipartMessageAsync(expectedFrameCount: 2);
 		if (message.FrameCount < 2)
 		{
 			throw new InvalidOperationException("Expected at least 2 frames in the message.");
@@ -48,13 +48,21 @@ public partial class ZMQSubscriber : Node
 
 	private async Task RecieveMessageLoop()
 	{
-		while (true)
+		
+		using (subscriber)
 		{
-			GD.Print("In Loop");
-			var message = await ReceiveMessages();
-			foreach (Action<(string topic, string message)> action in onRecieveMessage)
+			GD.Print("Waiting for multipart messages...");
+
+			while (true)
 			{
-				action.Invoke(message);
+				// Receive the multipart message asynchronously as a list of strings
+				List<string> messageParts = await Task.Run(() => subscriber.ReceiveMultipartStrings());
+
+				GD.Print("Received multipart message:");
+				for (int i = 0; i < messageParts.Count; i++)
+				{
+					GD.Print($"  Part {i + 1}: {messageParts[i]}");
+				}
 			}
 		}
 	}
