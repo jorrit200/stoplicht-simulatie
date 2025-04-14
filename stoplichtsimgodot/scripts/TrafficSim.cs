@@ -1,13 +1,13 @@
 using Godot;
-using StoplichtSimGodot.scripts;
-using System;
+
+namespace StoplichtSimGodot.scripts;
 
 public partial class TrafficSim : Node2D
 {
 	public override void _Ready()
 	{
 		var publisher = GetNode<ZMQPublisher>("ZMQPublisher");
-		var sensorListener = GetNode<SensorListenerBitch>("Sensors");
+		var sensorListener = GetNode<StoplichtSimGodot.scripts.SensorListenerBitch>("Sensors");
 
 		sensorListener.InjectPublisher(publisher);
 	}

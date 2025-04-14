@@ -1,6 +1,7 @@
-using Godot;
-using StoplichtSimGodot.scripts;
 using System;
+using Godot;
+
+namespace StoplichtSimGodot.scripts;
 
 public partial class Vehicle : CharacterBody2D
 {
@@ -50,7 +51,7 @@ public partial class Vehicle : CharacterBody2D
 
 			var tween = CreateTween();
 			tween.TweenProperty(this, "speed", 0.0f, 1.0f)
-			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+				.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
 		}
 	}
 
@@ -67,8 +68,8 @@ public partial class Vehicle : CharacterBody2D
 				// Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
 				var tween = CreateTween();
 				tween.TweenProperty(this, "speed", originalSpeed, 1.0f)
-					 .SetTrans(Tween.TransitionType.Sine)
-					 .SetEase(Tween.EaseType.In);
+					.SetTrans(Tween.TransitionType.Sine)
+					.SetEase(Tween.EaseType.In);
 			}
 		}
 	}
@@ -83,7 +84,7 @@ public partial class Vehicle : CharacterBody2D
 
 			var tween = CreateTween();
 			tween.TweenProperty(this, "speed", 0.0f, 1.0f)
-			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+				.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
 		}
 	}
 

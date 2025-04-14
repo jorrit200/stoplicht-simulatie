@@ -1,6 +1,7 @@
-using Godot;
-using System;
 using System.Collections.Generic;
+using Godot;
+
+namespace StoplichtSimGodot.scripts;
 
 public partial class VehicleSpawner : Node2D
 {
@@ -78,7 +79,7 @@ public partial class VehicleSpawner : Node2D
 		foreach (PackedScene vehicleScene in vehicles)
 		{
 			// Maak een tijdelijke instantie om de spawnChance te lezen
-			Vehicle tempVehicle = vehicleScene.Instantiate<Vehicle>();
+			StoplichtSimGodot.scripts.Vehicle tempVehicle = vehicleScene.Instantiate<StoplichtSimGodot.scripts.Vehicle>();
 			float chance = tempVehicle.spawnChance;
 
 			float roll = GD.Randf() * 100f;
@@ -106,24 +107,24 @@ public partial class VehicleSpawner : Node2D
 				basePath.AddChild(vehicleFollow);
 
 				// Instantieer het voertuig
-				Vehicle vehicle = vehicleScene.Instantiate<Vehicle>();
+				StoplichtSimGodot.scripts.Vehicle vehicle = vehicleScene.Instantiate<StoplichtSimGodot.scripts.Vehicle>();
 				vehicleFollow.AddChild(vehicle);
 
 				// Start beweging
 				vehicle.StartMoving(vehicleFollow);
 				
 				if (sharedSpawnPaths.Contains(basePath))
-					{
-						sharedCooldown = sharedCooldownTime;
-					}
+				{
+					sharedCooldown = sharedCooldownTime;
+				}
 
 				//GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
 				
-				if (vehicle is EmergencyVehicle)
+				if (vehicle is StoplichtSimGodot.scripts.EmergencyVehicle)
 				{
 					var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
 					if (maxSound != null && !maxSound.Playing)
-					maxSound?.Play();
+						maxSound?.Play();
 				}
 			}
 		}

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
+namespace StoplichtSimGodot.dto;
+
 public class Sensoren_Rijbaan
 {
 	[JsonPropertyName("voor")]

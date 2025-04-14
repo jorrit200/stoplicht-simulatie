@@ -1,10 +1,7 @@
-using Godot;
-using NetMQ;
-using NetMQ.Sockets;
-using StoplichtSimGodot.scripts;
-using System;
 using System.Collections.Generic;
-using System.ServiceModel.Channels;
+using Godot;
+
+namespace StoplichtSimGodot.scripts;
 
 public partial class TrafficLightMaster : ZMQSubscriber
 {

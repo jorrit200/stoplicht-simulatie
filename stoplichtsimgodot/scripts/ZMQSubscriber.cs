@@ -5,6 +5,8 @@ using Godot;
 using NetMQ;
 using NetMQ.Sockets;
 
+namespace StoplichtSimGodot.scripts;
+
 public partial class ZMQSubscriber : Node
 {
     private SubscriberSocket subscriber;

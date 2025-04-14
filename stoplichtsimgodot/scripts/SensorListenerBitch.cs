@@ -1,7 +1,9 @@
-using Godot;
-using System;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.X86;
+using Godot;
+using StoplichtSimGodot.dto;
+using StoplichtSimGodot.interfaces;
+
+namespace StoplichtSimGodot.scripts;
 
 public partial class SensorListenerBitch : Node
 {

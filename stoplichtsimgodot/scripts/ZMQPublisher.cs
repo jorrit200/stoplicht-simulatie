@@ -1,7 +1,9 @@
-using System.Diagnostics;
 using Godot;
 using NetMQ;
 using NetMQ.Sockets;
+using StoplichtSimGodot.interfaces;
+
+namespace StoplichtSimGodot.scripts;
 
 public partial class ZMQPublisher : Node, IMessagePublisher
 {

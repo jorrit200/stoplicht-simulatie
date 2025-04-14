@@ -1,5 +1,4 @@
-using Godot;
-using System;
+namespace StoplichtSimGodot.scripts;
 
 public partial class Bus : Vehicle
 {
