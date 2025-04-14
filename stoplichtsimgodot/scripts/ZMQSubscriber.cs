@@ -16,7 +16,7 @@ public partial class ZMQSubscriber : Node
 	public override void _Ready()
 	{
 		subscriber = new SubscriberSocket();
-		subscriber.Connect("tcp://10.121.17.88:5555"); // Verbinden met de publisher
+		subscriber.Connect("tcp://10.121.17.45:5558"); // Verbinden met de publisher
 		subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
 
 		GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
@@ -24,7 +24,8 @@ public partial class ZMQSubscriber : Node
 	}
 
 
-	public void DoOnMessage(Action<(string topic, string message)> action) {
+	public void DoOnMessage(Action<(string topic, string message)> action)
+	{
 		onRecieveMessage.Add(action);
 	}
 
@@ -33,17 +34,23 @@ public partial class ZMQSubscriber : Node
 	private async Task<(string topic, string message)> ReceiveMessages()
 	{
 		// Wacht tot er een bericht aankomt
-		var (topic, continueing) = await subscriber.ReceiveFrameStringAsync();
-		var (message, continueinger) = await subscriber.ReceiveFrameStringAsync();
+		var message = await subscriber.ReceiveMultipartMessageAsync();
+		if (message.FrameCount < 2)
+		{
+			throw new InvalidOperationException("Expected at least 2 frames in the message.");
+		}
+		var topic = message[0].ConvertToString();
+		var content = message[1].ConvertToString();
 
 		GD.Print($"Ontvangen bericht op {topic}: {message}");
-		return (topic, message);
+		return (topic, content);
 	}
 
 	private async Task RecieveMessageLoop()
 	{
 		while (true)
 		{
+			GD.Print("In Loop");
 			var message = await ReceiveMessages();
 			foreach (Action<(string topic, string message)> action in onRecieveMessage)
 			{
