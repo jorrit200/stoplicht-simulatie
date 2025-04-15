@@ -18,7 +18,7 @@ public partial class ZmqSubscriber : Node
     public override async void _Ready()
     {
         _subscriber = new SubscriberSocket();
-        _subscriber.Connect("tcp://10.121.17.123:5558"); // Verbinden met de publisher
+        _subscriber.Connect("tcp://127.0.0.1:5556"); // Verbinden met de publisher
         _subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
 
         GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
@@ -47,8 +47,6 @@ public partial class ZmqSubscriber : Node
     {
         using (_subscriber)
         {
-            GD.Print("Waiting for multipart messages...");
-
             while (true)
             {
                 var message = await WaitForMessage();
