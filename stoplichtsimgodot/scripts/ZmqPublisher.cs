@@ -13,7 +13,7 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 	public override void _Ready()
 	{
 		_publisher = new PublisherSocket();
-		_publisher.Bind(_ip); // Bind naar poort
+		_publisher.Bind(_ip);
 	}
 
 	public void Send(string topic, string message)

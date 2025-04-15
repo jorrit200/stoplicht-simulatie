@@ -47,20 +47,14 @@ public partial class SensorListenerBitch : Node
 		}
 
 		_sensoren[id] = currentSensor;
-
-		//Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
 		var json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
-
 		_publisher!.Send(_topicName, json);
 	}
 
 	private void OnSensorBodyExited(Area2D sensor, Node body)
 	{
-		//GD.Print($"[EXIT] {sensor.Name} detected body: {body.Name}");
-
 		string sensorName = sensor.Name;
 		var id = ParseSensorId(sensor.Name);
-
 		var currentSensor = _sensoren.GetValueOrDefault(id)!;
 
 		if (sensorName.Contains("voor"))
@@ -73,10 +67,7 @@ public partial class SensorListenerBitch : Node
 		}
 
 		_sensoren[id] = currentSensor;
-
-		//Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
 		var json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
-
 		_publisher!.Send(_topicName, json);
 	}
 

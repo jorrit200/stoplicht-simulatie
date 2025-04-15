@@ -19,7 +19,7 @@ public partial class ZmqSubscriber : Node
     {
         _subscriber = new SubscriberSocket();
         _subscriber.Connect("tcp://127.0.0.1:5556"); // Verbinden met de publisher
-        _subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
+        _subscriber.Subscribe("stoplichten");
 
         GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
         _receiveLoop = Task.Run(() =>

@@ -5,13 +5,9 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class VehicleSpawner : Node2D
 {
-	// Lijst van PackedScenes
 	private readonly List<PackedScene> _vehicles = new List<PackedScene>();
-
-	// Lijst van PathFollow2D nodes
 	private readonly List<PathFollow2D> _paths = new List<PathFollow2D>();
 
-	// Referenties naar de verschillende voertuigen
 	[Export] public PackedScene Car;
 	[Export] public PackedScene Bus;
 	[Export] public PackedScene EmergencyVehicle;
@@ -24,7 +20,6 @@ public partial class VehicleSpawner : Node2D
 	{
 		GD.Print("VehicleSpawner is gestart!");
 
-		// Voeg de voertuigen toe aan de lijst
 		_vehicles.Add(Car);
 		_vehicles.Add(Bus);
 		_vehicles.Add(EmergencyVehicle);
@@ -58,7 +53,6 @@ public partial class VehicleSpawner : Node2D
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += () =>
 		{
-			//GD.Print("Timer triggered! Spawning vehicle...");
 			SpawnRandomVehicle();
 		};
 		AddChild(spawnTimer);
@@ -78,28 +72,22 @@ public partial class VehicleSpawner : Node2D
 			return;
 		}
 
-		// Loop door elk voertuigtype en bepaal of deze moet spawnen
 		foreach (var vehicleScene in _vehicles)
 		{
-			// Maak een tijdelijke instantie om de spawnChance te lezen
 			var tempVehicle = vehicleScene.Instantiate<Vehicle>();
 			var chance = tempVehicle.SpawnChance;
 
 			var roll = GD.Randf() * 100f;
-			//GD.Print($"[{vehicleScene.ResourcePath}] spawn roll: {roll} vs chance {chance}");
 
 			if (!(roll <= chance)) continue;
-			// Selecteer willekeurig pad
 			var pathIndex = (int)(GD.Randi() % _paths.Count);
 			var basePath = (Path2D)_paths[pathIndex].GetParent();
 
 			if (_sharedSpawnPaths.Contains(basePath) && _sharedCooldown > 0f)
 			{
-				//GD.Print($"Cooldown actief voor {basePath.Name}, voertuig wordt niet gespawnd.");
 				return;
 			}
 
-			// Maak een nieuwe PathFollow2D aan
 			var vehicleFollow = new PathFollow2D
 			{
 				Loop = false,
@@ -109,19 +97,15 @@ public partial class VehicleSpawner : Node2D
 
 			basePath.AddChild(vehicleFollow);
 
-			// Instantieer het voertuig
 			var vehicle = vehicleScene.Instantiate<Vehicle>();
 			vehicleFollow.AddChild(vehicle);
 
-			// Start beweging
 			vehicle.StartMoving(vehicleFollow);
 
 			if (_sharedSpawnPaths.Contains(basePath))
 			{
 				_sharedCooldown = _sharedCooldownTime;
 			}
-
-			//GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
 
 			if (vehicle is not scripts.EmergencyVehicle) continue;
 			var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");

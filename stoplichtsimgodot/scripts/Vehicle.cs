@@ -56,8 +56,7 @@ public partial class Vehicle : CharacterBody2D
         if (body is not Vehicle || body == this) return;
         _overlapCount = Math.Max(0, _overlapCount - 1);
         if (_overlapCount != 0) return;
-        // Stop eventuele actieve tweens om conflicten te voorkomen
-        GetTree().CreateTween().Kill();
+        GetTree().CreateTween().Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
 
         // Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
         var tween = CreateTween();
@@ -83,8 +82,8 @@ public partial class Vehicle : CharacterBody2D
         if (area is not TrafficLight) return;
         _lightOverlapCount = Math.Max(0, _lightOverlapCount - 1);
         if (_lightOverlapCount != 0) return;
-        // Stop eventuele actieve tweens om conflicten te voorkomen
-        GetTree().CreateTween().Kill();
+        GetTree().CreateTween().Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
+
 
         // Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
         var tween = CreateTween();
