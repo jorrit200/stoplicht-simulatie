@@ -13,7 +13,6 @@ public partial class SensorListenerBitch : Node
 
 	public void InjectPublisher(IMessagePublisher publisher)
 	{
-		GD.Print("Injecting that publisher");
 		_publisher = publisher;
 	}
 
@@ -71,7 +70,7 @@ public partial class SensorListenerBitch : Node
 		_publisher!.Send(_topicName, json);
 	}
 
-	private string ParseSensorId(string sensorName)
+	private static string ParseSensorId(string sensorName)
 	{
 		if (sensorName.Contains("voor") || sensorName.Contains("achter"))
 			return sensorName.Replace("_", ".").Replace(".voor", "").Replace(".achter", "");

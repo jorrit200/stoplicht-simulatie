@@ -5,9 +5,9 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class Vehicle : CharacterBody2D
 {
-    public float Speed;
-    public string RoadToUse;
-    public bool IsMoving;
+    protected float Speed;
+    protected string RoadToUse;
+    protected bool IsMoving;
     public float SpawnChance;
 
     private float _originalSpeed;

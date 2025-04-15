@@ -30,7 +30,7 @@ public partial class ZmqSubscriber : Node
     }
 
 
-    public void DoOnMessage(Action<(string topic, string message)> action)
+    protected void DoOnMessage(Action<(string topic, string message)> action)
     {
         _onReceiveMessage.Add(action);
     }
