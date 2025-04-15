@@ -56,6 +56,7 @@ public partial class ZmqSubscriber : Node
                 }
             }
         }
+        // ReSharper disable once FunctionNeverReturns
     }
 
     public override void _ExitTree()

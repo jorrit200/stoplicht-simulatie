@@ -88,49 +88,45 @@ public partial class VehicleSpawner : Node2D
 			var roll = GD.Randf() * 100f;
 			//GD.Print($"[{vehicleScene.ResourcePath}] spawn roll: {roll} vs chance {chance}");
 
-			if (roll <= chance)
+			if (!(roll <= chance)) continue;
+			// Selecteer willekeurig pad
+			var pathIndex = (int)(GD.Randi() % _paths.Count);
+			var basePath = (Path2D)_paths[pathIndex].GetParent();
+
+			if (_sharedSpawnPaths.Contains(basePath) && _sharedCooldown > 0f)
 			{
-				// Selecteer willekeurig pad
-				var pathIndex = (int)(GD.Randi() % _paths.Count);
-				var basePath = (Path2D)_paths[pathIndex].GetParent();
-
-				if (_sharedSpawnPaths.Contains(basePath) && _sharedCooldown > 0f)
-				{
-					//GD.Print($"Cooldown actief voor {basePath.Name}, voertuig wordt niet gespawnd.");
-					return;
-				}
-
-				// Maak een nieuwe PathFollow2D aan
-				var vehicleFollow = new PathFollow2D
-				{
-					Loop = false,
-					Rotates = true,
-					Name = $"PathFollow_{GD.Randi()}"
-				};
-
-				basePath.AddChild(vehicleFollow);
-
-				// Instantieer het voertuig
-				var vehicle = vehicleScene.Instantiate<Vehicle>();
-				vehicleFollow.AddChild(vehicle);
-
-				// Start beweging
-				vehicle.StartMoving(vehicleFollow);
-
-				if (_sharedSpawnPaths.Contains(basePath))
-				{
-					_sharedCooldown = _sharedCooldownTime;
-				}
-
-				//GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
-
-				if (vehicle is EmergencyVehicle)
-				{
-					var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
-					if (maxSound != null && !maxSound.Playing)
-						maxSound.Play();
-				}
+				//GD.Print($"Cooldown actief voor {basePath.Name}, voertuig wordt niet gespawnd.");
+				return;
 			}
+
+			// Maak een nieuwe PathFollow2D aan
+			var vehicleFollow = new PathFollow2D
+			{
+				Loop = false,
+				Rotates = true,
+				Name = $"PathFollow_{GD.Randi()}"
+			};
+
+			basePath.AddChild(vehicleFollow);
+
+			// Instantieer het voertuig
+			var vehicle = vehicleScene.Instantiate<Vehicle>();
+			vehicleFollow.AddChild(vehicle);
+
+			// Start beweging
+			vehicle.StartMoving(vehicleFollow);
+
+			if (_sharedSpawnPaths.Contains(basePath))
+			{
+				_sharedCooldown = _sharedCooldownTime;
+			}
+
+			//GD.Print($"Spawned voertuig {vehicle.Name} op pad {basePath.Name}");
+
+			if (vehicle is not scripts.EmergencyVehicle) continue;
+			var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
+			if (maxSound != null && !maxSound.Playing)
+				maxSound.Play();
 		}
 	}
 }

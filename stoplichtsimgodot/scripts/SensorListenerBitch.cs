@@ -21,14 +21,12 @@ public partial class SensorListenerBitch : Node
 	{
 		foreach (var child in GetChildren())
 		{
-			if (child is Area2D sensor)
-			{
-				sensor.BodyEntered += (body) => OnSensorBodyEntered(sensor, body);
-				sensor.BodyExited += (body) => OnSensorBodyExited(sensor, body);
-				var sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
-				var id = ParseSensorId(child.Name);
-				_sensoren[id] = sensorenRijbaan;
-			}
+			if (child is not Area2D sensor) continue;
+			sensor.BodyEntered += body => OnSensorBodyEntered(sensor, body);
+			sensor.BodyExited += body => OnSensorBodyExited(sensor, body);
+			var sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
+			var id = ParseSensorId(child.Name);
+			_sensoren[id] = sensorenRijbaan; // dit hele ding kon wel eens een map operation worden
 		}
 	}
 

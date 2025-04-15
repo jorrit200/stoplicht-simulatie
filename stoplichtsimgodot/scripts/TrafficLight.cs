@@ -55,7 +55,6 @@ public partial class TrafficLight : Area2D
 }
 
 //todo: move to a more sensible place
-
 public enum TrafficLightState
 {
 	Red,
