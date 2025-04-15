@@ -9,7 +9,7 @@ namespace StoplichtSimGodot.scripts;
 public partial class SensorListenerBitch : Node
 {
 	private IMessagePublisher _publisher;
-	private SensorStatusData _sensoren = new();
+	private SensorStatusData _sensoren;
 	private string _topicName = "sensoren_rijbaan";
 
 	public void InjectPublisher(IMessagePublisher publisher)
@@ -19,55 +19,49 @@ public partial class SensorListenerBitch : Node
 
 	public override void _Ready()
 	{
+		_sensoren = new SensorStatusData();
 
-		_sensoren = GetChildren()
-			.OfType<Area2D>()
-			.Select(sensor =>
-			{
-				sensor.BodyEntered += body => OnSensorBodyEntered(sensor, body);
-				sensor.BodyExited += body => OnSensorBodyExited(sensor, body);
-				var sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
-				var id = ParseSensorId(sensor.Name);
-				return KeyValuePair.Create(id, sensorenRijbaan);
-			})
-			.ToDictionary() as SensorStatusData;
+		foreach (var sensor in GetChildren().OfType<Area2D>())
+		{
+			var sensorPosition = sensor.Name.ToString().Contains("voor")
+				? SensorPosition.Voor
+				: SensorPosition.Achter;
+			sensor.BodyEntered += body => OnSensorBodyEntered(sensor, body, sensorPosition);
+			sensor.BodyExited += body => OnSensorBodyExited(sensor, body, sensorPosition);
+			var sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
+			var id = ParseSensorId(sensor.Name);
+			if (sensorPosition != SensorPosition.Voor) continue;
+			_sensoren.Add(id, sensorenRijbaan);
+		}
 	}
 
-	private void OnSensorBodyEntered(Area2D sensor, Node body)
+	private void OnSensorBodyEntered(Area2D sensor, Node body, SensorPosition position)
 	{
-		string sensorName = sensor.Name;
+		// Word body meegeven omdat er in de toekomst misschien gecontrolleerd moet worden of dit wel een vehicle is?
 		var id = ParseSensorId(sensor.Name);
 
 		var currentSensor = _sensoren.GetValueOrDefault(id)!;
 
-		if (sensorName.Contains("voor"))
-		{
+		if (position == SensorPosition.Voor)
 			currentSensor.Voor = true;
-		}
-		else if (sensorName.Contains("achter"))
-		{
+		else
 			currentSensor.Achter = true;
-		}
 
 		_sensoren[id] = currentSensor;
 		var json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 		_publisher!.Send(_topicName, json);
 	}
 
-	private void OnSensorBodyExited(Area2D sensor, Node body)
+	private void OnSensorBodyExited(Area2D sensor, Node body, SensorPosition position)
 	{
-		string sensorName = sensor.Name;
+		// Word body meegeven omdat er in de toekomst misschien gecontrolleerd moet worden of dit wel een vehicle is?
 		var id = ParseSensorId(sensor.Name);
 		var currentSensor = _sensoren.GetValueOrDefault(id)!;
 
-		if (sensorName.Contains("voor"))
-		{
+		if (position == SensorPosition.Voor)
 			currentSensor.Voor = false;
-		}
-		else if (sensorName.Contains("achter"))
-		{
+		else
 			currentSensor.Achter = false;
-		}
 
 		_sensoren[id] = currentSensor;
 		var json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
@@ -82,4 +76,10 @@ public partial class SensorListenerBitch : Node
 		GD.Print($"[ERROR] {sensorName} is not a valid sensor name.");
 		return null;
 	}
+}
+
+internal enum SensorPosition
+{
+	Voor,
+	Achter
 }

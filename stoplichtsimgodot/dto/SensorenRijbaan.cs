@@ -12,4 +12,4 @@ public class SensorenRijbaan
     public bool Achter { get; set; }
 }
 
-public class SensorStatusData : Dictionary<string, SensorenRijbaan>;
+public class SensorStatusData: Dictionary<string, SensorenRijbaan>;
