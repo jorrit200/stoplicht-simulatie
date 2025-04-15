@@ -11,7 +11,7 @@ public partial class ZmqSubscriber : Node
 {
     private SubscriberSocket _subscriber;
 
-    private Task _recieveLoop;
+    private Task _receiveLoop;
 
     private readonly List<Action<(string topic, string message)>> _onReceiveMessage = [];
 
@@ -22,10 +22,10 @@ public partial class ZmqSubscriber : Node
         _subscriber.Subscribe("stoplichten"); // Abonneer op "topic1"
 
         GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
-        _recieveLoop = Task.Run(() =>
+        _receiveLoop = Task.Run(() =>
         {
             using var runtime = new NetMQRuntime();
-            runtime.Run(RecieveMessageLoop());
+            runtime.Run(ReceiveMessageLoop());
         });
     }
 
@@ -43,7 +43,7 @@ public partial class ZmqSubscriber : Node
         return (topic: messageParts[0].ConvertToString(), body: messageParts[1].ConvertToString());
     }
 
-    private async Task RecieveMessageLoop()
+    private async Task ReceiveMessageLoop()
     {
         using (_subscriber)
         {

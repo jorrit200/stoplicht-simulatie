@@ -49,7 +49,7 @@ public partial class TrafficLight : Area2D
 
 	public override void _Ready()
 	{
-		TrafficLightMaster master = this.GetParent<TrafficLightMaster>();
+		var master = GetParent<TrafficLightMaster>();
 		master.BindTrafficLight(this);
 	}
 }

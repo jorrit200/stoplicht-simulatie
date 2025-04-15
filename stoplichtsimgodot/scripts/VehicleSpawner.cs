@@ -30,7 +30,7 @@ public partial class VehicleSpawner : Node2D
 		_vehicles.Add(EmergencyVehicle);
 
 		// Haal de PathFollow2D nodes op (paden)
-		for (int i = 1; i < 13; i++)
+		for (var i = 1; i < 13; i++)
 		{
 			_paths.Add(GetNode<PathFollow2D>($"../Paths/Path2D{i}/Path{i}"));
 		}
@@ -52,7 +52,7 @@ public partial class VehicleSpawner : Node2D
 		GD.Print($"Aantal voertuigen: {_vehicles.Count}, Aantal paden: {_paths.Count}");
 
 		// Start een timer om te spawnen
-		Timer spawnTimer = new Timer();
+		var spawnTimer = new Timer();
 		spawnTimer.WaitTime = 1.3f;
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
@@ -79,21 +79,20 @@ public partial class VehicleSpawner : Node2D
 		}
 
 		// Loop door elk voertuigtype en bepaal of deze moet spawnen
-		foreach (PackedScene vehicleScene in _vehicles)
+		foreach (var vehicleScene in _vehicles)
 		{
 			// Maak een tijdelijke instantie om de spawnChance te lezen
-			Vehicle tempVehicle =
-				vehicleScene.Instantiate<Vehicle>();
-			float chance = tempVehicle.SpawnChance;
+			var tempVehicle = vehicleScene.Instantiate<Vehicle>();
+			var chance = tempVehicle.SpawnChance;
 
-			float roll = GD.Randf() * 100f;
+			var roll = GD.Randf() * 100f;
 			//GD.Print($"[{vehicleScene.ResourcePath}] spawn roll: {roll} vs chance {chance}");
 
 			if (roll <= chance)
 			{
 				// Selecteer willekeurig pad
-				int pathIndex = (int)(GD.Randi() % _paths.Count);
-				Path2D basePath = (Path2D)_paths[pathIndex].GetParent();
+				var pathIndex = (int)(GD.Randi() % _paths.Count);
+				var basePath = (Path2D)_paths[pathIndex].GetParent();
 
 				if (_sharedSpawnPaths.Contains(basePath) && _sharedCooldown > 0f)
 				{
@@ -102,7 +101,7 @@ public partial class VehicleSpawner : Node2D
 				}
 
 				// Maak een nieuwe PathFollow2D aan
-				PathFollow2D vehicleFollow = new PathFollow2D
+				var vehicleFollow = new PathFollow2D
 				{
 					Loop = false,
 					Rotates = true,
@@ -112,7 +111,7 @@ public partial class VehicleSpawner : Node2D
 				basePath.AddChild(vehicleFollow);
 
 				// Instantieer het voertuig
-				Vehicle vehicle = vehicleScene.Instantiate<Vehicle>();
+				var vehicle = vehicleScene.Instantiate<Vehicle>();
 				vehicleFollow.AddChild(vehicle);
 
 				// Start beweging

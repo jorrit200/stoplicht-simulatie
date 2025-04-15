@@ -19,14 +19,14 @@ public partial class SensorListenerBitch : Node
 
 	public override void _Ready()
 	{
-		foreach (Node child in GetChildren())
+		foreach (var child in GetChildren())
 		{
 			if (child is Area2D sensor)
 			{
 				sensor.BodyEntered += (body) => OnSensorBodyEntered(sensor, body);
 				sensor.BodyExited += (body) => OnSensorBodyExited(sensor, body);
-				SensorenRijbaan sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
-				string id = ParseSensorId(child.Name);
+				var sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
+				var id = ParseSensorId(child.Name);
 				_sensoren[id] = sensorenRijbaan;
 			}
 		}
@@ -35,7 +35,7 @@ public partial class SensorListenerBitch : Node
 	private void OnSensorBodyEntered(Area2D sensor, Node body)
 	{
 		string sensorName = sensor.Name;
-		string id = ParseSensorId(sensor.Name);
+		var id = ParseSensorId(sensor.Name);
 
 		var currentSensor = _sensoren.GetValueOrDefault(id)!;
 
@@ -51,7 +51,7 @@ public partial class SensorListenerBitch : Node
 		_sensoren[id] = currentSensor;
 
 		//Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
-		string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
+		var json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 
 		_publisher!.Send(_topicName, json);
 	}
@@ -61,7 +61,7 @@ public partial class SensorListenerBitch : Node
 		//GD.Print($"[EXIT] {sensor.Name} detected body: {body.Name}");
 
 		string sensorName = sensor.Name;
-		string id = ParseSensorId(sensor.Name);
+		var id = ParseSensorId(sensor.Name);
 
 		var currentSensor = _sensoren.GetValueOrDefault(id)!;
 
@@ -77,7 +77,7 @@ public partial class SensorListenerBitch : Node
 		_sensoren[id] = currentSensor;
 
 		//Modify sensor add ID set boolean state and convert sensor to JSON, convert JSON to string
-		string json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
+		var json = System.Text.Json.JsonSerializer.Serialize(_sensoren);
 
 		_publisher!.Send(_topicName, json);
 	}
