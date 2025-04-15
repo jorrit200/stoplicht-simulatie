@@ -51,10 +51,7 @@ public partial class VehicleSpawner : Node2D
 		spawnTimer.WaitTime = 1.3f;
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
-		spawnTimer.Timeout += () =>
-		{
-			SpawnRandomVehicle();
-		};
+		spawnTimer.Timeout += SpawnRandomVehicle;
 		AddChild(spawnTimer);
 	}
 
@@ -109,7 +106,7 @@ public partial class VehicleSpawner : Node2D
 
 			if (vehicle is not scripts.EmergencyVehicle) continue;
 			var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
-			if (maxSound != null && !maxSound.Playing)
+			if (maxSound is { Playing: false })
 				maxSound.Play();
 		}
 	}

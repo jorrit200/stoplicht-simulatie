@@ -7,7 +7,7 @@ public partial class TrafficLight : Area2D
 {
 	private TrafficLightState State { get; set; } = TrafficLightState.Green;
 
-	public void SetState(TrafficLightState newState)
+	private void SetState(TrafficLightState newState)
 	{
 		if (State == TrafficLightState.Green && newState == TrafficLightState.Red)
 		{
@@ -41,14 +41,7 @@ public partial class TrafficLight : Area2D
 	public override void _Process(double delta)
 	{
 		var collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
-		if (State == TrafficLightState.Green)
-		{
-			collisionShape.Disabled = true;
-		}
-		else
-		{
-			collisionShape.Disabled = false;
-		}
+		collisionShape.Disabled = State == TrafficLightState.Green;
 	}
 
 	public override void _Ready()

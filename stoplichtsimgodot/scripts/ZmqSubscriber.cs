@@ -15,7 +15,7 @@ public partial class ZmqSubscriber : Node
 
     private readonly List<Action<(string topic, string message)>> _onReceiveMessage = [];
 
-    public override async void _Ready()
+    public override void _Ready()
     {
         _subscriber = new SubscriberSocket();
         _subscriber.Connect("tcp://127.0.0.1:5556"); // Verbinden met de publisher
