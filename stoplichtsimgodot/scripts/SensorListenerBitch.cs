@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using StoplichtSimGodot.dto;
 using StoplichtSimGodot.interfaces;
@@ -8,7 +9,7 @@ namespace StoplichtSimGodot.scripts;
 public partial class SensorListenerBitch : Node
 {
 	private IMessagePublisher _publisher;
-	private readonly SensorStatusData _sensoren = new();
+	private SensorStatusData _sensoren = new();
 	private string _topicName = "sensoren_rijbaan";
 
 	public void InjectPublisher(IMessagePublisher publisher)
@@ -18,15 +19,18 @@ public partial class SensorListenerBitch : Node
 
 	public override void _Ready()
 	{
-		foreach (var child in GetChildren())
-		{
-			if (child is not Area2D sensor) continue;
-			sensor.BodyEntered += body => OnSensorBodyEntered(sensor, body);
-			sensor.BodyExited += body => OnSensorBodyExited(sensor, body);
-			var sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
-			var id = ParseSensorId(child.Name);
-			_sensoren[id] = sensorenRijbaan; // dit hele ding kon wel eens een map operation worden
-		}
+
+		_sensoren = GetChildren()
+			.OfType<Area2D>()
+			.Select(sensor =>
+			{
+				sensor.BodyEntered += body => OnSensorBodyEntered(sensor, body);
+				sensor.BodyExited += body => OnSensorBodyExited(sensor, body);
+				var sensorenRijbaan = new SensorenRijbaan { Voor = false, Achter = false };
+				var id = ParseSensorId(sensor.Name);
+				return KeyValuePair.Create(id, sensorenRijbaan);
+			})
+			.ToDictionary() as SensorStatusData;
 	}
 
 	private void OnSensorBodyEntered(Area2D sensor, Node body)
