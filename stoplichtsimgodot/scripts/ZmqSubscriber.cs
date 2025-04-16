@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using Godot;
 using NetMQ;
@@ -20,8 +21,8 @@ public partial class ZmqSubscriber : Node
 
 	public override void _Ready()
 	{
-		_socketUri = $"tcp://{_ip}:{_port}";    
-		
+		_socketUri = $"tcp://{_ip}:{_port}";
+
 		_subscriber = new SubscriberSocket();
 		_subscriber.Connect(_socketUri); // Verbinden met de publisher
 		foreach (var topic in _topics)
@@ -39,6 +40,7 @@ public partial class ZmqSubscriber : Node
 	public void DoOnMessage(Action<(string topic, string message)> action)
 	{
 		_onReceiveMessage.Add(action);
+		GD.Print("Master Ontvangt");
 	}
 
 
@@ -56,6 +58,7 @@ public partial class ZmqSubscriber : Node
 			while (true)
 			{
 				var message = await WaitForMessage();
+				GD.Print(message);
 				foreach (var action in _onReceiveMessage)
 				{
 					action.Invoke(message);

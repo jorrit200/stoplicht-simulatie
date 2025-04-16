@@ -108,10 +108,12 @@ script = ExtResource("1_6sd47")
 
 [node name="ZMQPublisher" type="Node" parent="."]
 script = ExtResource("1_qbjlm")
+_ip = "10.121.17.54"
+_port = 5559
 
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
-_ip = "10.121.17.45"
+_ip = "10.121.17.123"
 _port = 5556
 _topics = PackedStringArray("stoplichten")
 
