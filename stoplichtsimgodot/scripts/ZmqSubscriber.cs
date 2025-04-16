@@ -40,7 +40,6 @@ public partial class ZmqSubscriber : Node
 	public void DoOnMessage(Action<(string topic, string message)> action)
 	{
 		_onReceiveMessage.Add(action);
-		GD.Print("Master Ontvangt");
 	}
 
 
@@ -58,7 +57,6 @@ public partial class ZmqSubscriber : Node
 			while (true)
 			{
 				var message = await WaitForMessage();
-				GD.Print(message);
 				foreach (var action in _onReceiveMessage)
 				{
 					action.Invoke(message);

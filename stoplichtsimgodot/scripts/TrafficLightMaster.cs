@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using Godot;
+using Newtonsoft.Json;
 using StoplichtSimGodot.dto;
 
 namespace StoplichtSimGodot.scripts;
@@ -17,21 +20,28 @@ public partial class TrafficLightMaster : Node
 		lightName = lightName.Replace("_", ".");
 
 		_subscribedLights.Add(lightName, light);
+		GD.Print("Traffic Light: " + lightName + " is subscribed to the master");
 	}
 
 	private void OnMessage((string topic, string message) message)
 	{
-		GD.Print("Master ontvangt dingen");
 		if (message.topic != "stoplichten") return;
 
-		var stoplichtData = JsonSerializer.Deserialize<StoplichtenDto>(message.message);
-
-		foreach (var (key, newState) in stoplichtData)
+		try
 		{
-			var subbedLight = _subscribedLights.GetValueOrDefault(key);
-			if (subbedLight is null) continue;
-			subbedLight.SetState(newState);
+			var stoplichtData = JsonConvert.DeserializeObject<StoplichtenDto>(message.message);
+			foreach (var (key, newState) in stoplichtData)
+			{
+				GD.Print(key, newState);
+				var subbedLight = _subscribedLights.GetValueOrDefault(key);
+				subbedLight?.ApplyState(newState);
+			}
 		}
+		catch (Exception e)
+		{
+			GD.Print("PARSING ERROR: ", e.Message);
+		}
+		
 	}
 
 	public override void _Ready()

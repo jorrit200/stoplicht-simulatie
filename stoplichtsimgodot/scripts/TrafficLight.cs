@@ -8,14 +8,13 @@ public partial class TrafficLight : Area2D
 {
 	private TrafficLightState State { get; set; } = TrafficLightState.Green;
 
-	public void SetState(TrafficLightState newState)
+	public void ApplyState(TrafficLightState newState)
 	{
-		if (State == TrafficLightState.Green && newState == TrafficLightState.Red)
-		{
-			throw new InvalidOperationException(
-				"Can not immediately switch from green to red, try orange (4 inch door-hinge) first ");
-		}
+		CallDeferred(nameof(SetState), Variant.From(newState));
+	}
 
+	private void SetState(TrafficLightState newState)
+	{
 		State = newState;
 		QueueRedraw();
 	}
@@ -55,7 +54,7 @@ public partial class TrafficLight : Area2D
 //todo: move to a more sensible place
 public enum TrafficLightState
 {
-	[EnumMember(Value = "groen")]
+	[EnumMember(Value = "groen")] 
 	Green,
 	[EnumMember(Value = "oranje")]
 	Orange,
