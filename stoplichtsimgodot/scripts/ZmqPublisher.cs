@@ -1,3 +1,4 @@
+using System.Net;
 using Godot;
 using NetMQ;
 using NetMQ.Sockets;
@@ -7,13 +8,17 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class ZmqPublisher : Node, IMessagePublisher
 {
+	[Export] private string _ip;
+	[Export] private int _port ;
+	
 	private PublisherSocket _publisher;
-	private string _ip = "tcp://*:5559";
+	private string _socketUri;
 
 	public override void _Ready()
 	{
 		_publisher = new PublisherSocket();
-		_publisher.Bind(_ip);
+		_socketUri = $"tcp://{_ip}:{_port}";
+		_publisher.Bind(_socketUri);
 	}
 
 	public void Send(string topic, string message)

@@ -9,19 +9,25 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class ZmqSubscriber : Node
 {
+    [Export] private string _ip;
+    [Export] private int _port;
+    [Export] private string[] _topics;
+
+    private string _socketUri;
     private SubscriberSocket _subscriber;
-
-    private Task _receiveLoop;
-
     private readonly List<Action<(string topic, string message)>> _onReceiveMessage = [];
+    private Task _receiveLoop;
 
     public override void _Ready()
     {
+        _socketUri = $"tcp://{_ip}:{_port}";    
+        
         _subscriber = new SubscriberSocket();
-        _subscriber.Connect("tcp://127.0.0.1:5556"); // Verbinden met de publisher
-        _subscriber.Subscribe("stoplichten");
-
-        GD.Print("Subscriber verbonden en geabonneerd op stoplichten...");
+        _subscriber.Connect(_socketUri); // Verbinden met de publisher
+        foreach (var topic in _topics)
+        {
+            _subscriber.Subscribe(topic);
+        }
         _receiveLoop = Task.Run(() =>
         {
             using var runtime = new NetMQRuntime();
