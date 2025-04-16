@@ -91,4 +91,10 @@ public partial class SensorListenerBitch : Node
 		GD.Print($"[ERROR] {sensorName} is not a valid sensor name.");
 		return null;
 	}
+
+	private string ParseSensorBrug(string sensorName)
+	{
+		return sensorName.Replace("_", ".");
+	}
+
 }
