@@ -1,15 +1,17 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=29 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/TrafficSim.cs" id="1_6sd47"]
-[ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZMQPublisher.cs" id="1_qbjlm"]
-[ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/ZMQSubscriber.cs" id="2_67ex8"]
+[ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZmqPublisher.cs" id="1_qbjlm"]
+[ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/ZmqSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/VehicleSpawner.cs" id="3_67ex8"]
-[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
 [ext_resource type="Script" uid="uid://bwndjd26cnl0h" path="res://scripts/SensorListenerBitch.cs" id="9_6sd47"]
 [ext_resource type="AudioStream" uid="uid://be71fl8eu4ylo" path="res://Audio/DUDUDUDU MAX VERSTAPPEN loud meme.mp3" id="9_byrp8"]
+[ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
+[ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/TrafficLightMaster.cs" id="11_wl330"]
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
@@ -111,7 +113,7 @@ script = ExtResource("1_qbjlm")
 script = ExtResource("2_67ex8")
 
 [node name="Background" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -2
 position = Vector2(960.228, 324.478)
 scale = Vector2(0.359937, 0.400892)
 texture = ExtResource("7_6tk20")
@@ -442,3 +444,48 @@ position = Vector2(521, 278)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/12_1_achter"]
 position = Vector2(-255, -203)
 shape = SubResource("RectangleShape2D_6sd47")
+
+[node name="TrafficLightMaster" type="Node" parent="."]
+script = ExtResource("11_wl330")
+
+[node name="1_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(380, 228)
+
+[node name="2_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(380, 243)
+
+[node name="2_2" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(380, 258)
+
+[node name="3_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(380, 274)
+
+[node name="4_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(307, 392)
+
+[node name="5_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(294, 392)
+
+[node name="6_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(279, 392)
+
+[node name="7_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(166, 329)
+
+[node name="8_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(166, 314)
+
+[node name="8_2" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(166, 299)
+
+[node name="9_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(166, 285)
+
+[node name="10_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(239, 163)
+
+[node name="11_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(252, 163)
+
+[node name="12_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(265, 163)

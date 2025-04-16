@@ -1,12 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://ce3ewuuigrt3"]
 
 [ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/TrafficLight.cs" id="1_uttgq"]
-[ext_resource type="Texture2D" uid="uid://cy26bvpnk3r5f" path="res://art/verkeerslicht/verkeerslight_plain.svg" id="2_va7ut"]
+[ext_resource type="Texture2D" uid="uid://x6m8kbdqbo6l" path="res://art/verkeerslicht/verkeerslight_plain.svg" id="2_va7ut"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_va7ut"]
 size = Vector2(8, 8)
 
 [node name="TrafficLight" type="Area2D"]
+scale = Vector2(0.7, 0.7)
 script = ExtResource("1_uttgq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

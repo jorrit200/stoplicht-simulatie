@@ -11,6 +11,8 @@ size = Vector2(50, 17)
 size = Vector2(25, 12.125)
 
 [node name="Car" type="CharacterBody2D"]
+z_index = -1
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_7u4s5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,5 +29,7 @@ collision_layer = 2
 position = Vector2(37.5, 0)
 shape = SubResource("RectangleShape2D_7u4s5")
 
+[connection signal="area_entered" from="VoorSensor" to="." method="_on_voor_sensor_area_entered"]
+[connection signal="area_exited" from="VoorSensor" to="." method="_on_voor_sensor_area_exited"]
 [connection signal="body_entered" from="VoorSensor" to="." method="_on_voor_sensor_body_entered"]
 [connection signal="body_exited" from="VoorSensor" to="." method="_on_voor_sensor_body_exited"]

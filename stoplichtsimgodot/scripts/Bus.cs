@@ -1,13 +1,12 @@
-using Godot;
-using System;
+namespace StoplichtSimGodot.scripts;
 
 public partial class Bus : Vehicle
 {
-	public Bus()
-	{
-		speed = 50;
-		roadToUse = "MainRoad";
-		isMoving = true;
-		spawnChance = 5;
-	}
+    public Bus()
+    {
+        Speed = 50;
+        RoadToUse = "MainRoad";
+        IsMoving = true;
+        SpawnChance = 5;
+    }
 }

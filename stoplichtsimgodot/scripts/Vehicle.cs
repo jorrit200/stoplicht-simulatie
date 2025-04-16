@@ -1,72 +1,94 @@
-using Godot;
 using System;
+using Godot;
+
+namespace StoplichtSimGodot.scripts;
 
 public partial class Vehicle : CharacterBody2D
 {
-	public float speed;
-	public string roadToUse;
-	public bool isMoving;
-	public float spawnChance;
-	
-	private float originalSpeed;
-	private int overlapCount = 0;
-	
-	private PathFollow2D pathFollow;
+    protected float Speed;
+    protected string RoadToUse;
+    protected bool IsMoving;
+    public float SpawnChance;
 
-	public void StartMoving(PathFollow2D followPath)
-	{
-		pathFollow = followPath;
-		isMoving = true;
-	}
-	
-	public override void _Ready()
-	{
-		originalSpeed = speed;
-	}
+    private float _originalSpeed;
+    private int _overlapCount = 0;
 
-	public override void _Process(double delta)
-	{
-		if (isMoving && pathFollow != null)
-		{
-			pathFollow.Progress += speed * (float)delta;
-			
-			if(pathFollow.ProgressRatio >= 0.99f)
-			{
-				QueueFree();
-			}
-		}
-	}
-	
-	private void _on_voor_sensor_body_entered(CharacterBody2D body)
-	{
-		if (body is Vehicle && body != this)
-		{
-			overlapCount++;
-			
-			GetTree().CreateTween().Kill();
-			
-			var tween = CreateTween();
-			tween.TweenProperty(this, "speed", 0.0f, 1.0f)
-			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
-		}
-	}
+    private int _lightOverlapCount = 0;
 
-	private void _on_voor_sensor_body_exited(CharacterBody2D body)
-	{
-		if (body is Vehicle && body != this)
-		{
-			overlapCount = Math.Max(0, overlapCount - 1);
-			if (overlapCount == 0)
-			{
-				// Stop eventuele actieve tweens om conflicten te voorkomen
-				GetTree().CreateTween().Kill();
+    private PathFollow2D _pathFollow;
 
-				// Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
-				var tween = CreateTween();
-				tween.TweenProperty(this, "speed", originalSpeed, 1.0f)
-					 .SetTrans(Tween.TransitionType.Sine)
-					 .SetEase(Tween.EaseType.In);
-			}
-		}
-	}
+    public void StartMoving(PathFollow2D followPath)
+    {
+        _pathFollow = followPath;
+        IsMoving = true;
+    }
+
+    public override void _Ready()
+    {
+        _originalSpeed = Speed;
+    }
+
+    public override void _Process(double delta)
+    {
+        if (!IsMoving || _pathFollow == null) return;
+        _pathFollow.Progress += Speed * (float)delta;
+
+        if (_pathFollow.ProgressRatio >= 0.99f)
+        {
+            QueueFree();
+        }
+    }
+
+    private void _on_voor_sensor_body_entered(CharacterBody2D body)
+    {
+        if (body is not Vehicle || body == this) return;
+        _overlapCount++;
+
+        GetTree().CreateTween().Kill();
+
+        var tween = CreateTween();
+        tween.TweenProperty(this, "speed", 0.0f, 1.0f)
+            .SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+    }
+
+    private void _on_voor_sensor_body_exited(CharacterBody2D body)
+    {
+        if (body is not Vehicle || body == this) return;
+        _overlapCount = Math.Max(0, _overlapCount - 1);
+        if (_overlapCount != 0) return;
+        GetTree().CreateTween().Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
+
+        // Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
+        var tween = CreateTween();
+        tween.TweenProperty(this, "speed", _originalSpeed, 1.0f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.In);
+    }
+
+    private void _on_voor_sensor_area_entered(Area2D area)
+    {
+        if (area is not TrafficLight) return;
+        _lightOverlapCount++;
+
+        GetTree().CreateTween().Kill();
+
+        var tween = CreateTween();
+        tween.TweenProperty(this, "speed", 0.0f, 1.0f)
+            .SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+    }
+
+    private void _on_voor_sensor_area_exited(Area2D area)
+    {
+        if (area is not TrafficLight) return;
+        _lightOverlapCount = Math.Max(0, _lightOverlapCount - 1);
+        if (_lightOverlapCount != 0) return;
+        GetTree().CreateTween().Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
+
+
+        // Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
+        var tween = CreateTween();
+        tween.TweenProperty(this, "speed", _originalSpeed, 1.0f)
+            .SetTrans(Tween.TransitionType.Sine)
+            .SetEase(Tween.EaseType.In);
+    }
 }
