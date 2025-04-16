@@ -3,27 +3,28 @@ using Godot;
 
 namespace StoplichtSimGodot.scripts;
 
-public partial class TrafficLightMaster : ZmqSubscriber
+public partial class TrafficLightMaster : Node
 {
-    private readonly Dictionary<string, TrafficLight> _subscribedLights = new();
+	[Export] private ZmqSubscriber subscriber;
+	private readonly Dictionary<string, TrafficLight> _subscribedLights = new();
 
-    public void BindTrafficLight(TrafficLight light)
-    {
-        string lightName = light.Name;
+	public void BindTrafficLight(TrafficLight light)
+	{
+		string lightName = light.Name;
 
-        lightName = lightName.Replace("_", ".");
+		lightName = lightName.Replace("_", ".");
 
-        _subscribedLights.Add(lightName, light);
-    }
+		_subscribedLights.Add(lightName, light);
+	}
 
-    private void OnMessage((string topic, string message) message)
-    {
-        GD.Print("Master ontvangt dingen");
-    }
+	private void OnMessage((string topic, string message) message)
+	{
+		GD.Print("Master ontvangt dingen");
+	}
 
-    public override void _Process(double delta)
-    {
-        base._Process(delta);
-        DoOnMessage(OnMessage);
-    }
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
+		subscriber.DoOnMessage(OnMessage);
+	}
 }

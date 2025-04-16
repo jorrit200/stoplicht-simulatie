@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZmqPublisher.cs" id="1_qbjlm"]
 [ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/ZmqSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/VehicleSpawner.cs" id="3_67ex8"]
-[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
@@ -111,6 +111,9 @@ script = ExtResource("1_qbjlm")
 
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
+_ip = "10.121.17.45"
+_port = 5556
+_topics = PackedStringArray("stoplichten")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -2
@@ -445,8 +448,9 @@ position = Vector2(521, 278)
 position = Vector2(-255, -203)
 shape = SubResource("RectangleShape2D_6sd47")
 
-[node name="TrafficLightMaster" type="Node" parent="."]
+[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("subscriber")]
 script = ExtResource("11_wl330")
+subscriber = NodePath("../ZMQSubscriber")
 
 [node name="1_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
 position = Vector2(380, 228)
