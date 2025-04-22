@@ -7,6 +7,6 @@ public partial class Boat : Vehicle
 		Speed = 10;
 		RoadToUse = "Water";
 		IsMoving = true;
-		SpawnChance = 5;
+		SpawnChance = 0;
 	}
 }

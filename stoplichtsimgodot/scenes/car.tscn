@@ -1,8 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2uibre26ia0t"]
 
 [ext_resource type="Script" uid="uid://bmylpttkgjt3l" path="res://scripts/Car.cs" id="1_7u4s5"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c35m8"]
+[ext_resource type="Texture2D" uid="uid://d0jqxkrprgk26" path="res://art/Vehicles/Auto.png" id="2_ys5ts"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
 size = Vector2(50, 17)
@@ -16,8 +15,10 @@ scale = Vector2(0.8, 0.8)
 script = ExtResource("1_7u4s5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(50, 17)
-texture = SubResource("PlaceholderTexture2D_c35m8")
+position = Vector2(0.025629, 0.0152326)
+rotation = -1.5708
+scale = Vector2(0.0245801, 0.0389767)
+texture = ExtResource("2_ys5ts")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_c35m8")

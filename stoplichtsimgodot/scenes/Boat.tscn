@@ -1,11 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdd8oh7n776sq"]
 
 [ext_resource type="Script" uid="uid://rs2og1y2smrn" path="res://scripts/Boat.cs" id="1_xwkqa"]
+[ext_resource type="Texture2D" uid="uid://e1d42xisve5b" path="res://art/Vehicles/Boot.png" id="2_mlulb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
 size = Vector2(50, 17)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c35m8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr10d"]
 size = Vector2(25, 11.75)
@@ -15,14 +14,15 @@ z_index = -1
 scale = Vector2(0.8, 0.8)
 script = ExtResource("1_xwkqa")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.045222, -0.099509)
+rotation = 1.5708
+scale = Vector2(0.0302818, 0.0345554)
+texture = ExtResource("2_mlulb")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_c35m8")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.642173, 0.975145, 0, 1)
-scale = Vector2(50, 17)
-texture = SubResource("PlaceholderTexture2D_c35m8")
 
 [node name="VoorSensor" type="Area2D" parent="."]
 collision_layer = 2
