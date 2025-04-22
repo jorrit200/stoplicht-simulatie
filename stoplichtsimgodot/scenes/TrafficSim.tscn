@@ -108,9 +108,14 @@ script = ExtResource("1_6sd47")
 
 [node name="ZMQPublisher" type="Node" parent="."]
 script = ExtResource("1_qbjlm")
+_ip = "10.121.17.6"
+_port = 5559
 
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
+_ip = "10.121.17.123"
+_port = 5556
+_topics = PackedStringArray("stoplichten")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -2
@@ -445,8 +450,9 @@ position = Vector2(521, 278)
 position = Vector2(-255, -203)
 shape = SubResource("RectangleShape2D_6sd47")
 
-[node name="TrafficLightMaster" type="Node" parent="."]
+[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("subscriber")]
 script = ExtResource("11_wl330")
+subscriber = NodePath("../ZMQSubscriber")
 
 [node name="1_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
 position = Vector2(380, 228)
