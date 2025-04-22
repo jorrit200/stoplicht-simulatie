@@ -40,9 +40,9 @@ point_count = 23
 
 [sub_resource type="Curve2D" id="Curve2D_byrp8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 272, 651, 0, 0, 0, 0, 294, 569, 0, 0, 0, 0, 302, 504, 0, 0, 0, 0, 305, 447, 0, 0, 0, 0, 306, 388, 0, 0, 0, 0, 314, 347, 0, 0, 0, 0, 319, 337, 0, 0, 0, 0, 325, 329, 0, 0, 0, 0, 338, 322, 0, 0, 0, 0, 357, 319, 0, 0, 0, 0, 376, 317, 0, 0, 0, 0, 535, 324, 0, 0, 0, 0, 832, 330, 0, 0, 0, 0, 1131, 339, 0, 0, 0, 0, 1221, 351, 0, 0, 0, 0, 1326, 372, 0, 0, 0, 0, 1528, 425, 0, 0, 0, 0, 1657, 456, 0, 0, 0, 0, 1768, 489, 0, 0, 0, 0, 1858, 518, 0, 0, 0, 0, 1884, 547, 0, 0, 0, 0, 1903, 570, 0, 0, 0, 0, 1924, 580)
+"points": PackedVector2Array(0, 0, 0, 0, 272, 651, 0, 0, 0, 0, 289.05, 599.542, 0, 0, 0, 0, 296.002, 567.999, 0, 0, 0, 0, 305.002, 502.999, 0, 0, 0, 0, 307.04, 448.559, 0, 0, 0, 0, 308.002, 436, 0, 0, 0, 0, 306, 388, 0, 0, 0, 0, 314, 347, 0, 0, 0, 0, 319, 337, 0, 0, 0, 0, 325, 329, 0, 0, 0, 0, 338, 322, 0, 0, 0, 0, 357, 319, 0, 0, 0, 0, 376, 317, 0, 0, 0, 0, 535, 324, 0, 0, 0, 0, 832, 330, 0, 0, 0, 0, 1131, 339, 0, 0, 0, 0, 1221, 351, 0, 0, 0, 0, 1326, 372, 0, 0, 0, 0, 1528, 425, 0, 0, 0, 0, 1657, 456, 0, 0, 0, 0, 1768, 489, 0, 0, 0, 0, 1858, 518, 0, 0, 0, 0, 1884, 547, 0, 0, 0, 0, 1903, 570, 0, 0, 0, 0, 1924, 580)
 }
-point_count = 23
+point_count = 25
 
 [sub_resource type="Curve2D" id="Curve2D_tdxnf"]
 _data = {
@@ -109,7 +109,7 @@ size = Vector2(20, 37)
 
 [sub_resource type="Curve2D" id="Curve2D_p7ve8"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1938, 68, 0, 0, 0, 0, 1898, 114, 0, 0, 0, 0, 1851, 190, 0, 0, 0, 0, 1762, 342, 0, 0, 0, 0, 1759, 388, 0, 0, 0, 0, 1688, 518, 0, 0, 0, 0, 1658, 522, 0, 0, 0, 0, 1586, 653)
+"points": PackedVector2Array(0, 0, 0, 0, 1934, 52, 0, 0, 0, 0, 1898, 114, 0, 0, 0, 0, 1851, 190, 0, 0, 0, 0, 1762, 342, 0, 0, 0, 0, 1759, 388, 0, 0, 0, 0, 1688, 518, 0, 0, 0, 0, 1658, 522, 0, 0, 0, 0, 1586, 653)
 }
 point_count = 8
 
@@ -125,12 +125,12 @@ script = ExtResource("1_6sd47")
 [node name="ZMQPublisher" type="Node" parent="."]
 script = ExtResource("1_qbjlm")
 _ip = "10.121.17.54"
-_port = 5559
+_port = 5556
 
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
-_ip = "10.121.17.123"
-_port = 5556
+_ip = "10.121.17.99"
+_port = 5555
 _topics = PackedStringArray("stoplichten")
 
 [node name="Background" type="Sprite2D" parent="."]
@@ -201,7 +201,7 @@ curve = SubResource("Curve2D_byrp8")
 
 [node name="Path4" type="PathFollow2D" parent="Paths/Path2D4"]
 position = Vector2(272, 651)
-rotation = -1.30868
+rotation = -1.25085
 
 [node name="Path2D5" type="Path2D" parent="Paths"]
 position = Vector2(-2667.77, -809.39)
@@ -475,10 +475,10 @@ position = Vector2(5, -9)
 rotation = 0.514872
 shape = SubResource("RectangleShape2D_tdxnf")
 
-[node name="71_1_voor2" type="Area2D" parent="Sensors"]
+[node name="71_2_voor" type="Area2D" parent="Sensors"]
 position = Vector2(1767, 335)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/71_1_voor2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/71_2_voor"]
 position = Vector2(-76, 243)
 rotation = 0.488692
 shape = SubResource("RectangleShape2D_tdxnf")
@@ -541,8 +541,8 @@ position = Vector2(1712, 547)
 curve = SubResource("Curve2D_p7ve8")
 
 [node name="Path71" type="PathFollow2D" parent="BoatPaths/BoatPath71"]
-position = Vector2(1938, 68)
-rotation = 2.28654
+position = Vector2(1934, 52)
+rotation = 2.09686
 
 [node name="BoatPath72" type="Path2D" parent="BoatPaths"]
 curve = SubResource("Curve2D_7byyn")
