@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=33 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/ZmqPublisher.cs" id="1_qbjlm"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
 [ext_resource type="Script" uid="uid://bwndjd26cnl0h" path="res://scripts/SensorListenerBitch.cs" id="9_6sd47"]
 [ext_resource type="AudioStream" uid="uid://be71fl8eu4ylo" path="res://Audio/DUDUDUDU MAX VERSTAPPEN loud meme.mp3" id="9_byrp8"]
+[ext_resource type="PackedScene" uid="uid://cdd8oh7n776sq" path="res://scenes/Boat.tscn" id="9_tdxnf"]
 [ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/TrafficLightMaster.cs" id="11_wl330"]
 
@@ -103,12 +104,27 @@ size = Vector2(33.625, 6.9375)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6sd47"]
 size = Vector2(7, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tdxnf"]
+size = Vector2(20, 37)
+
+[sub_resource type="Curve2D" id="Curve2D_p7ve8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1938, 68, 0, 0, 0, 0, 1898, 114, 0, 0, 0, 0, 1851, 190, 0, 0, 0, 0, 1762, 342, 0, 0, 0, 0, 1759, 388, 0, 0, 0, 0, 1688, 518, 0, 0, 0, 0, 1658, 522, 0, 0, 0, 0, 1586, 653)
+}
+point_count = 8
+
+[sub_resource type="Curve2D" id="Curve2D_7byyn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1628, 688, 0, 0, 0, 0, 1675, 608, 0, 0, 0, 0, 1701, 560, 0, 0, 0, 0, 1689, 522, 0, 0, 0, 0, 1756, 393, 0, 0, 0, 0, 1794, 381, 0, 0, 0, 0, 1826, 337, 0, 0, 0, 0, 1876, 248, 0, 0, 0, 0, 1915, 180, 0, 0, 0, 0, 1945, 140)
+}
+point_count = 10
+
 [node name="TrafficSim" type="Node2D"]
 script = ExtResource("1_6sd47")
 
 [node name="ZMQPublisher" type="Node" parent="."]
 script = ExtResource("1_qbjlm")
-_ip = "10.121.17.6"
+_ip = "10.121.17.54"
 _port = 5559
 
 [node name="ZMQSubscriber" type="Node" parent="."]
@@ -128,6 +144,7 @@ script = ExtResource("3_67ex8")
 Car = ExtResource("4_ruvsc")
 Bus = ExtResource("5_10emi")
 EmergencyVehicle = ExtResource("6_6tk20")
+Boat = ExtResource("9_tdxnf")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 325)
@@ -450,6 +467,22 @@ position = Vector2(521, 278)
 position = Vector2(-255, -203)
 shape = SubResource("RectangleShape2D_6sd47")
 
+[node name="71_1_voor" type="Area2D" parent="Sensors"]
+position = Vector2(1767, 335)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/71_1_voor"]
+position = Vector2(5, -9)
+rotation = 0.514872
+shape = SubResource("RectangleShape2D_tdxnf")
+
+[node name="71_1_voor2" type="Area2D" parent="Sensors"]
+position = Vector2(1767, 335)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/71_1_voor2"]
+position = Vector2(-76, 243)
+rotation = 0.488692
+shape = SubResource("RectangleShape2D_tdxnf")
+
 [node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("subscriber")]
 script = ExtResource("11_wl330")
 subscriber = NodePath("../ZMQSubscriber")
@@ -495,3 +528,25 @@ position = Vector2(252, 163)
 
 [node name="12_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
 position = Vector2(265, 163)
+
+[node name="71_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(1747, 362)
+
+[node name="72_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+position = Vector2(1712, 547)
+
+[node name="BoatPaths" type="Node2D" parent="."]
+
+[node name="BoatPath71" type="Path2D" parent="BoatPaths"]
+curve = SubResource("Curve2D_p7ve8")
+
+[node name="Path71" type="PathFollow2D" parent="BoatPaths/BoatPath71"]
+position = Vector2(1938, 68)
+rotation = 2.28654
+
+[node name="BoatPath72" type="Path2D" parent="BoatPaths"]
+curve = SubResource("Curve2D_7byyn")
+
+[node name="Path72" type="PathFollow2D" parent="BoatPaths/BoatPath72"]
+position = Vector2(1628, 688)
+rotation = -1.03962

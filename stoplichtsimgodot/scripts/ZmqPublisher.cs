@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using Godot;
 using NetMQ;
@@ -13,12 +14,44 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 	
 	private PublisherSocket _publisher;
 	private string _socketUri;
+	private Timer sendTimer;
+	private string liveSimTime;
+	private DateTime simStartTime;
+	private string parsedSimTime;
 
 	public override void _Ready()
 	{
 		_publisher = new PublisherSocket();
 		_socketUri = $"tcp://{_ip}:{_port}";
 		_publisher.Bind(_socketUri);
+		
+		simStartTime = DateTime.Now;
+		sendTimer = new Timer();
+		sendTimer.WaitTime = 1.0; // elke seconde
+		sendTimer.OneShot = false;
+		sendTimer.Autostart = true;
+		AddChild(sendTimer);
+		sendTimer.Timeout += OnSendTimerTimeout;
+	}
+	
+	private void OnSendTimerTimeout()
+	{
+		liveSimTime = (DateTime.Now - simStartTime).ToString();
+		parsedSimTime = ParseTime(liveSimTime);
+		GD.Print(parsedSimTime);
+
+		Send("sensoren_bruggen", "{\"81\":{\"state\":\"dicht\"}}");
+		Send("sensoren_speciaal", "{\"brug_wegdek\":false, \"brug_water\":false, \"brug_file\":false}");
+		Send("tijd", $"{{\"simulatie_tijd_ms\":{parsedSimTime}}}");
+		Send("voorrangsvoertuig", "{\"queue\": [{\"baan\":\"8.2\",\"simulatie_tijd_ms\": 1231542,\"prioriteit\": 1},{\"baan\": \"3.1\",\"simulatie_tijd_ms\": 1230000,\"prioriteit\": 2}]}");
+	}
+	
+	private string ParseTime(string time)
+	{
+		TimeSpan timeSpan = TimeSpan.Parse(time);
+		int wholeMilliseconds = (int)timeSpan.TotalMilliseconds;
+		string milliseconds = wholeMilliseconds.ToString();
+		return milliseconds;
 	}
 
 	public void Send(string topic, string message)

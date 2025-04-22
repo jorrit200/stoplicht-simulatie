@@ -6,11 +6,15 @@ namespace StoplichtSimGodot.scripts;
 public partial class VehicleSpawner : Node2D
 {
 	private readonly List<PackedScene> _vehicles = new List<PackedScene>();
+	private readonly List<PackedScene> _boats = new List<PackedScene>();
+	
 	private readonly List<PathFollow2D> _paths = new List<PathFollow2D>();
+	private readonly List<PathFollow2D> _boatPaths = new List<PathFollow2D>();
 
 	[Export] public PackedScene Car;
 	[Export] public PackedScene Bus;
 	[Export] public PackedScene EmergencyVehicle;
+	[Export] public PackedScene Boat;
 
 	private readonly HashSet<Path2D> _sharedSpawnPaths = new HashSet<Path2D>();
 	private float _sharedCooldown = 0f;
@@ -23,12 +27,15 @@ public partial class VehicleSpawner : Node2D
 		_vehicles.Add(Car);
 		_vehicles.Add(Bus);
 		_vehicles.Add(EmergencyVehicle);
+		_boats.Add(Boat);
 
-		// Haal de PathFollow2D nodes op (paden)
 		for (var i = 1; i < 13; i++)
 		{
 			_paths.Add(GetNode<PathFollow2D>($"../Paths/Path2D{i}/Path{i}"));
 		}
+		
+		_boatPaths.Add(GetNode<PathFollow2D>($"../BoatPaths/BoatPath71/Path71"));
+		_boatPaths.Add(GetNode<PathFollow2D>($"../BoatPaths/BoatPath72/Path72"));
 
 		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D2_2/Path2_2"));
 		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D8_2/Path8_2"));
@@ -52,6 +59,7 @@ public partial class VehicleSpawner : Node2D
 		spawnTimer.Autostart = true;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += SpawnRandomVehicle;
+		spawnTimer.Timeout += SpawnRandomBoat;
 		AddChild(spawnTimer);
 	}
 
@@ -108,6 +116,41 @@ public partial class VehicleSpawner : Node2D
 			var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
 			if (maxSound is { Playing: false })
 				maxSound.Play();
+		}
+	}
+	
+	private void SpawnRandomBoat()
+	{
+	if (_boats.Count == 0 || _boatPaths.Count == 0)
+	{
+		GD.PrintErr("FOUT: Geen boten of bootpaden beschikbaar!");
+		return;
+	}
+
+	foreach (var boatScene in _boats)
+	{
+		var tempBoat = boatScene.Instantiate<Vehicle>();
+		var chance = tempBoat.SpawnChance;
+		var roll = GD.Randf() * 100f;
+
+		if (roll > chance) continue;
+
+		var pathIndex = (int)(GD.Randi() % _boatPaths.Count);
+		var basePath = (Path2D)_boatPaths[pathIndex].GetParent();
+
+		var boatFollow = new PathFollow2D
+		{
+			Loop = false,
+			Rotates = true,
+			Name = $"BoatFollow_{GD.Randi()}"
+		};
+
+		basePath.AddChild(boatFollow);
+
+		var boat = boatScene.Instantiate<Vehicle>();
+		boatFollow.AddChild(boat);
+
+		boat.StartMoving(boatFollow);
 		}
 	}
 }
