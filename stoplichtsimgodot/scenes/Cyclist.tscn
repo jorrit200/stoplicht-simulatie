@@ -27,3 +27,8 @@ shape = SubResource("RectangleShape2D_cpud4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensorCyc"]
 position = Vector2(23, 0)
 shape = SubResource("RectangleShape2D_wja5q")
+
+[connection signal="area_entered" from="VoorSensorCyc" to="." method="_on_voor_sensor_area_entered"]
+[connection signal="area_exited" from="VoorSensorCyc" to="." method="_on_voor_sensor_area_exited"]
+[connection signal="body_entered" from="VoorSensorCyc" to="." method="_on_voor_sensor_cyc_body_entered"]
+[connection signal="body_exited" from="VoorSensorCyc" to="." method="_on_voor_sensor_cyc_body_exited"]
