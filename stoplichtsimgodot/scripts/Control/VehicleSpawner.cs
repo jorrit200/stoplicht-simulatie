@@ -55,10 +55,10 @@ public partial class VehicleSpawner : Node2D
 	{
 		for (var i = 1; i < 13; i++)
 		{
-			_paths.Add(GetNode<PathFollow2D>($"../Paths/Path2D{i}/Path{i}"));
+			_paths.Add(GetNode<PathFollow2D>($"../CarPaths/Path2D{i}/Path{i}"));
 		}
-		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D2_2/Path2_2"));
-		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D8_2/Path8_2"));
+		_paths.Add(GetNode<PathFollow2D>("../CarPaths/Path2D2_2/Path2_2"));
+		_paths.Add(GetNode<PathFollow2D>("../CarPaths/Path2D8_2/Path8_2"));
 
 		_boatPaths.Add(GetNode<PathFollow2D>($"../BoatPaths/BoatPath71/Path71"));
 		_boatPaths.Add(GetNode<PathFollow2D>($"../BoatPaths/BoatPath72/Path72"));
@@ -68,10 +68,10 @@ public partial class VehicleSpawner : Node2D
 			_bikePaths.Add(GetNode<PathFollow2D>($"../BikePaths/BikePath{i}/Path{i}"));
 		}
 
-		_sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D1"));
-		_sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D2"));
-		_sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D2_2"));
-		_sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D3"));
+		_sharedSpawnPaths.Add(GetNode<Path2D>("../CarPaths/Path2D1"));
+		_sharedSpawnPaths.Add(GetNode<Path2D>("../CarPaths/Path2D2"));
+		_sharedSpawnPaths.Add(GetNode<Path2D>("../CarPaths/Path2D2_2"));
+		_sharedSpawnPaths.Add(GetNode<Path2D>("../CarPaths/Path2D3"));
 
 		if (_vehicles.Count == 0 || _paths.Count == 0)
 		{

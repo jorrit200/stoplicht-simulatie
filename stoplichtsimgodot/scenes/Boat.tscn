@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdd8oh7n776sq"]
 
-[ext_resource type="Script" uid="uid://rs2og1y2smrn" path="res://scripts/Boat.cs" id="1_xwkqa"]
+[ext_resource type="Script" uid="uid://rs2og1y2smrn" path="res://scripts/Traffic/Boat.cs" id="1_xwkqa"]
 [ext_resource type="Texture2D" uid="uid://e1d42xisve5b" path="res://art/Vehicles/Boot.png" id="2_mlulb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]

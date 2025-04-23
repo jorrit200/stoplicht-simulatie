@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnd441qh34r0k"]
 
-[ext_resource type="Script" uid="uid://bndjlpeheq5nv" path="res://scripts/Cyclist.cs" id="1_gfuy5"]
+[ext_resource type="Script" uid="uid://bndjlpeheq5nv" path="res://scripts/Traffic/Cyclist.cs" id="1_gfuy5"]
 [ext_resource type="Texture2D" uid="uid://bajxp5erujh47" path="res://art/Vehicles/Fietser.png" id="2_hwtub"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpud4"]
