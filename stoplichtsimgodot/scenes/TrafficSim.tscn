@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
 [ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/Control/ZmqSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/Control/VehicleSpawner.cs" id="3_67ex8"]
-[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
@@ -458,53 +458,69 @@ shape = SubResource("RectangleShape2D_tdxnf")
 script = ExtResource("11_wl330")
 subscriber = NodePath("../ZMQSubscriber")
 
-[node name="1_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="1_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 228)
+AffectedPaths = [NodePath("../../CarPaths/Path2D1")]
 
-[node name="2_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="2_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 243)
+AffectedPaths = [NodePath("../../CarPaths/Path2D2")]
 
-[node name="2_2" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="2_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 258)
+AffectedPaths = [NodePath("../../CarPaths/Path2D2_2")]
 
-[node name="3_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="3_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 274)
+AffectedPaths = [NodePath("../../CarPaths/Path2D3")]
 
-[node name="4_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="4_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(307, 392)
+AffectedPaths = [NodePath("../../CarPaths/Path2D4")]
 
-[node name="5_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="5_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(294, 392)
+AffectedPaths = [NodePath("../../CarPaths/Path2D5")]
 
-[node name="6_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="6_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(279, 392)
+AffectedPaths = [NodePath("../../CarPaths/Path2D6")]
 
-[node name="7_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="7_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 329)
+AffectedPaths = [NodePath("../../CarPaths/Path2D7")]
 
-[node name="8_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="8_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 314)
+AffectedPaths = [NodePath("../../CarPaths/Path2D8")]
 
-[node name="8_2" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="8_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 299)
+AffectedPaths = [NodePath("../../CarPaths/Path2D8_2")]
 
-[node name="9_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="9_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 285)
+AffectedPaths = [NodePath("../../CarPaths/Path2D9")]
 
-[node name="10_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="10_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(239, 163)
+AffectedPaths = [NodePath("../../CarPaths/Path2D10")]
 
-[node name="11_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="11_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(252, 163)
+AffectedPaths = [NodePath("../../CarPaths/Path2D11")]
 
-[node name="12_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="12_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(265, 163)
+AffectedPaths = [NodePath("../../CarPaths/Path2D12")]
 
-[node name="71_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="71_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(1751, 357)
+AffectedPaths = [NodePath("../../BoatPaths/BoatPath71")]
 
-[node name="72_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="72_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(1712, 547)
+AffectedPaths = [NodePath("../../BoatPaths/BoatPath72")]
 
 [node name="CarPaths" type="Node2D" parent="."]
 position = Vector2(960.228, 324.478)
