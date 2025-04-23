@@ -7,6 +7,6 @@ public partial class Cyclist : Vehicle
 		Speed = 20;
 		RoadToUse = "BikeRoad";
 		IsMoving = true;
-		SpawnChance = 15;
+		SpawnChance = 10;
 	}
 }

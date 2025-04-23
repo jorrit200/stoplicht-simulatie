@@ -7,14 +7,17 @@ public partial class VehicleSpawner : Node2D
 {
 	private readonly List<PackedScene> _vehicles = new List<PackedScene>();
 	private readonly List<PackedScene> _boats = new List<PackedScene>();
-	
+	private readonly List<PackedScene> _bikes = new List<PackedScene>();
+
 	private readonly List<PathFollow2D> _paths = new List<PathFollow2D>();
 	private readonly List<PathFollow2D> _boatPaths = new List<PathFollow2D>();
+	private readonly List<PathFollow2D> _bikePaths = new List<PathFollow2D>();
 
 	[Export] public PackedScene Car;
 	[Export] public PackedScene Bus;
 	[Export] public PackedScene EmergencyVehicle;
 	[Export] public PackedScene Boat;
+	[Export] public PackedScene Cyclist;
 
 	private readonly HashSet<Path2D> _sharedSpawnPaths = new HashSet<Path2D>();
 	private float _sharedCooldown = 0f;
@@ -28,17 +31,42 @@ public partial class VehicleSpawner : Node2D
 		_vehicles.Add(Bus);
 		_vehicles.Add(EmergencyVehicle);
 		_boats.Add(Boat);
+		_bikes.Add(Cyclist);
 
+		createPaths();
+
+		var spawnTimer = new Timer();
+		spawnTimer.WaitTime = 1.3f;
+		spawnTimer.Autostart = true;
+		spawnTimer.OneShot = false;
+		spawnTimer.Timeout += SpawnRandomRoadVehicle;
+		spawnTimer.Timeout += SpawnRandomBoat;
+		spawnTimer.Timeout += SpawnRandomBike;
+		AddChild(spawnTimer);
+	}
+
+	public override void _Process(double delta)
+	{
+		if (_sharedCooldown > 0f)
+			_sharedCooldown -= (float)delta;
+	}
+
+	public void createPaths()
+	{
 		for (var i = 1; i < 13; i++)
 		{
 			_paths.Add(GetNode<PathFollow2D>($"../Paths/Path2D{i}/Path{i}"));
 		}
-		
+		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D2_2/Path2_2"));
+		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D8_2/Path8_2"));
+
 		_boatPaths.Add(GetNode<PathFollow2D>($"../BoatPaths/BoatPath71/Path71"));
 		_boatPaths.Add(GetNode<PathFollow2D>($"../BoatPaths/BoatPath72/Path72"));
 
-		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D2_2/Path2_2"));
-		_paths.Add(GetNode<PathFollow2D>("../Paths/Path2D8_2/Path8_2"));
+		for (var i = 1; i < 9; i++)
+		{
+			_bikePaths.Add(GetNode<PathFollow2D>($"../BikePaths/BikePath{i}/Path{i}"));
+		}
 
 		_sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D1"));
 		_sharedSpawnPaths.Add(GetNode<Path2D>("../Paths/Path2D2"));
@@ -52,28 +80,13 @@ public partial class VehicleSpawner : Node2D
 		}
 
 		GD.Print($"Aantal voertuigen: {_vehicles.Count}, Aantal paden: {_paths.Count}");
-
-		// Start een timer om te spawnen
-		var spawnTimer = new Timer();
-		spawnTimer.WaitTime = 1.3f;
-		spawnTimer.Autostart = true;
-		spawnTimer.OneShot = false;
-		spawnTimer.Timeout += SpawnRandomVehicle;
-		spawnTimer.Timeout += SpawnRandomBoat;
-		AddChild(spawnTimer);
 	}
 
-	public override void _Process(double delta)
-	{
-		if (_sharedCooldown > 0f)
-			_sharedCooldown -= (float)delta;
-	}
-
-	private void SpawnRandomVehicle()
+	private void SpawnRandomRoadVehicle()
 	{
 		if (_vehicles.Count == 0 || _paths.Count == 0)
 		{
-			GD.PrintErr("FOUT: Geen voertuigen of paden beschikbaar!");
+			GD.PrintErr("Error: No vehicles or paths available!");
 			return;
 		}
 
@@ -118,39 +131,74 @@ public partial class VehicleSpawner : Node2D
 				maxSound.Play();
 		}
 	}
-	
+
 	private void SpawnRandomBoat()
 	{
-	if (_boats.Count == 0 || _boatPaths.Count == 0)
-	{
-		GD.PrintErr("FOUT: Geen boten of bootpaden beschikbaar!");
-		return;
+		if (_boats.Count == 0 || _boatPaths.Count == 0)
+		{
+			GD.PrintErr("Error: No boats or boatpaths available!");
+			return;
+		}
+
+		foreach (var boatScene in _boats)
+		{
+			var tempBoat = boatScene.Instantiate<Vehicle>();
+			var chance = tempBoat.SpawnChance;
+			var roll = GD.Randf() * 100f;
+
+			if (roll > chance) continue;
+
+			var pathIndex = (int)(GD.Randi() % _boatPaths.Count);
+			var basePath = (Path2D)_boatPaths[pathIndex].GetParent();
+
+			var boatFollow = new PathFollow2D
+			{
+				Loop = false,
+				Rotates = true,
+				Name = $"BoatFollow_{GD.Randi()}"
+			};
+
+			basePath.AddChild(boatFollow);
+
+			var boat = boatScene.Instantiate<Vehicle>();
+			boatFollow.AddChild(boat);
+
+			boat.StartMoving(boatFollow);
+		}
 	}
 
-	foreach (var boatScene in _boats)
+	private void SpawnRandomBike()
 	{
-		var tempBoat = boatScene.Instantiate<Vehicle>();
-		var chance = tempBoat.SpawnChance;
-		var roll = GD.Randf() * 100f;
-
-		if (roll > chance) continue;
-
-		var pathIndex = (int)(GD.Randi() % _boatPaths.Count);
-		var basePath = (Path2D)_boatPaths[pathIndex].GetParent();
-
-		var boatFollow = new PathFollow2D
+		if (_bikes.Count == 0 || _bikePaths.Count == 0)
 		{
-			Loop = false,
-			Rotates = true,
-			Name = $"BoatFollow_{GD.Randi()}"
-		};
+			GD.PrintErr("Error: No bikes or bikepaths available!");
+			return;
+		}
 
-		basePath.AddChild(boatFollow);
+		foreach (var bikeScene in _bikes)
+		{
+			var tempBike = bikeScene.Instantiate<Vehicle>();
+			var chance = tempBike.SpawnChance;
+			var roll = GD.Randf() * 100f;
 
-		var boat = boatScene.Instantiate<Vehicle>();
-		boatFollow.AddChild(boat);
+			if (roll > chance) continue;
 
-		boat.StartMoving(boatFollow);
+			var pathIndex = (int)(GD.Randi() % _bikePaths.Count);
+			var basePath = (Path2D)_bikePaths[pathIndex].GetParent();
+
+			var bikeFollow = new PathFollow2D
+			{
+				Loop = false,
+				Rotates = true,
+				Name = $"BikeFollow_{GD.Randi()}"
+			};
+
+			basePath.AddChild(bikeFollow);
+
+			var bike = bikeScene.Instantiate<Vehicle>();
+			bikeFollow.AddChild(bike);
+
+			bike.StartMoving(bikeFollow);
 		}
 	}
 }
