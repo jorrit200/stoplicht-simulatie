@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl0wrq8imlb6q"]
+[gd_scene load_steps=5 format=3 uid="uid://cdd8oh7n776sq"]
 
-[ext_resource type="Script" uid="uid://bup4h4us4x5ej" path="res://scripts/Traffic/Bus.cs" id="1_wr10d"]
-[ext_resource type="Texture2D" uid="uid://063ytkkqu1bx" path="res://art/Vehicles/Bus.png" id="2_c8c07"]
+[ext_resource type="Script" uid="uid://rs2og1y2smrn" path="res://scripts/Traffic/Boat.cs" id="1_xwkqa"]
+[ext_resource type="Texture2D" uid="uid://e1d42xisve5b" path="res://art/Vehicles/Boot.png" id="2_mlulb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
 size = Vector2(50, 17)
@@ -9,19 +9,18 @@ size = Vector2(50, 17)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr10d"]
 size = Vector2(25, 11.75)
 
-[node name="Bus" type="CharacterBody2D"]
+[node name="Boat" type="CharacterBody2D"]
 z_index = -1
 scale = Vector2(0.8, 0.8)
-script = ExtResource("1_wr10d")
+script = ExtResource("1_xwkqa")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0.384823, -0.0233799)
-rotation = -1.5708
-scale = Vector2(0.0282126, 0.0376283)
-texture = ExtResource("2_c8c07")
+position = Vector2(0.045222, -0.099509)
+rotation = 1.5708
+scale = Vector2(0.0302818, 0.0345554)
+texture = ExtResource("2_mlulb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-modulate = Color(0, 0.99639, 0.648572, 1)
 shape = SubResource("RectangleShape2D_c35m8")
 
 [node name="VoorSensor" type="Area2D" parent="."]

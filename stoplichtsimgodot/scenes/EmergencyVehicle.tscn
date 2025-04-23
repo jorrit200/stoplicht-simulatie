@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://q15l7mrt2rg4"]
 
-[ext_resource type="Script" uid="uid://b1sovhpvp541f" path="res://scripts/EmergencyVehicle.cs" id="1_ckidl"]
+[ext_resource type="Script" uid="uid://b1sovhpvp541f" path="res://scripts/Traffic/EmergencyVehicle.cs" id="1_ckidl"]
 [ext_resource type="Texture2D" uid="uid://c2pxjsvi8v485" path="res://art/Vehicles/Redbull car.png" id="2_2hsmt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
