@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=51 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cdd8oh7n776sq" path="res://scenes/Boat.tscn" id="9_tdxnf"]
 [ext_resource type="PackedScene" uid="uid://cnd441qh34r0k" path="res://scenes/Cyclist.tscn" id="10_3yxpi"]
 [ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
+[ext_resource type="PackedScene" uid="uid://d36kxjv3hlte2" path="res://scenes/pedestrian.tscn" id="11_r54nr"]
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
@@ -168,6 +169,54 @@ _data = {
 }
 point_count = 33
 
+[sub_resource type="Curve2D" id="Curve2D_6brdl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 314, -6, 0, 0, 0, 0, 313, 31, 0, 0, 0, 0, 319, 52, 0, 0, 0, 0, 326, 115, 0, 0, 0, 0, 333, 144, 0, 0, 0, 0, 359, 172, 0, 0, 0, 0, 362, 208, 0, 0, 0, 0, 363, 280, 0, 0, 0, 0, 361, 341, 0, 0, 0, 0, 361, 395, 0, 0, 0, 0, 359, 443, 0, 0, 0, 0, 363, 456, 0, 0, 0, 0, 371, 478, 0, 0, 0, 0, 367, 514, 0, 0, 0, 0, 358, 547, 0, 0, 0, 0, 342, 585, 0, 0, 0, 0, 325, 628, 0, 0, 0, 0, 321, 641, 0, 0, 0, 0, 315, 658)
+}
+point_count = 19
+
+[sub_resource type="Curve2D" id="Curve2D_vndc8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 325, 652, 0, 0, 0, 0, 347, 598, 0, 0, 0, 0, 367, 546, 0, 0, 0, 0, 379, 468, 0, 0, 0, 0, 369, 450, 0, 0, 0, 0, 364, 434, 0, 0, 0, 0, 366, 397, 0, 0, 0, 0, 370, 378, 0, 0, 0, 0, 369, 332, 0, 0, 0, 0, 370, 263, 0, 0, 0, 0, 372, 209, 0, 0, 0, 0, 370, 170, 0, 0, 0, 0, 345, 140, 0, 0, 0, 0, 332, 97, 0, 0, 0, 0, 326, 46, 0, 0, 0, 0, 330, 5, 0, 0, 0, 0, 332, -10)
+}
+point_count = 17
+
+[sub_resource type="Curve2D" id="Curve2D_xioqg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1934, 402, 0, 0, 0, 0, 1838, 424, 0, 0, 0, 0, 1791, 425, 0, 0, 0, 0, 1739, 408, 0, 0, 0, 0, 1678, 383, 0, 0, 0, 0, 1558, 343, 0, 0, 0, 0, 1452, 313, 0, 0, 0, 0, 1411, 301, 0, 0, 0, 0, 1345, 284, 0, 0, 0, 0, 1270, 266, 0, 0, 0, 0, 1174, 247, 0, 0, 0, 0, 1094, 234, 0, 0, 0, 0, 1032, 226, 0, 0, 0, 0, 918, 213, 0, 0, 0, 0, 761, 200, 0, 0, 0, 0, 664, 194, 0, 0, 0, 0, 588, 191, 0, 0, 0, 0, 473, 186, 0, 0, 0, 0, 416, 187, 0, 0, 0, 0, 393, 180, 0, 0, 0, 0, 365, 173, 0, 0, 0, 0, 331, 170, 0, 0, 0, 0, 303, 171, 0, 0, 0, 0, 245, 172, 0, 0, 0, 0, 218, 172, 0, 0, 0, 0, 124, 180, 0, 0, 0, 0, 103, 181, 0, 0, 0, 0, 71, 180, 0, 0, 0, 0, 47, 179, 0, 0, 0, 0, 20, 178, 0, 0, 0, 0, -16, 176)
+}
+point_count = 31
+
+[sub_resource type="Curve2D" id="Curve2D_ao1ii"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -5, 183, 0, 0, 0, 0, 30, 185, 0, 0, 0, 0, 68, 186, 0, 0, 0, 0, 107, 186, 0, 0, 0, 0, 142, 184, 0, 0, 0, 0, 206, 180, 0, 0, 0, 0, 329, 177, 0, 0, 0, 0, 364, 179, 0, 0, 0, 0, 389, 192, 0, 0, 0, 0, 426, 194, 0, 0, 0, 0, 547, 197, 0, 0, 0, 0, 704, 202, 0, 0, 0, 0, 812, 210, 0, 0, 0, 0, 993, 227, 0, 0, 0, 0, 1147, 250, 0, 0, 0, 0, 1302, 283, 0, 0, 0, 0, 1414, 311, 0, 0, 0, 0, 1562, 357, 0, 0, 0, 0, 1637, 380, 0, 0, 0, 0, 1697, 402, 0, 0, 0, 0, 1754, 420, 0, 0, 0, 0, 1794, 431, 0, 0, 0, 0, 1819, 434, 0, 0, 0, 0, 1849, 429, 0, 0, 0, 0, 1890, 421, 0, 0, 0, 0, 1915, 413, 0, 0, 0, 0, 1934, 412)
+}
+point_count = 27
+
+[sub_resource type="Curve2D" id="Curve2D_p7fhn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -3, 376, 0, 0, 0, 0, 146, 375, 0, 0, 0, 0, 218, 389, 0, 0, 0, 0, 229, 388, 0, 0, 0, 0, 311, 387, 0, 0, 0, 0, 336, 388, 0, 0, 0, 0, 362, 385, 0, 0, 0, 0, 413, 368, 0, 0, 0, 0, 441, 363, 0, 0, 0, 0, 465, 361, 0, 0, 0, 0, 502, 361, 0, 0, 0, 0, 555, 362, 0, 0, 0, 0, 636, 362, 0, 0, 0, 0, 834, 368, 0, 0, 0, 0, 966, 376, 0, 0, 0, 0, 1074, 388, 0, 0, 0, 0, 1197, 406, 0, 0, 0, 0, 1348, 435, 0, 0, 0, 0, 1491, 468, 0, 0, 0, 0, 1583, 494, 0, 0, 0, 0, 1689, 509, 0, 0, 0, 0, 1769, 533, 0, 0, 0, 0, 1804, 554, 0, 0, 0, 0, 1830, 583, 0, 0, 0, 0, 1854, 632, 0, 0, 0, 0, 1866, 662)
+}
+point_count = 26
+
+[sub_resource type="Curve2D" id="Curve2D_0pxm1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1882, 658, 0, 0, 0, 0, 1857, 617, 0, 0, 0, 0, 1832, 571, 0, 0, 0, 0, 1818, 554, 0, 0, 0, 0, 1786, 533, 0, 0, 0, 0, 1735, 516, 0, 0, 0, 0, 1670, 500, 0, 0, 0, 0, 1606, 488, 0, 0, 0, 0, 1519, 468, 0, 0, 0, 0, 1413, 445, 0, 0, 0, 0, 1313, 423, 0, 0, 0, 0, 1190, 396, 0, 0, 0, 0, 1076, 378, 0, 0, 0, 0, 970, 369, 0, 0, 0, 0, 834, 363, 0, 0, 0, 0, 798, 362, 0, 0, 0, 0, 689, 359, 0, 0, 0, 0, 600, 358, 0, 0, 0, 0, 564, 357, 0, 0, 0, 0, 532, 357, 0, 0, 0, 0, 465, 356, 0, 0, 0, 0, 424, 355, 0, 0, 0, 0, 391, 368, 0, 0, 0, 0, 364, 377, 0, 0, 0, 0, 326, 382, 0, 0, 0, 0, 276, 382, 0, 0, 0, 0, 243, 381, 0, 0, 0, 0, 234, 382, 0, 0, 0, 0, 215, 380, 0, 0, 0, 0, 174, 372, 0, 0, 0, 0, 135, 368, 0, 0, 0, 0, -2, 366)
+}
+point_count = 32
+
+[sub_resource type="Curve2D" id="Curve2D_fxoco"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 157, 660, 0, 0, 0, 0, 165, 624, 0, 0, 0, 0, 175, 574, 0, 0, 0, 0, 180, 537, 0, 0, 0, 0, 183, 489, 0, 0, 0, 0, 182, 422, 0, 0, 0, 0, 181, 384, 0, 0, 0, 0, 182, 333, 0, 0, 0, 0, 181, 281, 0, 0, 0, 0, 182, 225, 0, 0, 0, 0, 181, 199, 0, 0, 0, 0, 191, 158, 0, 0, 0, 0, 206, 136, 0, 0, 0, 0, 216, 107, 0, 0, 0, 0, 216, 12, 0, 0, 0, 0, 216, -10)
+}
+point_count = 16
+
+[sub_resource type="Curve2D" id="Curve2D_7te81"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 207, -6, 0, 0, 0, 0, 208, 22, 0, 0, 0, 0, 209, 37, 0, 0, 0, 0, 209, 72, 0, 0, 0, 0, 208, 107, 0, 0, 0, 0, 198, 137, 0, 0, 0, 0, 181, 164, 0, 0, 0, 0, 175, 205, 0, 0, 0, 0, 175, 225, 0, 0, 0, 0, 175, 317, 0, 0, 0, 0, 175, 453, 0, 0, 0, 0, 174, 500, 0, 0, 0, 0, 170, 562, 0, 0, 0, 0, 159, 617, 0, 0, 0, 0, 148, 660)
+}
+point_count = 15
+
 [node name="TrafficSim" type="Node2D"]
 script = ExtResource("1_6sd47")
 
@@ -196,6 +245,7 @@ Bus = ExtResource("5_10emi")
 EmergencyVehicle = ExtResource("6_6tk20")
 Boat = ExtResource("9_tdxnf")
 Cyclist = ExtResource("10_3yxpi")
+Pedestrian = ExtResource("11_r54nr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 325)
@@ -451,7 +501,7 @@ position = Vector2(252, 163)
 position = Vector2(265, 163)
 
 [node name="71_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
-position = Vector2(1747, 362)
+position = Vector2(1751, 357)
 
 [node name="72_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
 position = Vector2(1712, 547)
@@ -659,3 +709,61 @@ curve = SubResource("Curve2D_chopx")
 [node name="Path8" type="PathFollow2D" parent="BikePaths/BikePath8"]
 position = Vector2(221, -6)
 rotation = 1.55814
+
+[node name="PedPaths" type="Node2D" parent="."]
+
+[node name="PedPath1" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_6brdl")
+
+[node name="Path1" type="PathFollow2D" parent="PedPaths/PedPath1"]
+position = Vector2(314, -6)
+rotation = 1.59782
+
+[node name="PedPath2" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_vndc8")
+
+[node name="Path2" type="PathFollow2D" parent="PedPaths/PedPath2"]
+position = Vector2(325, 652)
+rotation = -1.18392
+
+[node name="PedPath3" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_xioqg")
+
+[node name="Path3" type="PathFollow2D" parent="PedPaths/PedPath3"]
+position = Vector2(1934, 402)
+rotation = 2.91632
+
+[node name="PedPath4" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_ao1ii")
+
+[node name="Path4" type="PathFollow2D" parent="PedPaths/PedPath4"]
+position = Vector2(-5, 183)
+rotation = 0.0570808
+
+[node name="PedPath5" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_p7fhn")
+
+[node name="Path5" type="PathFollow2D" parent="PedPaths/PedPath5"]
+position = Vector2(-3, 376)
+rotation = -0.00671131
+
+[node name="PedPath6" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_0pxm1")
+
+[node name="Path6" type="PathFollow2D" parent="PedPaths/PedPath6"]
+position = Vector2(1882, 658)
+rotation = -2.11836
+
+[node name="PedPath7" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_fxoco")
+
+[node name="Path7" type="PathFollow2D" parent="PedPaths/PedPath7"]
+position = Vector2(157, 660)
+rotation = -1.35213
+
+[node name="PedPath8" type="Path2D" parent="PedPaths"]
+curve = SubResource("Curve2D_7te81")
+
+[node name="Path8" type="PathFollow2D" parent="PedPaths/PedPath8"]
+position = Vector2(207, -6)
+rotation = 1.5351

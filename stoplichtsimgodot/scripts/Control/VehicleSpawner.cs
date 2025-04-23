@@ -8,16 +8,19 @@ public partial class VehicleSpawner : Node2D
 	private readonly List<PackedScene> _vehicles = new List<PackedScene>();
 	private readonly List<PackedScene> _boats = new List<PackedScene>();
 	private readonly List<PackedScene> _bikes = new List<PackedScene>();
+	private readonly List<PackedScene> _peds = new List<PackedScene>();
 
 	private readonly List<PathFollow2D> _paths = new List<PathFollow2D>();
 	private readonly List<PathFollow2D> _boatPaths = new List<PathFollow2D>();
 	private readonly List<PathFollow2D> _bikePaths = new List<PathFollow2D>();
+	private readonly List<PathFollow2D> _pedPaths = new List<PathFollow2D>();
 
 	[Export] public PackedScene Car;
 	[Export] public PackedScene Bus;
 	[Export] public PackedScene EmergencyVehicle;
 	[Export] public PackedScene Boat;
 	[Export] public PackedScene Cyclist;
+	[Export] public PackedScene Pedestrian;
 
 	private readonly HashSet<Path2D> _sharedSpawnPaths = new HashSet<Path2D>();
 	private float _sharedCooldown = 0f;
@@ -32,6 +35,7 @@ public partial class VehicleSpawner : Node2D
 		_vehicles.Add(EmergencyVehicle);
 		_boats.Add(Boat);
 		_bikes.Add(Cyclist);
+		_peds.Add(Pedestrian);
 
 		createPaths();
 
@@ -42,6 +46,7 @@ public partial class VehicleSpawner : Node2D
 		spawnTimer.Timeout += SpawnRandomRoadVehicle;
 		spawnTimer.Timeout += SpawnRandomBoat;
 		spawnTimer.Timeout += SpawnRandomBike;
+		spawnTimer.Timeout += SpawnRandomPedestrian;
 		AddChild(spawnTimer);
 	}
 
@@ -66,6 +71,11 @@ public partial class VehicleSpawner : Node2D
 		for (var i = 1; i < 9; i++)
 		{
 			_bikePaths.Add(GetNode<PathFollow2D>($"../BikePaths/BikePath{i}/Path{i}"));
+		}
+
+		for (var i = 1; i < 9; i++)
+		{
+			_pedPaths.Add(GetNode<PathFollow2D>($"../PedPaths/PedPath{i}/Path{i}"));
 		}
 
 		_sharedSpawnPaths.Add(GetNode<Path2D>("../CarPaths/Path2D1"));
@@ -199,6 +209,41 @@ public partial class VehicleSpawner : Node2D
 			bikeFollow.AddChild(bike);
 
 			bike.StartMoving(bikeFollow);
+		}
+	}
+
+	private void SpawnRandomPedestrian()
+	{
+		if (_peds.Count == 0 || _pedPaths.Count == 0)
+		{
+			GD.PrintErr("Error: No pedestrians or pedpaths available!");
+			return;
+		}
+
+		foreach (var pedScene in _peds)
+		{
+			var tempPed = pedScene.Instantiate<Vehicle>();
+			var chance = tempPed.SpawnChance;
+			var roll = GD.Randf() * 100f;
+
+			if (roll > chance) continue;
+
+			var pathIndex = (int)(GD.Randi() % _pedPaths.Count);
+			var basePath = (Path2D)_pedPaths[pathIndex].GetParent();
+
+			var pedFollow = new PathFollow2D
+			{
+				Loop = false,
+				Rotates = true,
+				Name = $"PedFollow_{GD.Randi()}"
+			};
+
+			basePath.AddChild(pedFollow);
+
+			var ped = pedScene.Instantiate<Vehicle>();
+			pedFollow.AddChild(ped);
+
+			ped.StartMoving(pedFollow);
 		}
 	}
 }
