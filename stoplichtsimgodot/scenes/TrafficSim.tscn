@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=56 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
 [ext_resource type="PackedScene" uid="uid://d36kxjv3hlte2" path="res://scenes/pedestrian.tscn" id="11_r54nr"]
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
+[ext_resource type="Script" uid="uid://cdj56khktwh2x" path="res://scripts/Control/SensorenSpeciaal.cs" id="14_fwia5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
 size = Vector2(33.625, 6.9375)
@@ -27,6 +28,15 @@ size = Vector2(5.125, 5.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tdxnf"]
 size = Vector2(20, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwia5"]
+size = Vector2(36.3942, 117.641)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c24n3"]
+size = Vector2(36.3093, 122.738)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3d0v"]
+size = Vector2(64, 32)
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
@@ -600,6 +610,31 @@ position = Vector2(1767, 335)
 position = Vector2(-76, 243)
 rotation = 0.488692
 shape = SubResource("RectangleShape2D_tdxnf")
+
+[node name="Sensoren_Speciaal" type="Node2D" parent="."]
+script = ExtResource("14_fwia5")
+
+[node name="brug_wegdek" type="Area2D" parent="Sensoren_Speciaal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_wegdek"]
+position = Vector2(1719.85, 458.731)
+rotation = 0.497419
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_fwia5")
+
+[node name="brug_water" type="Area2D" parent="Sensoren_Speciaal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_water"]
+position = Vector2(1720.29, 458.156)
+rotation = 0.497419
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_c24n3")
+
+[node name="brug_file" type="Area2D" parent="Sensoren_Speciaal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_file"]
+position = Vector2(766, 319)
+shape = SubResource("RectangleShape2D_q3d0v")
 
 [node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("subscriber")]
 script = ExtResource("11_wl330")
