@@ -9,7 +9,7 @@ public partial class Cyclist : Vehicle
 		Speed = 20;
 		RoadToUse = "BikeRoad";
 		IsMoving = true;
-		SpawnChance = 50;
+		SpawnChance = 5;
 	}
 
 	private float _originalSpeed;

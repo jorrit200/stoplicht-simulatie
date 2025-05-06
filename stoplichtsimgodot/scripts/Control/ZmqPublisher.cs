@@ -57,7 +57,6 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 	public void Send(string topic, string message)
 	{
 		_publisher.SendMoreFrame(topic).SendFrame(message);
-		GD.Print(topic, message);
 	}
 
 	public override void _ExitTree()
