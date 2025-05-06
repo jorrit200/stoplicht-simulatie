@@ -9,7 +9,7 @@ public partial class Pedestrian : Vehicle
 		Speed = 6;
 		RoadToUse = "PedRoad";
 		IsMoving = true;
-		SpawnChance = 5;
+		SpawnChance = 50;
 	}
 	private float _originalSpeed;
 	private int _overlapCount = 0;
