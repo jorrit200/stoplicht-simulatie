@@ -14,6 +14,7 @@ public partial class Pedestrian : Vehicle
 	private float _originalSpeed;
 	private int _overlapCount = 0;
 	private int _lightOverlapCount = 0;
+	private PathFollow2D _pathFollow;
 
 	public override void _Ready()
 	{
