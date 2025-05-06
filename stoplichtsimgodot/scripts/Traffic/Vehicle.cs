@@ -15,7 +15,7 @@ public partial class Vehicle : CharacterBody2D
 
 	private int _lightOverlapCount = 0;
 
-	private PathFollow2D _pathFollow;
+	public PathFollow2D _pathFollow;
 
 	public void StartMoving(PathFollow2D followPath)
 	{
