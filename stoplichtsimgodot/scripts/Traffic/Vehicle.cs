@@ -15,7 +15,7 @@ public partial class Vehicle : CharacterBody2D
 
 	private int _lightOverlapCount = 0;
 
-	private PathFollow2D _pathFollow;
+	public PathFollow2D _pathFollow;
 
 	public void StartMoving(PathFollow2D followPath)
 	{
@@ -53,7 +53,7 @@ public partial class Vehicle : CharacterBody2D
 
 	private void _on_voor_sensor_body_exited(CharacterBody2D body)
 	{
-		if (_lightOverlapCount > 0) return; // Als er een verkeerslicht is, negeer dan de overlap met andere voertuigen
+		if (_lightOverlapCount > 0) return;
 		if (body is not Vehicle || body == this) return;
 		_overlapCount = Math.Max(0, _overlapCount - 1);
 		if (_overlapCount != 0) return;

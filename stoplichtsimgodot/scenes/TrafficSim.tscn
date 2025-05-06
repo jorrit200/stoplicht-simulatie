@@ -160,7 +160,7 @@ point_count = 30
 
 [sub_resource type="Curve2D" id="Curve2D_vj1ca"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -4, 360, 0, 0, 0, 0, 186, 363, 0, 0, 0, 0, 193, 356, 0, 0, 0, 0, 197, 346, 0, 0, 0, 0, 197, 276, 0, 0, 0, 0, 200, 214, 0, 0, 0, 0, 198, 179, 0, 0, 0, 0, 217, 156, 0, 0, 0, 0, 225, 132, 0, 0, 0, 0, 228, 105, 0, 0, 0, 0, 228, -6)
+"points": PackedVector2Array(0, 0, 0, 0, -4, 360, 0, 0, 0, 0, 175, 363, 0, 0, 0, 0, 186, 364, 0, 0, 0, 0, 197, 362, 0, 0, 0, 0, 197, 276, 0, 0, 0, 0, 200, 214, 0, 0, 0, 0, 198, 179, 0, 0, 0, 0, 217, 156, 0, 0, 0, 0, 225, 132, 0, 0, 0, 0, 228, 105, 0, 0, 0, 0, 228, -6)
 }
 point_count = 11
 
@@ -620,7 +620,6 @@ script = ExtResource("14_fwia5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_wegdek"]
 position = Vector2(1719.85, 458.731)
 rotation = 0.497419
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_fwia5")
 
 [node name="brug_water" type="Area2D" parent="Sensoren_Speciaal"]
@@ -628,7 +627,6 @@ shape = SubResource("RectangleShape2D_fwia5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_water"]
 position = Vector2(1720.29, 458.156)
 rotation = 0.497419
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_c24n3")
 
 [node name="brug_file" type="Area2D" parent="Sensoren_Speciaal"]
@@ -718,7 +716,7 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../BikePaths/BikePath4")]
 
 [node name="25_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(197, 338)
+position = Vector2(197, 335)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../BikePaths/BikePath5")]
 
@@ -1037,7 +1035,7 @@ curve = SubResource("Curve2D_vj1ca")
 
 [node name="Path5" type="PathFollow2D" parent="BikePaths/BikePath5"]
 position = Vector2(-4, 360)
-rotation = 0.0157882
+rotation = 0.0167582
 
 [node name="BikePath6" type="Path2D" parent="BikePaths"]
 curve = SubResource("Curve2D_a8x3r")
