@@ -518,6 +518,7 @@ position = Vector2(362, 286)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="32_2_voor" type="Area2D" parent="Sensors"]
+position = Vector2(0, 4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/32_2_voor"]
 position = Vector2(369, 330)
@@ -603,10 +604,10 @@ position = Vector2(5, -9)
 rotation = 0.514872
 shape = SubResource("RectangleShape2D_tdxnf")
 
-[node name="71_2_voor" type="Area2D" parent="Sensors"]
+[node name="72_1_voor" type="Area2D" parent="Sensors"]
 position = Vector2(1767, 335)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/71_2_voor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/72_1_voor"]
 position = Vector2(-76, 243)
 rotation = 0.488692
 shape = SubResource("RectangleShape2D_tdxnf")
@@ -752,7 +753,7 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath1")]
 
 [node name="32_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(369, 325)
+position = Vector2(369, 329)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath2")]
 
