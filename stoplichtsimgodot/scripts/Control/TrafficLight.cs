@@ -6,7 +6,10 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class TrafficLight : Area2D
 {
-	private TrafficLightState State { get; set; } = TrafficLightState.Green;
+	private TrafficLightState State { get; set; } = TrafficLightState.Red;
+
+	[Export]
+	public Godot.Collections.Array<Path2D> AffectedPaths { get; set; } = new();
 
 	public void ApplyState(TrafficLightState newState)
 	{
@@ -54,7 +57,7 @@ public partial class TrafficLight : Area2D
 //todo: move to a more sensible place
 public enum TrafficLightState
 {
-	[EnumMember(Value = "groen")] 
+	[EnumMember(Value = "groen")]
 	Green,
 	[EnumMember(Value = "oranje")]
 	Orange,
