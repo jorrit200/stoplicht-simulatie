@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=57 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
 [ext_resource type="PackedScene" uid="uid://d36kxjv3hlte2" path="res://scenes/pedestrian.tscn" id="11_r54nr"]
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
+[ext_resource type="Script" uid="uid://ddegho1m0po4e" path="res://scripts/Control/VoorrangsQueueManager.cs" id="12_c24n3"]
 [ext_resource type="Script" uid="uid://cdj56khktwh2x" path="res://scripts/Control/SensorenSpeciaal.cs" id="14_fwia5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
@@ -260,6 +261,9 @@ Boat = ExtResource("9_tdxnf")
 Cyclist = ExtResource("10_3yxpi")
 Pedestrian = ExtResource("11_r54nr")
 
+[node name="VoorrangsQueueManager" type="Node2D" parent="."]
+script = ExtResource("12_c24n3")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 325)
 
@@ -280,7 +284,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="1_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_1_achter"]
-position = Vector2(521, 229)
+position = Vector2(497, 229)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="2_1_voor" type="Area2D" parent="Sensors"]
@@ -292,7 +296,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="2_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/2_1_achter"]
-position = Vector2(521, 246)
+position = Vector2(498, 246)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="2_2_voor" type="Area2D" parent="Sensors"]
@@ -304,7 +308,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="2_2_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/2_2_achter"]
-position = Vector2(521, 261)
+position = Vector2(498, 261)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="3_1_voor" type="Area2D" parent="Sensors"]
@@ -316,7 +320,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="3_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/3_1_achter"]
-position = Vector2(521, 278)
+position = Vector2(498, 277)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="4_1_voor" type="Area2D" parent="Sensors"]
@@ -330,7 +334,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/4_1_achter"]
-position = Vector2(-215, 197)
+position = Vector2(-216, 220)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="5_1_voor" type="Area2D" parent="Sensors"]
@@ -344,7 +348,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/5_1_achter"]
-position = Vector2(-230, 197)
+position = Vector2(-231, 220)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="6_1_voor" type="Area2D" parent="Sensors"]
@@ -358,7 +362,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/6_1_achter"]
-position = Vector2(-245, 197)
+position = Vector2(-247, 220)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="7_1_voor" type="Area2D" parent="Sensors"]
@@ -420,7 +424,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/10_1_achter"]
-position = Vector2(-283, -203)
+position = Vector2(-283, -217)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="11_1_voor" type="Area2D" parent="Sensors"]
@@ -434,7 +438,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/11_1_achter"]
-position = Vector2(-269, -203)
+position = Vector2(-269, -217)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="12_1_voor" type="Area2D" parent="Sensors"]
@@ -448,7 +452,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/12_1_achter"]
-position = Vector2(-255, -203)
+position = Vector2(-255, -217)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="21_1_voor" type="Area2D" parent="Sensors"]

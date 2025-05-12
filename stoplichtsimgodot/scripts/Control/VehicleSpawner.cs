@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using Godot;
+using StoplichtSimGodot.interfaces;
+using StoplichtSimGodot.dto; // Voor evt. extra struct of DTO
+using System.Text.Json;
 
 namespace StoplichtSimGodot.scripts;
 
@@ -135,10 +138,27 @@ public partial class VehicleSpawner : Node2D
 				_sharedCooldown = _sharedCooldownTime;
 			}
 
-			if (vehicle is not scripts.EmergencyVehicle) continue;
-			var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
-			if (maxSound is { Playing: false })
-				maxSound.Play();
+			int? prioriteit = null;
+
+			if (vehicle is scripts.EmergencyVehicle)
+			{
+				prioriteit = 1;
+
+				var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
+				if (maxSound is { Playing: false })
+					maxSound.Play();
+			}
+			else if (vehicle is scripts.Bus)
+			{
+				prioriteit = 2;
+			}
+
+			// Voeg toe aan voorrangsqueue als het nodig is
+			if (prioriteit.HasValue && VoorrangsQueueManager.Instance != null)
+			{
+				var baanNaam = basePath.Name;
+				VoorrangsQueueManager.Instance.VoegToe(vehicle, baanNaam, prioriteit.Value);
+			}
 		}
 	}
 

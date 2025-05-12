@@ -15,7 +15,7 @@ public partial class Vehicle : CharacterBody2D
 
 	private int _lightOverlapCount = 0;
 
-	private PathFollow2D _pathFollow;
+	public PathFollow2D _pathFollow;
 
 	public void StartMoving(PathFollow2D followPath)
 	{
@@ -101,5 +101,11 @@ public partial class Vehicle : CharacterBody2D
 		tween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.In);
+	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		VoorrangsQueueManager.Instance?.Verwijder(this);
 	}
 }
