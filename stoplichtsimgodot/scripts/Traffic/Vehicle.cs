@@ -47,8 +47,16 @@ public partial class Vehicle : CharacterBody2D
 		GetTree().CreateTween().Kill();
 
 		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
+		if (this is EmergencyVehicle)
+		{
+			tween.TweenProperty(this, "Speed", 0.0f, 0.5f)
 			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
+		else
+		{
+			tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
+			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
 	}
 
 	private void _on_voor_sensor_body_exited(CharacterBody2D body)
@@ -79,9 +87,16 @@ public partial class Vehicle : CharacterBody2D
 		GetTree().CreateTween().Kill();
 
 		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
-			.SetTrans(Tween.TransitionType.Sine)
-			.SetEase(Tween.EaseType.Out);
+		if (this is EmergencyVehicle)
+		{
+			tween.TweenProperty(this, "Speed", 0.0f, 0.5f)
+			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
+		else
+		{
+			tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
+			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
 	}
 
 	private void _on_voor_sensor_area_exited(Area2D area)
