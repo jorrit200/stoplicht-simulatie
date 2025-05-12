@@ -6,7 +6,7 @@ namespace StoplichtSimGodot.scripts;
 
 public partial class TrafficLight : Area2D
 {
-	private TrafficLightState State { get; set; } = TrafficLightState.Green;
+	private TrafficLightState State { get; set; } = TrafficLightState.Red;
 
 	[Export]
 	public Godot.Collections.Array<Path2D> AffectedPaths { get; set; } = new();
