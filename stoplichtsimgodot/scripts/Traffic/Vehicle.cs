@@ -14,7 +14,7 @@ public partial class Vehicle : CharacterBody2D
 	private int _overlapCount = 0;
 
 	private int _lightOverlapCount = 0;
-
+	private Tween _speedTween;
 	public PathFollow2D _pathFollow;
 
 	public void StartMoving(PathFollow2D followPath)
@@ -44,11 +44,19 @@ public partial class Vehicle : CharacterBody2D
 		if (body is not Vehicle || body == this) return;
 		_overlapCount++;
 
-		GetTree().CreateTween().Kill();
+		_speedTween?.Kill();
 
-		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
+		_speedTween = CreateTween();
+		if (this is EmergencyVehicle)
+		{
+			_speedTween.TweenProperty(this, "Speed", 0.0f, 0.5f)
 			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
+		else
+		{
+			_speedTween.TweenProperty(this, "Speed", 0.0f, 1.0f)
+			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
 	}
 
 	private void _on_voor_sensor_body_exited(CharacterBody2D body)
@@ -57,11 +65,11 @@ public partial class Vehicle : CharacterBody2D
 		if (body is not Vehicle || body == this) return;
 		_overlapCount = Math.Max(0, _overlapCount - 1);
 		if (_overlapCount != 0) return;
-		GetTree().CreateTween().Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
+		_speedTween?.Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
 
 		// Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
-		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
+		_speedTween = CreateTween();
+		_speedTween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.In);
 	}
@@ -76,12 +84,19 @@ public partial class Vehicle : CharacterBody2D
 
 		_lightOverlapCount++;
 
-		GetTree().CreateTween().Kill();
+		_speedTween?.Kill();
 
-		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
-			.SetTrans(Tween.TransitionType.Sine)
-			.SetEase(Tween.EaseType.Out);
+		_speedTween = CreateTween();
+		if (this is EmergencyVehicle)
+		{
+			_speedTween.TweenProperty(this, "Speed", 0.0f, 0.5f)
+			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
+		else
+		{
+			_speedTween.TweenProperty(this, "Speed", 0.0f, 1.0f)
+			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		}
 	}
 
 	private void _on_voor_sensor_area_exited(Area2D area)
@@ -95,10 +110,10 @@ public partial class Vehicle : CharacterBody2D
 		_lightOverlapCount = Math.Max(0, _lightOverlapCount - 1);
 		if (_lightOverlapCount != 0) return;
 
-		GetTree().CreateTween().Kill();
+		_speedTween?.Kill();
 
-		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
+		_speedTween = CreateTween();
+		_speedTween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.In);
 	}

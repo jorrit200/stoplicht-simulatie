@@ -67,7 +67,6 @@ public partial class VoorrangsQueueManager : Node2D
 
 
 		var json = JsonSerializer.Serialize(new { queue = simplified });
-		GD.Print(_topic, json);
 		_publisher!.Send(_topic, json);
 	}
 

@@ -57,18 +57,13 @@ public partial class SensorenSpeciaal : Node2D
 
 	private void PublishStatus()
 	{
-		// Maak een eenvoudige dictionary: { "brug_wegdek": true, ... }
 		var statusDict = _sensoren.ToDictionary(
 			kvp => kvp.Key,
 			kvp => kvp.Value.Status
 		);
 
-		// Zet om naar JSON
 		string json = System.Text.Json.JsonSerializer.Serialize(statusDict);
 
-		GD.Print(_topicName, json); // Debug
-
-		// Verstuur via publisher
 		_publisher!.Send(_topicName, json);
 	}
 }
