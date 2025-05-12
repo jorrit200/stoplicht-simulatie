@@ -482,7 +482,7 @@ shape = SubResource("RectangleShape2D_r54nr")
 [node name="25_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/25_1_voor"]
-position = Vector2(197, 344)
+position = Vector2(197, 346)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="26_1_voor" type="Area2D" parent="Sensors"]
@@ -720,7 +720,7 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../BikePaths/BikePath4")]
 
 [node name="25_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(197, 335)
+position = Vector2(197, 338)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../BikePaths/BikePath5")]
 
