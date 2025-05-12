@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=57 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
 [ext_resource type="PackedScene" uid="uid://d36kxjv3hlte2" path="res://scenes/pedestrian.tscn" id="11_r54nr"]
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
+[ext_resource type="Script" uid="uid://ddegho1m0po4e" path="res://scripts/Control/VoorrangsQueueManager.cs" id="12_c24n3"]
 [ext_resource type="Script" uid="uid://cdj56khktwh2x" path="res://scripts/Control/SensorenSpeciaal.cs" id="14_fwia5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
@@ -259,6 +260,9 @@ EmergencyVehicle = ExtResource("6_6tk20")
 Boat = ExtResource("9_tdxnf")
 Cyclist = ExtResource("10_3yxpi")
 Pedestrian = ExtResource("11_r54nr")
+
+[node name="VoorrangsQueueManager" type="Node2D" parent="."]
+script = ExtResource("12_c24n3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 325)

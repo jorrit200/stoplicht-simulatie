@@ -10,8 +10,10 @@ public partial class TrafficSim : Node2D
 		var publisher = GetNode<ZmqPublisher>("ZMQPublisher");
 		var sensorListener = GetNode<SensorListenerBitch>("Sensors");
 		var sensorSpecial = GetNode<SensorenSpeciaal>("Sensoren_Speciaal");
+		var voorrangsQueueManager = GetNode<VoorrangsQueueManager>("VoorrangsQueueManager");
 
 		sensorListener.InjectPublisher(publisher);
 		sensorSpecial.InjectPublisher(publisher);
+		voorrangsQueueManager.InjectPublisher(publisher);
 	}
 }

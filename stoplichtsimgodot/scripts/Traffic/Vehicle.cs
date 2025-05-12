@@ -102,4 +102,10 @@ public partial class Vehicle : CharacterBody2D
 			.SetTrans(Tween.TransitionType.Sine)
 			.SetEase(Tween.EaseType.In);
 	}
+
+	public override void _ExitTree()
+	{
+		base._ExitTree();
+		VoorrangsQueueManager.Instance?.Verwijder(this);
+	}
 }
