@@ -42,7 +42,6 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 
 		Send("sensoren_bruggen", "{\"81.1\":{\"state\":\"dicht\"}}");
 		Send("tijd", $"{{\"simulatie_tijd_ms\":{parsedSimTime}}}");
-		Send("voorrangsvoertuig", "{\"queue\": [{\"baan\":\"8.2\",\"simulatie_tijd_ms\": 1231542,\"prioriteit\": 1},{\"baan\": \"3.1\",\"simulatie_tijd_ms\": 1230000,\"prioriteit\": 2}]}");
 	}
 	
 	private string ParseTime(string time)

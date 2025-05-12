@@ -3,6 +3,7 @@ using Godot;
 using StoplichtSimGodot.interfaces;
 using StoplichtSimGodot.dto; // Voor evt. extra struct of DTO
 using System.Text.Json;
+using System.Linq;
 
 namespace StoplichtSimGodot.scripts;
 
@@ -28,6 +29,7 @@ public partial class VehicleSpawner : Node2D
 	private readonly HashSet<Path2D> _sharedSpawnPaths = new HashSet<Path2D>();
 	private float _sharedCooldown = 0f;
 	private float _sharedCooldownTime = 1.5f;
+	private const float SpawnBlockZoneThreshold = 0.05f; // eerste 5% van pad
 
 	public override void _Ready()
 	{
@@ -107,60 +109,25 @@ public partial class VehicleSpawner : Node2D
 		{
 			var tempVehicle = vehicleScene.Instantiate<Vehicle>();
 			var chance = tempVehicle.SpawnChance;
-
 			var roll = GD.Randf() * 100f;
 
-			if (!(roll <= chance)) continue;
+			if (roll > chance) continue;
+
 			var pathIndex = (int)(GD.Randi() % _paths.Count);
 			var basePath = (Path2D)_paths[pathIndex].GetParent();
 
 			if (_sharedSpawnPaths.Contains(basePath) && _sharedCooldown > 0f)
-			{
 				return;
-			}
 
-			var vehicleFollow = new PathFollow2D
+			if (TrySpawnVehicleOnPath(vehicleScene, basePath))
 			{
-				Loop = false,
-				Rotates = true,
-				Name = $"PathFollow_{GD.Randi()}"
-			};
-
-			basePath.AddChild(vehicleFollow);
-
-			var vehicle = vehicleScene.Instantiate<Vehicle>();
-			vehicleFollow.AddChild(vehicle);
-
-			vehicle.StartMoving(vehicleFollow);
-
-			if (_sharedSpawnPaths.Contains(basePath))
-			{
-				_sharedCooldown = _sharedCooldownTime;
-			}
-
-			int? prioriteit = null;
-
-			if (vehicle is scripts.EmergencyVehicle)
-			{
-				prioriteit = 1;
-
-				var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
-				if (maxSound is { Playing: false })
-					maxSound.Play();
-			}
-			else if (vehicle is scripts.Bus)
-			{
-				prioriteit = 2;
-			}
-
-			// Voeg toe aan voorrangsqueue als het nodig is
-			if (prioriteit.HasValue && VoorrangsQueueManager.Instance != null)
-			{
-				var baanNaam = basePath.Name;
-				VoorrangsQueueManager.Instance.VoegToe(vehicle, baanNaam, prioriteit.Value);
+				if (_sharedSpawnPaths.Contains(basePath))
+					_sharedCooldown = _sharedCooldownTime;
+				break;
 			}
 		}
 	}
+
 
 	private void SpawnRandomBoat()
 	{
@@ -181,21 +148,11 @@ public partial class VehicleSpawner : Node2D
 			var pathIndex = (int)(GD.Randi() % _boatPaths.Count);
 			var basePath = (Path2D)_boatPaths[pathIndex].GetParent();
 
-			var boatFollow = new PathFollow2D
-			{
-				Loop = false,
-				Rotates = true,
-				Name = $"BoatFollow_{GD.Randi()}"
-			};
-
-			basePath.AddChild(boatFollow);
-
-			var boat = boatScene.Instantiate<Vehicle>();
-			boatFollow.AddChild(boat);
-
-			boat.StartMoving(boatFollow);
+			if (TrySpawnVehicleOnPath(boatScene, basePath))
+				break;
 		}
 	}
+
 
 	private void SpawnRandomBike()
 	{
@@ -216,21 +173,11 @@ public partial class VehicleSpawner : Node2D
 			var pathIndex = (int)(GD.Randi() % _bikePaths.Count);
 			var basePath = (Path2D)_bikePaths[pathIndex].GetParent();
 
-			var bikeFollow = new PathFollow2D
-			{
-				Loop = false,
-				Rotates = true,
-				Name = $"BikeFollow_{GD.Randi()}"
-			};
-
-			basePath.AddChild(bikeFollow);
-
-			var bike = bikeScene.Instantiate<Vehicle>();
-			bikeFollow.AddChild(bike);
-
-			bike.StartMoving(bikeFollow);
+			if (TrySpawnVehicleOnPath(bikeScene, basePath))
+				break;
 		}
 	}
+
 
 	private void SpawnRandomPedestrian()
 	{
@@ -251,19 +198,65 @@ public partial class VehicleSpawner : Node2D
 			var pathIndex = (int)(GD.Randi() % _pedPaths.Count);
 			var basePath = (Path2D)_pedPaths[pathIndex].GetParent();
 
-			var pedFollow = new PathFollow2D
-			{
-				Loop = false,
-				Rotates = true,
-				Name = $"PedFollow_{GD.Randi()}"
-			};
-
-			basePath.AddChild(pedFollow);
-
-			var ped = pedScene.Instantiate<Vehicle>();
-			pedFollow.AddChild(ped);
-
-			ped.StartMoving(pedFollow);
+			if (TrySpawnVehicleOnPath(pedScene, basePath))
+				break;
 		}
+	}
+
+	private bool TrySpawnVehicleOnPath(PackedScene vehicleScene, Path2D basePath)
+	{
+		if (vehicleScene == null || basePath == null)
+			return false;
+
+		// Check of beginstuk al bezet is
+		bool isBlocked = basePath.GetChildren()
+			.OfType<PathFollow2D>()
+			.Any(pf => pf.GetChildCount() > 0 &&
+					   pf.GetChild(0) is Vehicle &&
+					   pf.ProgressRatio < SpawnBlockZoneThreshold);
+
+		if (isBlocked)
+			return false;
+
+		// Maak nieuwe PathFollow2D aan
+		var vehicleFollow = new PathFollow2D
+		{
+			Loop = false,
+			Rotates = true,
+			Name = $"PathFollow_{GD.Randi()}"
+		};
+
+		basePath.AddChild(vehicleFollow); // <- eerst toevoegen aan de scene tree
+		vehicleFollow.ProgressRatio = 0.0f; // <- daarna pas ProgressRatio zetten
+
+		// Instantieer voertuig
+		var vehicle = vehicleScene.Instantiate<Vehicle>();
+		vehicleFollow.AddChild(vehicle);
+
+		// Start beweging
+		vehicle.StartMoving(vehicleFollow);
+
+		// Voor voertuigtypes met prioriteit
+		int? prioriteit = null;
+		if (vehicle is scripts.EmergencyVehicle)
+		{
+			prioriteit = 1;
+			var maxSound = GetNodeOrNull<AudioStreamPlayer2D>("/root/TrafficSim/AudioStreamPlayer2D");
+			if (maxSound is { Playing: false })
+				maxSound.Play();
+		}
+		else if (vehicle is scripts.Bus)
+		{
+			prioriteit = 2;
+		}
+
+		// Voeg toe aan queue
+		if (prioriteit.HasValue && VoorrangsQueueManager.Instance != null)
+		{
+			var baanNaam = basePath.Name;
+			VoorrangsQueueManager.Instance.VoegToe(vehicle, baanNaam, prioriteit.Value);
+		}
+
+		return true;
 	}
 }
