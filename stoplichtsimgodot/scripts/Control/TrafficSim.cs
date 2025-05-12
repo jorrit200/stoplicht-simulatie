@@ -9,7 +9,9 @@ public partial class TrafficSim : Node2D
 		GD.Print("TrafficSim Ready");
 		var publisher = GetNode<ZmqPublisher>("ZMQPublisher");
 		var sensorListener = GetNode<SensorListenerBitch>("Sensors");
+		var sensorSpecial = GetNode<SensorenSpeciaal>("Sensoren_Speciaal");
 
 		sensorListener.InjectPublisher(publisher);
+		sensorSpecial.InjectPublisher(publisher);
 	}
 }
