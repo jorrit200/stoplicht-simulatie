@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=58 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
 [ext_resource type="Script" uid="uid://ddegho1m0po4e" path="res://scripts/Control/VoorrangsQueueManager.cs" id="12_c24n3"]
 [ext_resource type="Script" uid="uid://cdj56khktwh2x" path="res://scripts/Control/SensorenSpeciaal.cs" id="14_fwia5"]
+[ext_resource type="Script" uid="uid://dilfo4ay7wtca" path="res://scripts/Control/TrafficModes.cs" id="18_q3d0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
 size = Vector2(33.625, 6.9375)
@@ -31,7 +32,7 @@ size = Vector2(5.125, 5.5)
 size = Vector2(20, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwia5"]
-size = Vector2(36.3942, 117.641)
+size = Vector2(36.3942, 121.711)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c24n3"]
 size = Vector2(36.3093, 122.738)
@@ -622,7 +623,7 @@ script = ExtResource("14_fwia5")
 [node name="brug_wegdek" type="Area2D" parent="Sensoren_Speciaal"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_wegdek"]
-position = Vector2(1719.85, 458.731)
+position = Vector2(1718.88, 460.519)
 rotation = 0.497419
 shape = SubResource("RectangleShape2D_fwia5")
 
@@ -867,7 +868,7 @@ curve = SubResource("Curve2D_qbjlm")
 
 [node name="Path1" type="PathFollow2D" parent="CarPaths/Path2D1"]
 position = Vector2(1931, 465)
-rotation = 3.02449
+rotation = 3.02454
 
 [node name="Path2D2" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -876,7 +877,7 @@ curve = SubResource("Curve2D_6sd47")
 
 [node name="Path2" type="PathFollow2D" parent="CarPaths/Path2D2"]
 position = Vector2(1931, 465)
-rotation = 3.07757
+rotation = 3.07758
 
 [node name="Path2D2_2" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -894,7 +895,7 @@ curve = SubResource("Curve2D_wl330")
 
 [node name="Path3" type="PathFollow2D" parent="CarPaths/Path2D3"]
 position = Vector2(1932, 465)
-rotation = 3.03458
+rotation = 3.03463
 
 [node name="Path2D4" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -912,7 +913,7 @@ curve = SubResource("Curve2D_tdxnf")
 
 [node name="Path5" type="PathFollow2D" parent="CarPaths/Path2D5"]
 position = Vector2(257, 649)
-rotation = -1.29497
+rotation = -1.29496
 
 [node name="Path2D6" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -1120,3 +1121,72 @@ curve = SubResource("Curve2D_7te81")
 [node name="Path8" type="PathFollow2D" parent="PedPaths/PedPath8"]
 position = Vector2(207, -6)
 rotation = 1.5351
+
+[node name="TrafficModes" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 99.0
+offset_bottom = 99.0
+script = ExtResource("18_q3d0v")
+
+[node name="ColorRect" type="ColorRect" parent="TrafficModes"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 99.0
+color = Color(0.728822, 0.728822, 0.728822, 1)
+
+[node name="Main text" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 20.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "Traffic Modes"
+
+[node name="Rustig" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 16.0
+offset_right = 97.0
+offset_bottom = 40.0
+
+[node name="Spits" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 44.0
+offset_right = 97.0
+offset_bottom = 68.0
+
+[node name="Stress" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 72.0
+offset_right = 97.0
+offset_bottom = 96.0
+
+[node name="RustText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 21.0
+offset_right = 45.0
+offset_bottom = 38.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Rustig"
+
+[node name="SpitsText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 41.0
+offset_bottom = 65.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Spits"
+
+[node name="StressText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 77.0
+offset_right = 44.0
+offset_bottom = 94.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Stress"
