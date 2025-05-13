@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    width="370" height="150"
+    viewBox="1550 290 370 150"
+>
+  <defs>
+    <clipPath id="bridgeClip">
+      <!-- top deck strip -->
+      <rect x="1550" y="290" width="370" height="60"/>
+      <!-- bottom deck strip -->
+      <rect x="1550" y="380" width="370" height="60"/>
+    </clipPath>
+  </defs>
+
+  <!-- source image; adjust href if you named it differently -->
+  <image
+    xlink:href="cross_section.png"
+    x="0" y="0"
+    width="2048" height="621"
+    preserveAspectRatio="xMinYMin meet"
+  />
+
+  <g clip-path="url(#bridgeClip)">
+    <use xlink:href="#source"/>
+  </g>
+</svg>

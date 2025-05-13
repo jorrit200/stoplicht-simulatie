@@ -1,26 +1,24 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 using Godot;
 using Newtonsoft.Json;
 using StoplichtSimGodot.dto;
 
-namespace StoplichtSimGodot.scripts;
+namespace StoplichtSimGodot.scripts.Control;
 
 public partial class TrafficLightMaster : Node
 {
-	[Export] private ZmqSubscriber subscriber;
+	[Export] private ZmqSubscriber _subscriber;
 	private readonly Dictionary<string, TrafficLight> _subscribedLights = new();
 
 	public void BindTrafficLight(TrafficLight light)
 	{
+		GD.Print($"Binding {light.Name} to traffic light master");
 		string lightName = light.Name;
 
 		lightName = lightName.Replace("_", ".");
 
 		_subscribedLights.Add(lightName, light);
-		GD.Print("Traffic Light: " + lightName + " is subscribed to the master");
 	}
 
 	private void OnMessage((string topic, string message) message)
@@ -46,6 +44,6 @@ public partial class TrafficLightMaster : Node
 
 	public override void _Ready()
 	{
-		subscriber.DoOnMessage(OnMessage);
+		_subscriber.DoOnMessage(OnMessage);
 	}
 }
