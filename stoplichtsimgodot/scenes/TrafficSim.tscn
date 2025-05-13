@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=58 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
 [ext_resource type="Script" uid="uid://ddegho1m0po4e" path="res://scripts/Control/VoorrangsQueueManager.cs" id="12_c24n3"]
 [ext_resource type="Script" uid="uid://cdj56khktwh2x" path="res://scripts/Control/SensorenSpeciaal.cs" id="14_fwia5"]
+[ext_resource type="Script" uid="uid://dilfo4ay7wtca" path="res://scripts/Control/TrafficModes.cs" id="18_q3d0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
 size = Vector2(33.625, 6.9375)
@@ -31,7 +32,7 @@ size = Vector2(5.125, 5.5)
 size = Vector2(20, 37)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwia5"]
-size = Vector2(36.3942, 117.641)
+size = Vector2(36.3942, 121.711)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c24n3"]
 size = Vector2(36.3093, 122.738)
@@ -41,25 +42,25 @@ size = Vector2(64, 32)
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1931, 465, 0, 0, 0, 0, 1914, 466.999, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1682, 437, 0, 0, 0, 0, 1577, 399, 0, 0, 0, 0, 1468, 364, 0, 0, 0, 0, 1349, 335, 0, 0, 0, 0, 1239, 314, 0, 0, 0, 0, 1154, 299, 0, 0, 0, 0, 1065, 285, 0, 0, 0, 0, 850, 264, 0, 0, 0, 0, 783, 254, 0, 0, 0, 0, 730, 241, 0, 0, 0, 0, 608, 232, 0, 0, 0, 0, 512, 229, 0, 0, 0, 0, 451, 229, 0, 0, 0, 0, 370, 229, 0, 0, 0, 0, 338, 228, 0, 0, 0, 0, 317, 216, 0, 0, 0, 0, 305, 208, 0, 0, 0, 0, 298, 197, 0, 0, 0, 0, 292, 173, 0, 0, 0, 0, 290, 148, 0, 0, 0, 0, 289, 1)
+"points": PackedVector2Array(0, 0, 0, 0, 2278, 433, 0, 0, 0, 0, 1914, 465, 0, 0, 0, 0, 1855, 470.999, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1682, 437, 0, 0, 0, 0, 1577, 399, 0, 0, 0, 0, 1468, 364, 0, 0, 0, 0, 1349, 335, 0, 0, 0, 0, 1239, 314, 0, 0, 0, 0, 1154, 299, 0, 0, 0, 0, 1065, 285, 0, 0, 0, 0, 850, 264, 0, 0, 0, 0, 783, 254, 0, 0, 0, 0, 730, 241, 0, 0, 0, 0, 608, 232, 0, 0, 0, 0, 512, 229, 0, 0, 0, 0, 451, 229, 0, 0, 0, 0, 370, 229, 0, 0, 0, 0, 338, 228, 0, 0, 0, 0, 317, 216, 0, 0, 0, 0, 305, 208, 0, 0, 0, 0, 298, 197, 0, 0, 0, 0, 292, 173, 0, 0, 0, 0, 290, 148, 0, 0, 0, 0, 289, 1)
 }
-point_count = 24
+point_count = 25
 
 [sub_resource type="Curve2D" id="Curve2D_6sd47"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1931, 465, 0, 0, 0, 0, 1853, 470, 0, 0, 0, 0, 1803, 471, 0, 0, 0, 0, 1635, 420, 0, 0, 0, 0, 1462, 363, 0, 0, 0, 0, 1308, 329, 0, 0, 0, 0, 1114, 293, 0, 0, 0, 0, 951, 274, 0, 0, 0, 0, 786, 260, 0, 0, 0, 0, 539, 246, 0, 0, 0, 0, 327, 246, 0, 0, 0, 0, 185, 245, 0, 0, 0, 0, 1, 241)
+"points": PackedVector2Array(0, 0, 0, 0, 2282, 434, 0, 0, 0, 0, 1853, 470, 0, 0, 0, 0, 1803, 471, 0, 0, 0, 0, 1635, 420, 0, 0, 0, 0, 1462, 363, 0, 0, 0, 0, 1308, 329, 0, 0, 0, 0, 1114, 293, 0, 0, 0, 0, 951, 274, 0, 0, 0, 0, 786, 260, 0, 0, 0, 0, 539, 246, 0, 0, 0, 0, 327, 246, 0, 0, 0, 0, 185, 245, 0, 0, 0, 0, 1, 241)
 }
 point_count = 13
 
 [sub_resource type="Curve2D" id="Curve2D_e4muc"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1931, 465, 0, 0, 0, 0, 1852, 471, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1717, 448, 0, 0, 0, 0, 1574, 400, 0, 0, 0, 0, 1456, 360, 0, 0, 0, 0, 1372, 341, 0, 0, 0, 0, 1249, 316, 0, 0, 0, 0, 1160, 301, 0, 0, 0, 0, 1007, 292, 0, 0, 0, 0, 886, 282, 0, 0, 0, 0, 731, 272, 0, 0, 0, 0, 590, 264, 0, 0, 0, 0, 458, 261, 0, 0, 0, 0, 301, 262, 0, 0, 0, 0, 153, 262, 0, 0, 0, 0, 0, 257)
+"points": PackedVector2Array(0, 0, 0, 0, 2275, 434, 0, 0, 0, 0, 1852, 471, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1717, 448, 0, 0, 0, 0, 1574, 400, 0, 0, 0, 0, 1456, 360, 0, 0, 0, 0, 1372, 341, 0, 0, 0, 0, 1249, 316, 0, 0, 0, 0, 1160, 301, 0, 0, 0, 0, 1007, 292, 0, 0, 0, 0, 886, 282, 0, 0, 0, 0, 731, 272, 0, 0, 0, 0, 590, 264, 0, 0, 0, 0, 458, 261, 0, 0, 0, 0, 301, 262, 0, 0, 0, 0, 153, 262, 0, 0, 0, 0, 0, 257)
 }
 point_count = 17
 
 [sub_resource type="Curve2D" id="Curve2D_wl330"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1932, 465, 0, 0, 0, 0, 1916.68, 466.645, 0, 0, 0, 0, 1911, 466.999, 0, 0, 0, 0, 1867, 470, 0, 0, 0, 0, 1794, 470, 0, 0, 0, 0, 1712, 444, 0, 0, 0, 0, 1608, 410, 0, 0, 0, 0, 1499, 374, 0, 0, 0, 0, 1381, 343, 0, 0, 0, 0, 1266, 320, 0, 0, 0, 0, 1159, 302, 0, 0, 0, 0, 973, 289, 0, 0, 0, 0, 817, 278, 0, 0, 0, 0, 756, 290, 0, 0, 0, 0, 665, 283, 0, 0, 0, 0, 556, 279, 0, 0, 0, 0, 384, 274, 0, 0, 0, 0, 308, 275, 0, 0, 0, 0, 284, 283, 0, 0, 0, 0, 266, 301, 0, 0, 0, 0, 258, 328, 0, 0, 0, 0, 252, 398, 0, 0, 0, 0, 247, 531, 0, 0, 0, 0, 233, 598, 0, 0, 0, 0, 216, 650)
+"points": PackedVector2Array(0, 0, 0, 0, 2272, 434, 0, 0, 0, 0, 1933, 464, 0, 0, 0, 0, 1899, 466, 0, 0, 0, 0, 1867, 470, 0, 0, 0, 0, 1794, 470, 0, 0, 0, 0, 1712, 444, 0, 0, 0, 0, 1608, 410, 0, 0, 0, 0, 1499, 374, 0, 0, 0, 0, 1381, 343, 0, 0, 0, 0, 1266, 320, 0, 0, 0, 0, 1159, 302, 0, 0, 0, 0, 973, 289, 0, 0, 0, 0, 817, 278, 0, 0, 0, 0, 756, 290, 0, 0, 0, 0, 665, 283, 0, 0, 0, 0, 556, 279, 0, 0, 0, 0, 384, 274, 0, 0, 0, 0, 308, 275, 0, 0, 0, 0, 284, 283, 0, 0, 0, 0, 266, 301, 0, 0, 0, 0, 258, 328, 0, 0, 0, 0, 252, 398, 0, 0, 0, 0, 247, 531, 0, 0, 0, 0, 233, 598, 0, 0, 0, 0, 216, 650)
 }
 point_count = 25
 
@@ -622,7 +623,7 @@ script = ExtResource("14_fwia5")
 [node name="brug_wegdek" type="Area2D" parent="Sensoren_Speciaal"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_wegdek"]
-position = Vector2(1719.85, 458.731)
+position = Vector2(1718.88, 460.519)
 rotation = 0.497419
 shape = SubResource("RectangleShape2D_fwia5")
 
@@ -866,8 +867,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_qbjlm")
 
 [node name="Path1" type="PathFollow2D" parent="CarPaths/Path2D1"]
-position = Vector2(1931, 465)
-rotation = 3.02449
+position = Vector2(2278, 433)
+rotation = 3.05391
 
 [node name="Path2D2" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -875,8 +876,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_6sd47")
 
 [node name="Path2" type="PathFollow2D" parent="CarPaths/Path2D2"]
-position = Vector2(1931, 465)
-rotation = 3.07757
+position = Vector2(2282, 434)
+rotation = 3.05787
 
 [node name="Path2D2_2" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -884,8 +885,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_e4muc")
 
 [node name="Path2_2" type="PathFollow2D" parent="CarPaths/Path2D2_2"]
-position = Vector2(1931, 465)
-rotation = 3.06579
+position = Vector2(2275, 434)
+rotation = 3.05434
 
 [node name="Path2D3" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -893,8 +894,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_wl330")
 
 [node name="Path3" type="PathFollow2D" parent="CarPaths/Path2D3"]
-position = Vector2(1932, 465)
-rotation = 3.03458
+position = Vector2(2272, 434)
+rotation = 3.05333
 
 [node name="Path2D4" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -912,7 +913,7 @@ curve = SubResource("Curve2D_tdxnf")
 
 [node name="Path5" type="PathFollow2D" parent="CarPaths/Path2D5"]
 position = Vector2(257, 649)
-rotation = -1.29497
+rotation = -1.29496
 
 [node name="Path2D6" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -1120,3 +1121,72 @@ curve = SubResource("Curve2D_7te81")
 [node name="Path8" type="PathFollow2D" parent="PedPaths/PedPath8"]
 position = Vector2(207, -6)
 rotation = 1.5351
+
+[node name="TrafficModes" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 99.0
+offset_bottom = 99.0
+script = ExtResource("18_q3d0v")
+
+[node name="ColorRect" type="ColorRect" parent="TrafficModes"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 99.0
+color = Color(0.728822, 0.728822, 0.728822, 1)
+
+[node name="Main text" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 20.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "Traffic Modes"
+
+[node name="Rustig" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 16.0
+offset_right = 97.0
+offset_bottom = 40.0
+
+[node name="Spits" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 44.0
+offset_right = 97.0
+offset_bottom = 68.0
+
+[node name="Stress" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 72.0
+offset_right = 97.0
+offset_bottom = 96.0
+
+[node name="RustText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 21.0
+offset_right = 45.0
+offset_bottom = 38.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Rustig"
+
+[node name="SpitsText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 41.0
+offset_bottom = 65.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Spits"
+
+[node name="StressText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 77.0
+offset_right = 44.0
+offset_bottom = 94.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Stress"

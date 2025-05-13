@@ -25,7 +25,9 @@ public partial class VehicleSpawner : Node2D
 	[Export] public PackedScene Boat;
 	[Export] public PackedScene Cyclist;
 	[Export] public PackedScene Pedestrian;
+	[Export] public float spawnDelay = 1.3f;
 
+	private Timer _spawnTimer;
 	private readonly HashSet<Path2D> _sharedSpawnPaths = new HashSet<Path2D>();
 	private float _sharedCooldown = 0f;
 	private float _sharedCooldownTime = 1.5f;
@@ -44,21 +46,39 @@ public partial class VehicleSpawner : Node2D
 
 		createPaths();
 
-		var spawnTimer = new Timer();
-		spawnTimer.WaitTime = 1.3f;
-		spawnTimer.Autostart = true;
-		spawnTimer.OneShot = false;
-		spawnTimer.Timeout += SpawnRandomRoadVehicle;
-		spawnTimer.Timeout += SpawnRandomBoat;
-		spawnTimer.Timeout += SpawnRandomBike;
-		spawnTimer.Timeout += SpawnRandomPedestrian;
-		AddChild(spawnTimer);
+		_spawnTimer = new Timer();
+		_spawnTimer.WaitTime = spawnDelay;
+		_spawnTimer.Autostart = true;
+		_spawnTimer.OneShot = false;
+		_spawnTimer.Timeout += SpawnRandomRoadVehicle;
+		_spawnTimer.Timeout += SpawnRandomBoat;
+		_spawnTimer.Timeout += SpawnRandomBike;
+		_spawnTimer.Timeout += SpawnRandomPedestrian;
+		AddChild(_spawnTimer);
 	}
 
 	public override void _Process(double delta)
 	{
 		if (_sharedCooldown > 0f)
 			_sharedCooldown -= (float)delta;
+	}
+
+	public void SetSpawnDelay(float delay)
+	{
+		if (delay > 0)
+		{
+			spawnDelay = delay;
+
+			if (_spawnTimer != null)
+			{
+				_spawnTimer.WaitTime = delay;
+				GD.Print("SpawnDelay aangepast naar: " + delay);
+			}
+		}
+		else
+		{
+			GD.PrintErr("SpawnDelay moet > 0 zijn");
+		}
 	}
 
 	public void createPaths()
