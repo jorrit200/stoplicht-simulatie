@@ -1,4 +1,5 @@
-[gd_scene load_steps=57 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=58 format=3 uid="uid://bp7gt715smulk"]
+
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -18,12 +19,18 @@
 [ext_resource type="Texture2D" uid="uid://br4avxlbg8ogn" path="res://art/Backgrounds/brug.png" id="16_fwia5"]
 [ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/Control/TrafficLight.cs" id="16_q3d0v"]
 [ext_resource type="Script" uid="uid://wu4wcq8dv2k2" path="res://scripts/Control/BridgeDrawer.cs" id="18_nlmth"]
+[ext_resource type="Script" uid="uid://ddegho1m0po4e" path="res://scripts/Control/VoorrangsQueueManager.cs" id="12_c24n3"]
+[ext_resource type="Script" uid="uid://cdj56khktwh2x" path="res://scripts/Control/SensorenSpeciaal.cs" id="14_fwia5"]
+[ext_resource type="Script" uid="uid://dilfo4ay7wtca" path="res://scripts/Control/TrafficModes.cs" id="18_q3d0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
 size = Vector2(33.625, 6.9375)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6sd47"]
 size = Vector2(7, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r54nr"]
+size = Vector2(5.125, 5.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tdxnf"]
 size = Vector2(20, 37)
@@ -160,29 +167,39 @@ _data = {
 &"RESET": SubResource("Animation_p7ve8")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwia5"]
+size = Vector2(36.3942, 121.711)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c24n3"]
+size = Vector2(36.3093, 122.738)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3d0v"]
+size = Vector2(64, 32)
+
+
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1922, 465, 0, 0, 0, 0, 1914, 466, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1682, 437, 0, 0, 0, 0, 1577, 399, 0, 0, 0, 0, 1468, 364, 0, 0, 0, 0, 1349, 335, 0, 0, 0, 0, 1239, 314, 0, 0, 0, 0, 1154, 299, 0, 0, 0, 0, 1065, 285, 0, 0, 0, 0, 850, 264, 0, 0, 0, 0, 783, 254, 0, 0, 0, 0, 730, 241, 0, 0, 0, 0, 608, 232, 0, 0, 0, 0, 512, 229, 0, 0, 0, 0, 451, 229, 0, 0, 0, 0, 370, 229, 0, 0, 0, 0, 338, 228, 0, 0, 0, 0, 317, 216, 0, 0, 0, 0, 305, 208, 0, 0, 0, 0, 298, 197, 0, 0, 0, 0, 292, 173, 0, 0, 0, 0, 290, 148, 0, 0, 0, 0, 289, 1)
+"points": PackedVector2Array(0, 0, 0, 0, 2278, 433, 0, 0, 0, 0, 1914, 465, 0, 0, 0, 0, 1855, 470.999, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1682, 437, 0, 0, 0, 0, 1577, 399, 0, 0, 0, 0, 1468, 364, 0, 0, 0, 0, 1349, 335, 0, 0, 0, 0, 1239, 314, 0, 0, 0, 0, 1154, 299, 0, 0, 0, 0, 1065, 285, 0, 0, 0, 0, 850, 264, 0, 0, 0, 0, 783, 254, 0, 0, 0, 0, 730, 241, 0, 0, 0, 0, 608, 232, 0, 0, 0, 0, 512, 229, 0, 0, 0, 0, 451, 229, 0, 0, 0, 0, 370, 229, 0, 0, 0, 0, 338, 228, 0, 0, 0, 0, 317, 216, 0, 0, 0, 0, 305, 208, 0, 0, 0, 0, 298, 197, 0, 0, 0, 0, 292, 173, 0, 0, 0, 0, 290, 148, 0, 0, 0, 0, 289, 1)
 }
-point_count = 24
+point_count = 25
 
 [sub_resource type="Curve2D" id="Curve2D_6sd47"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1920, 466, 0, 0, 0, 0, 1853, 470, 0, 0, 0, 0, 1803, 471, 0, 0, 0, 0, 1635, 420, 0, 0, 0, 0, 1462, 363, 0, 0, 0, 0, 1308, 329, 0, 0, 0, 0, 1114, 293, 0, 0, 0, 0, 951, 274, 0, 0, 0, 0, 786, 260, 0, 0, 0, 0, 539, 246, 0, 0, 0, 0, 327, 246, 0, 0, 0, 0, 185, 245, 0, 0, 0, 0, 1, 241)
+"points": PackedVector2Array(0, 0, 0, 0, 2282, 434, 0, 0, 0, 0, 1853, 470, 0, 0, 0, 0, 1803, 471, 0, 0, 0, 0, 1635, 420, 0, 0, 0, 0, 1462, 363, 0, 0, 0, 0, 1308, 329, 0, 0, 0, 0, 1114, 293, 0, 0, 0, 0, 951, 274, 0, 0, 0, 0, 786, 260, 0, 0, 0, 0, 539, 246, 0, 0, 0, 0, 327, 246, 0, 0, 0, 0, 185, 245, 0, 0, 0, 0, 1, 241)
 }
 point_count = 13
 
 [sub_resource type="Curve2D" id="Curve2D_e4muc"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1920, 466, 0, 0, 0, 0, 1852, 471, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1717, 448, 0, 0, 0, 0, 1574, 400, 0, 0, 0, 0, 1456, 360, 0, 0, 0, 0, 1372, 341, 0, 0, 0, 0, 1249, 316, 0, 0, 0, 0, 1160, 301, 0, 0, 0, 0, 1007, 292, 0, 0, 0, 0, 886, 282, 0, 0, 0, 0, 731, 272, 0, 0, 0, 0, 590, 264, 0, 0, 0, 0, 458, 261, 0, 0, 0, 0, 301, 262, 0, 0, 0, 0, 153, 262, 0, 0, 0, 0, 0, 257)
+"points": PackedVector2Array(0, 0, 0, 0, 2275, 434, 0, 0, 0, 0, 1852, 471, 0, 0, 0, 0, 1805, 471, 0, 0, 0, 0, 1717, 448, 0, 0, 0, 0, 1574, 400, 0, 0, 0, 0, 1456, 360, 0, 0, 0, 0, 1372, 341, 0, 0, 0, 0, 1249, 316, 0, 0, 0, 0, 1160, 301, 0, 0, 0, 0, 1007, 292, 0, 0, 0, 0, 886, 282, 0, 0, 0, 0, 731, 272, 0, 0, 0, 0, 590, 264, 0, 0, 0, 0, 458, 261, 0, 0, 0, 0, 301, 262, 0, 0, 0, 0, 153, 262, 0, 0, 0, 0, 0, 257)
 }
 point_count = 17
 
 [sub_resource type="Curve2D" id="Curve2D_wl330"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1921, 466, 0, 0, 0, 0, 1867, 470, 0, 0, 0, 0, 1794, 470, 0, 0, 0, 0, 1712, 444, 0, 0, 0, 0, 1608, 410, 0, 0, 0, 0, 1499, 374, 0, 0, 0, 0, 1381, 343, 0, 0, 0, 0, 1266, 320, 0, 0, 0, 0, 1159, 302, 0, 0, 0, 0, 973, 289, 0, 0, 0, 0, 817, 278, 0, 0, 0, 0, 756, 290, 0, 0, 0, 0, 665, 283, 0, 0, 0, 0, 556, 279, 0, 0, 0, 0, 384, 274, 0, 0, 0, 0, 308, 275, 0, 0, 0, 0, 284, 283, 0, 0, 0, 0, 266, 301, 0, 0, 0, 0, 258, 328, 0, 0, 0, 0, 252, 398, 0, 0, 0, 0, 247, 531, 0, 0, 0, 0, 233, 598, 0, 0, 0, 0, 216, 650)
+"points": PackedVector2Array(0, 0, 0, 0, 2272, 434, 0, 0, 0, 0, 1933, 464, 0, 0, 0, 0, 1899, 466, 0, 0, 0, 0, 1867, 470, 0, 0, 0, 0, 1794, 470, 0, 0, 0, 0, 1712, 444, 0, 0, 0, 0, 1608, 410, 0, 0, 0, 0, 1499, 374, 0, 0, 0, 0, 1381, 343, 0, 0, 0, 0, 1266, 320, 0, 0, 0, 0, 1159, 302, 0, 0, 0, 0, 973, 289, 0, 0, 0, 0, 817, 278, 0, 0, 0, 0, 756, 290, 0, 0, 0, 0, 665, 283, 0, 0, 0, 0, 556, 279, 0, 0, 0, 0, 384, 274, 0, 0, 0, 0, 308, 275, 0, 0, 0, 0, 284, 283, 0, 0, 0, 0, 266, 301, 0, 0, 0, 0, 258, 328, 0, 0, 0, 0, 252, 398, 0, 0, 0, 0, 247, 531, 0, 0, 0, 0, 233, 598, 0, 0, 0, 0, 216, 650)
 }
-point_count = 23
+point_count = 25
 
 [sub_resource type="Curve2D" id="Curve2D_byrp8"]
 _data = {
@@ -192,9 +209,9 @@ point_count = 25
 
 [sub_resource type="Curve2D" id="Curve2D_tdxnf"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 257, 649, 0, 0, 0, 0, 281, 554, 0, 0, 0, 0, 292, 470, 0, 0, 0, 0, 294, 410, 0, 0, 0, 0, 289, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 257, 649, 0, 0, 0, 0, 272.002, 595.999, 0, 0, 0, 0, 278.002, 573.999, 0, 0, 0, 0, 283.002, 548.999, 0, 0, 0, 0, 287.002, 524.999, 0, 0, 0, 0, 290.002, 494.999, 0, 0, 0, 0, 292, 470, 0, 0, 0, 0, 294, 410, 0, 0, 0, 0, 289, 0)
 }
-point_count = 5
+point_count = 9
 
 [sub_resource type="Curve2D" id="Curve2D_3yxpi"]
 _data = {
@@ -282,13 +299,13 @@ point_count = 30
 
 [sub_resource type="Curve2D" id="Curve2D_vj1ca"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -4, 360, 0, 0, 0, 0, 186, 363, 0, 0, 0, 0, 193, 356, 0, 0, 0, 0, 197, 346, 0, 0, 0, 0, 197, 276, 0, 0, 0, 0, 200, 214, 0, 0, 0, 0, 198, 179, 0, 0, 0, 0, 217, 156, 0, 0, 0, 0, 225, 132, 0, 0, 0, 0, 228, 105, 0, 0, 0, 0, 228, -6)
+"points": PackedVector2Array(0, 0, 0, 0, -4, 360, 0, 0, 0, 0, 175, 363, 0, 0, 0, 0, 186, 364, 0, 0, 0, 0, 197, 362, 0, 0, 0, 0, 197, 276, 0, 0, 0, 0, 200, 214, 0, 0, 0, 0, 198, 179, 0, 0, 0, 0, 217, 156, 0, 0, 0, 0, 225, 132, 0, 0, 0, 0, 228, 105, 0, 0, 0, 0, 228, -6)
 }
 point_count = 11
 
 [sub_resource type="Curve2D" id="Curve2D_a8x3r"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -3, 200, 0, 0, 0, 0, 89, 201, 0, 0, 0, 0, 125, 201, 0, 0, 0, 0, 166, 199, 0, 0, 0, 0, 177, 197, 0, 0, 0, 0, 186, 197, 0, 0, 0, 0, 189, 203, 0, 0, 0, 0, 191, 212, 0, 0, 0, 0, 191, 277, 0, 0, 0, 0, 190, 343, 0, 0, 0, 0, 190, 376, 0, 0, 0, 0, 191, 417, 0, 0, 0, 0, 192, 482, 0, 0, 0, 0, 188, 540, 0, 0, 0, 0, 183, 592, 0, 0, 0, 0, 165, 656)
+"points": PackedVector2Array(0, 0, 0, 0, -3, 200, 0, 0, 0, 0, 89, 201, 0, 0, 0, 0, 125, 201, 0, 0, 0, 0, 163, 198, 0, 0, 0, 0, 175, 195, 0, 0, 0, 0, 185, 192, 0, 0, 0, 0, 189, 203, 0, 0, 0, 0, 190, 213, 0, 0, 0, 0, 191, 277, 0, 0, 0, 0, 190, 343, 0, 0, 0, 0, 190, 376, 0, 0, 0, 0, 191, 417, 0, 0, 0, 0, 192, 482, 0, 0, 0, 0, 188, 540, 0, 0, 0, 0, 183, 592, 0, 0, 0, 0, 165, 656)
 }
 point_count = 16
 
@@ -382,6 +399,9 @@ Boat = ExtResource("9_tdxnf")
 Cyclist = ExtResource("10_3yxpi")
 Pedestrian = ExtResource("11_r54nr")
 
+[node name="VoorrangsQueueManager" type="Node2D" parent="."]
+script = ExtResource("12_c24n3")
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 325)
 
@@ -402,7 +422,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="1_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/1_1_achter"]
-position = Vector2(521, 229)
+position = Vector2(497, 229)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="2_1_voor" type="Area2D" parent="Sensors"]
@@ -414,7 +434,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="2_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/2_1_achter"]
-position = Vector2(521, 246)
+position = Vector2(498, 246)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="2_2_voor" type="Area2D" parent="Sensors"]
@@ -426,7 +446,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="2_2_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/2_2_achter"]
-position = Vector2(521, 261)
+position = Vector2(498, 261)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="3_1_voor" type="Area2D" parent="Sensors"]
@@ -438,7 +458,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="3_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/3_1_achter"]
-position = Vector2(521, 278)
+position = Vector2(498, 277)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="4_1_voor" type="Area2D" parent="Sensors"]
@@ -452,8 +472,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/4_1_achter"]
-position = Vector2(-218, 240)
 rotation = 0.101229
+position = Vector2(-216, 220)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="5_1_voor" type="Area2D" parent="Sensors"]
@@ -467,8 +487,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/5_1_achter"]
-position = Vector2(-233, 240)
 rotation = 0.101229
+position = Vector2(-231, 220)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="6_1_voor" type="Area2D" parent="Sensors"]
@@ -482,8 +502,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/6_1_achter"]
-position = Vector2(-248, 240)
 rotation = 0.101229
+position = Vector2(-247, 220)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="7_1_voor" type="Area2D" parent="Sensors"]
@@ -545,7 +565,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/10_1_achter"]
-position = Vector2(-283, -262)
+position = Vector2(-283, -217)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="11_1_voor" type="Area2D" parent="Sensors"]
@@ -559,7 +579,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/11_1_achter"]
-position = Vector2(-269, -262)
+position = Vector2(-269, -217)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="12_1_voor" type="Area2D" parent="Sensors"]
@@ -573,8 +593,153 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/12_1_achter"]
-position = Vector2(-255, -262)
+position = Vector2(-255, -217)
 shape = SubResource("RectangleShape2D_6sd47")
+
+[node name="21_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/21_1_voor"]
+position = Vector2(348, 209.75)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="22_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/22_1_voor"]
+position = Vector2(355, 333)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="23_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/23_1_voor"]
+position = Vector2(323, 363)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="24_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/24_1_voor"]
+position = Vector2(232, 376)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="25_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/25_1_voor"]
+position = Vector2(197, 346)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="26_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/26_1_voor"]
+position = Vector2(191, 226)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="27_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/27_1_voor"]
+position = Vector2(223, 193)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="28_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/28_1_voor"]
+position = Vector2(310, 184)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="31_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/31_1_voor"]
+position = Vector2(362, 216)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="31_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/31_2_voor"]
+position = Vector2(370, 286)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="32_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/32_1_voor"]
+position = Vector2(362, 286)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="32_2_voor" type="Area2D" parent="Sensors"]
+position = Vector2(0, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/32_2_voor"]
+position = Vector2(369, 330)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="33_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/33_1_voor"]
+position = Vector2(318, 381)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="33_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/33_2_voor"]
+position = Vector2(268, 388)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="34_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/34_1_voor"]
+position = Vector2(267, 381)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="34_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/34_2_voor"]
+position = Vector2(236, 389)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="35_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/35_1_voor"]
+position = Vector2(182, 338)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="35_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/35_2_voor"]
+position = Vector2(174, 274)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="36_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/36_1_voor"]
+position = Vector2(182, 274)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="36_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/36_2_voor"]
+position = Vector2(174, 230)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="37_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/37_1_voor"]
+position = Vector2(226, 178)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="37_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/37_2_voor"]
+position = Vector2(275, 171)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="38_1_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/38_1_voor"]
+position = Vector2(275, 178)
+shape = SubResource("RectangleShape2D_r54nr")
+
+[node name="38_2_voor" type="Area2D" parent="Sensors"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/38_2_voor"]
+position = Vector2(308, 170)
+shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="71_1_voor" type="Area2D" parent="Sensors"]
 position = Vector2(1767, 335)
@@ -584,65 +749,252 @@ position = Vector2(5, -9)
 rotation = 0.514872
 shape = SubResource("RectangleShape2D_tdxnf")
 
-[node name="71_2_voor" type="Area2D" parent="Sensors"]
+[node name="72_1_voor" type="Area2D" parent="Sensors"]
 position = Vector2(1767, 335)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/71_2_voor"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/72_1_voor"]
 position = Vector2(-76, 243)
 rotation = 0.488692
 shape = SubResource("RectangleShape2D_tdxnf")
 
-[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("_subscriber")]
+[node name="Sensoren_Speciaal" type="Node2D" parent="."]
+script = ExtResource("14_fwia5")
+
+[node name="brug_wegdek" type="Area2D" parent="Sensoren_Speciaal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_wegdek"]
+position = Vector2(1718.88, 460.519)
+rotation = 0.497419
+shape = SubResource("RectangleShape2D_fwia5")
+
+[node name="brug_water" type="Area2D" parent="Sensoren_Speciaal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_water"]
+position = Vector2(1720.29, 458.156)
+rotation = 0.497419
+shape = SubResource("RectangleShape2D_c24n3")
+
+[node name="brug_file" type="Area2D" parent="Sensoren_Speciaal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensoren_Speciaal/brug_file"]
+position = Vector2(766, 319)
+shape = SubResource("RectangleShape2D_q3d0v")
+
+[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("subscriber")]
 script = ExtResource("11_wl330")
 _subscriber = NodePath("../ZMQSubscriber")
 
-[node name="1_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="1_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 228)
+AffectedPaths = [NodePath("../../CarPaths/Path2D1")]
 
-[node name="2_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="2_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 243)
+AffectedPaths = [NodePath("../../CarPaths/Path2D2")]
 
-[node name="2_2" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="2_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 258)
+AffectedPaths = [NodePath("../../CarPaths/Path2D2_2")]
 
-[node name="3_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="3_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(380, 274)
+AffectedPaths = [NodePath("../../CarPaths/Path2D3")]
 
-[node name="4_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="4_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(307, 392)
+AffectedPaths = [NodePath("../../CarPaths/Path2D4")]
 
-[node name="5_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="5_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(294, 392)
+AffectedPaths = [NodePath("../../CarPaths/Path2D5")]
 
-[node name="6_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="6_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(279, 392)
+AffectedPaths = [NodePath("../../CarPaths/Path2D6")]
 
-[node name="7_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="7_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 329)
+AffectedPaths = [NodePath("../../CarPaths/Path2D7")]
 
-[node name="8_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="8_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 314)
+AffectedPaths = [NodePath("../../CarPaths/Path2D8")]
 
-[node name="8_2" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="8_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 299)
+AffectedPaths = [NodePath("../../CarPaths/Path2D8_2")]
 
-[node name="9_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="9_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(166, 285)
+AffectedPaths = [NodePath("../../CarPaths/Path2D9")]
 
-[node name="10_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="10_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(239, 163)
+AffectedPaths = [NodePath("../../CarPaths/Path2D10")]
 
-[node name="11_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="11_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(252, 163)
+AffectedPaths = [NodePath("../../CarPaths/Path2D11")]
 
-[node name="12_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="12_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(265, 163)
+AffectedPaths = [NodePath("../../CarPaths/Path2D12")]
 
-[node name="71_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="21_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(348, 218)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath1")]
+
+[node name="22_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(355, 327)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath2")]
+
+[node name="23_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(317, 363)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath3")]
+
+[node name="24_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(238, 377)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath4")]
+
+[node name="25_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(197, 338)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath5")]
+
+[node name="26_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(191, 232)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath6")]
+
+[node name="27_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(229, 193)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath8")]
+
+[node name="28_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(304, 184)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../BikePaths/BikePath7")]
+
+[node name="31_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(362, 222)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath1")]
+
+[node name="31_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(370, 280)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath2")]
+
+[node name="32_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(362, 292)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath1")]
+
+[node name="32_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(369, 329)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath2")]
+
+[node name="33_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(313, 381)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath6")]
+
+[node name="33_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(272, 388)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath5")]
+
+[node name="34_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(262, 381)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath6")]
+
+[node name="34_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(242, 389)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath5")]
+
+[node name="35_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(182, 333)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath7")]
+
+[node name="35_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(175, 280)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath8")]
+
+[node name="36_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(182, 268)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath7")]
+
+[node name="36_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(174, 236)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath8")]
+
+[node name="37_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(231, 179)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath4")]
+
+[node name="37_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(271, 171)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath3")]
+
+[node name="38_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(278, 178)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath4")]
+
+[node name="38_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(303, 171)
+scale = Vector2(0.475, 0.475)
+AffectedPaths = [NodePath("../../PedPaths/PedPath3")]
+
+[node name="41_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(1802, 470)
+AffectedPaths = [NodePath("../../CarPaths/Path2D1"), NodePath("../../CarPaths/Path2D2"), NodePath("../../CarPaths/Path2D2_2"), NodePath("../../CarPaths/Path2D3")]
+
+[node name="42_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(1637, 452)
+AffectedPaths = [NodePath("../../CarPaths/Path2D4"), NodePath("../../CarPaths/Path2D8"), NodePath("../../CarPaths/Path2D8_2"), NodePath("../../CarPaths/Path2D12")]
+
+[node name="51_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(1800, 430)
+scale = Vector2(2, 2)
+AffectedPaths = [NodePath("../../PedPaths/PedPath3"), NodePath("../../BikePaths/BikePath7")]
+
+[node name="52_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(1783, 522)
+scale = Vector2(2, 2)
+AffectedPaths = [NodePath("../../BikePaths/BikePath2"), NodePath("../../PedPaths/PedPath6")]
+
+[node name="53_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(1628, 491)
+scale = Vector2(2, 2)
+AffectedPaths = [NodePath("../../PedPaths/PedPath5"), NodePath("../../BikePaths/BikePath4")]
+
+[node name="54_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
+position = Vector2(1656, 398)
+scale = Vector2(2, 2)
+AffectedPaths = [NodePath("../../PedPaths/PedPath4"), NodePath("../../BikePaths/BikePath8")]
+
+[node name="71_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(1751, 357)
+AffectedPaths = [NodePath("../../BoatPaths/BoatPath71")]
 
-[node name="72_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
+[node name="72_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
 position = Vector2(1712, 547)
+AffectedPaths = [NodePath("../../BoatPaths/BoatPath72")]
 
 [node name="81_1" type="Area2D" parent="TrafficLightMaster"]
 script = ExtResource("16_q3d0v")
@@ -667,6 +1019,7 @@ libraries = {
 [node name="CarPaths" type="Node2D" parent="."]
 position = Vector2(960.228, 324.478)
 scale = Vector2(0.359937, 0.400892)
+metadata/_edit_lock_ = true
 
 [node name="Path2D1" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -674,8 +1027,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_qbjlm")
 
 [node name="Path1" type="PathFollow2D" parent="CarPaths/Path2D1"]
-position = Vector2(1922, 465)
-rotation = 3.01724
+position = Vector2(2278, 433)
+rotation = 3.05391
 
 [node name="Path2D2" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -683,8 +1036,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_6sd47")
 
 [node name="Path2" type="PathFollow2D" parent="CarPaths/Path2D2"]
-position = Vector2(1920, 466)
-rotation = 3.08196
+position = Vector2(2282, 434)
+rotation = 3.05787
 
 [node name="Path2D2_2" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -692,8 +1045,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_e4muc")
 
 [node name="Path2_2" type="PathFollow2D" parent="CarPaths/Path2D2_2"]
-position = Vector2(1920, 466)
-rotation = 3.0682
+position = Vector2(2275, 434)
+rotation = 3.05434
 
 [node name="Path2D3" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -701,8 +1054,8 @@ scale = Vector2(2.77826, 2.49444)
 curve = SubResource("Curve2D_wl330")
 
 [node name="Path3" type="PathFollow2D" parent="CarPaths/Path2D3"]
-position = Vector2(1921, 466)
-rotation = 3.06765
+position = Vector2(2272, 434)
+rotation = 3.05333
 
 [node name="Path2D4" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -720,7 +1073,7 @@ curve = SubResource("Curve2D_tdxnf")
 
 [node name="Path5" type="PathFollow2D" parent="CarPaths/Path2D5"]
 position = Vector2(257, 649)
-rotation = -1.32334
+rotation = -1.29496
 
 [node name="Path2D6" type="Path2D" parent="CarPaths"]
 position = Vector2(-2667.77, -809.39)
@@ -795,6 +1148,7 @@ position = Vector2(266, 0)
 rotation = 1.5754
 
 [node name="BoatPaths" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="BoatPath71" type="Path2D" parent="BoatPaths"]
 curve = SubResource("Curve2D_p7ve8")
@@ -811,6 +1165,7 @@ position = Vector2(1628, 688)
 rotation = -1.03962
 
 [node name="BikePaths" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="BikePath1" type="Path2D" parent="BikePaths"]
 curve = SubResource("Curve2D_j8www")
@@ -845,7 +1200,7 @@ curve = SubResource("Curve2D_vj1ca")
 
 [node name="Path5" type="PathFollow2D" parent="BikePaths/BikePath5"]
 position = Vector2(-4, 360)
-rotation = 0.0157882
+rotation = 0.0167582
 
 [node name="BikePath6" type="Path2D" parent="BikePaths"]
 curve = SubResource("Curve2D_a8x3r")
@@ -869,6 +1224,7 @@ position = Vector2(221, -6)
 rotation = 1.55814
 
 [node name="PedPaths" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="PedPath1" type="Path2D" parent="PedPaths"]
 curve = SubResource("Curve2D_6brdl")
@@ -925,3 +1281,72 @@ curve = SubResource("Curve2D_7te81")
 [node name="Path8" type="PathFollow2D" parent="PedPaths/PedPath8"]
 position = Vector2(207, -6)
 rotation = 1.5351
+
+[node name="TrafficModes" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 99.0
+offset_bottom = 99.0
+script = ExtResource("18_q3d0v")
+
+[node name="ColorRect" type="ColorRect" parent="TrafficModes"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 99.0
+color = Color(0.728822, 0.728822, 0.728822, 1)
+
+[node name="Main text" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 20.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "Traffic Modes"
+
+[node name="Rustig" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 16.0
+offset_right = 97.0
+offset_bottom = 40.0
+
+[node name="Spits" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 44.0
+offset_right = 97.0
+offset_bottom = 68.0
+
+[node name="Stress" type="CheckButton" parent="TrafficModes"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 72.0
+offset_right = 97.0
+offset_bottom = 96.0
+
+[node name="RustText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 21.0
+offset_right = 45.0
+offset_bottom = 38.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Rustig"
+
+[node name="SpitsText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 41.0
+offset_bottom = 65.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Spits"
+
+[node name="StressText" type="RichTextLabel" parent="TrafficModes"]
+layout_mode = 0
+offset_top = 77.0
+offset_right = 44.0
+offset_bottom = 94.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 12
+text = "Stress"

@@ -12,6 +12,10 @@ public partial class TrafficLight : Area2D
 
 	[Signal]
 	public delegate void StateChangedEventHandler(TrafficLightState oldState, TrafficLightState newState);
+	private TrafficLightState State { get; set; } = TrafficLightState.Red;
+
+	[Export]
+	public Godot.Collections.Array<Path2D> AffectedPaths { get; set; } = new();
 
 	public void ApplyState(TrafficLightState newState)
 	{
@@ -51,7 +55,10 @@ public partial class TrafficLight : Area2D
 //todo: move to a more sensible place
 public enum TrafficLightState
 {
-	[EnumMember(Value = "groen")] Green,
-	[EnumMember(Value = "oranje")] Orange,
-	[EnumMember(Value = "rood")] Red
+	[EnumMember(Value = "groen")]
+	Green,
+	[EnumMember(Value = "oranje")]
+	Orange,
+	[EnumMember(Value = "rood")]
+	Red
 }
