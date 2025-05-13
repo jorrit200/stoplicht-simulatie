@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=57 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
@@ -15,6 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
 [ext_resource type="PackedScene" uid="uid://d36kxjv3hlte2" path="res://scenes/pedestrian.tscn" id="11_r54nr"]
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
+[ext_resource type="Texture2D" uid="uid://br4avxlbg8ogn" path="res://art/Backgrounds/brug.png" id="16_fwia5"]
+[ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/Control/TrafficLight.cs" id="16_q3d0v"]
+[ext_resource type="Script" uid="uid://wu4wcq8dv2k2" path="res://scripts/Control/BridgeDrawer.cs" id="18_nlmth"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
 size = Vector2(33.625, 6.9375)
@@ -24,6 +27,138 @@ size = Vector2(7, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tdxnf"]
 size = Vector2(20, 37)
+
+[sub_resource type="Animation" id="Animation_7byyn"]
+resource_name = "BridgeOpen"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BridgeDrawer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1718, 460), Vector2(1722.65, 474.453)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BridgeDrawer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.677188]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BridgeDrawer:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.36, 0.401), Vector2(0.36, 0.276)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BridgeDrawer:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.836013]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BridgeDrawer:BridgeState")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.01, 0.99, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_p7ve8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BridgeDrawer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1718, 460)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BridgeDrawer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BridgeDrawer:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.36, 0.401)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BridgeDrawer:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BridgeDrawer:BridgeState")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j8www"]
+_data = {
+&"BridgeOpen": SubResource("Animation_7byyn"),
+&"RESET": SubResource("Animation_p7ve8")
+}
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
@@ -317,7 +452,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/4_1_achter"]
-position = Vector2(-215, 197)
+position = Vector2(-218, 240)
+rotation = 0.101229
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="5_1_voor" type="Area2D" parent="Sensors"]
@@ -331,7 +467,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/5_1_achter"]
-position = Vector2(-230, 197)
+position = Vector2(-233, 240)
+rotation = 0.101229
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="6_1_voor" type="Area2D" parent="Sensors"]
@@ -345,7 +482,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/6_1_achter"]
-position = Vector2(-245, 197)
+position = Vector2(-248, 240)
+rotation = 0.101229
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="7_1_voor" type="Area2D" parent="Sensors"]
@@ -357,7 +495,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="7_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/7_1_achter"]
-position = Vector2(55, 327)
+position = Vector2(21, 325)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="8_1_voor" type="Area2D" parent="Sensors"]
@@ -369,7 +507,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="8_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/8_1_achter"]
-position = Vector2(54, 313)
+position = Vector2(20, 311)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="8_2_voor" type="Area2D" parent="Sensors"]
@@ -381,7 +519,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="8_2_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/8_2_achter"]
-position = Vector2(54, 297)
+position = Vector2(20, 295)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="9_1_voor" type="Area2D" parent="Sensors"]
@@ -393,7 +531,7 @@ shape = SubResource("RectangleShape2D_e4muc")
 [node name="9_1_achter" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/9_1_achter"]
-position = Vector2(53, 283)
+position = Vector2(19, 281)
 shape = SubResource("RectangleShape2D_e4muc")
 
 [node name="10_1_voor" type="Area2D" parent="Sensors"]
@@ -407,7 +545,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/10_1_achter"]
-position = Vector2(-283, -203)
+position = Vector2(-283, -262)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="11_1_voor" type="Area2D" parent="Sensors"]
@@ -421,7 +559,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/11_1_achter"]
-position = Vector2(-269, -203)
+position = Vector2(-269, -262)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="12_1_voor" type="Area2D" parent="Sensors"]
@@ -435,7 +573,7 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/12_1_achter"]
-position = Vector2(-255, -203)
+position = Vector2(-255, -262)
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="71_1_voor" type="Area2D" parent="Sensors"]
@@ -454,9 +592,9 @@ position = Vector2(-76, 243)
 rotation = 0.488692
 shape = SubResource("RectangleShape2D_tdxnf")
 
-[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("subscriber")]
+[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("_subscriber")]
 script = ExtResource("11_wl330")
-subscriber = NodePath("../ZMQSubscriber")
+_subscriber = NodePath("../ZMQSubscriber")
 
 [node name="1_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
 position = Vector2(380, 228)
@@ -505,6 +643,26 @@ position = Vector2(1751, 357)
 
 [node name="72_1" parent="TrafficLightMaster" instance=ExtResource("11_e4muc")]
 position = Vector2(1712, 547)
+
+[node name="81_1" type="Area2D" parent="TrafficLightMaster"]
+script = ExtResource("16_q3d0v")
+
+[node name="BridgeDrawer" type="Sprite2D" parent="TrafficLightMaster/81_1" node_paths=PackedStringArray("_trafficLight", "_animationPlayer", "_zmqPublisher")]
+position = Vector2(1718, 460)
+scale = Vector2(0.36, 0.401)
+texture = ExtResource("16_fwia5")
+region_enabled = true
+region_rect = Rect2(4629.02, 989.468, 282.458, 313.843)
+script = ExtResource("18_nlmth")
+_trafficLight = NodePath("..")
+_animationPlayer = NodePath("../AnimationPlayer")
+_zmqPublisher = NodePath("../../../ZMQPublisher")
+BridgeState = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TrafficLightMaster/81_1"]
+libraries = {
+&"": SubResource("AnimationLibrary_j8www")
+}
 
 [node name="CarPaths" type="Node2D" parent="."]
 position = Vector2(960.228, 324.478)

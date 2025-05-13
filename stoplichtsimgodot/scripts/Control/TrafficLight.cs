@@ -1,12 +1,17 @@
-using System;
+#nullable enable
 using System.Runtime.Serialization;
 using Godot;
 
-namespace StoplichtSimGodot.scripts;
+namespace StoplichtSimGodot.scripts.Control;
 
 public partial class TrafficLight : Area2D
 {
-	private TrafficLightState State { get; set; } = TrafficLightState.Green;
+	public TrafficLightState State { get; private set; } = TrafficLightState.Red;
+	
+	private CollisionShape2D? CollisionShape { get; set; }
+
+	[Signal]
+	public delegate void StateChangedEventHandler(TrafficLightState oldState, TrafficLightState newState);
 
 	public void ApplyState(TrafficLightState newState)
 	{
@@ -15,49 +20,38 @@ public partial class TrafficLight : Area2D
 
 	private void SetState(TrafficLightState newState)
 	{
+		if (State != newState)
+		{
+			GD.Print($"{Name} changed state: {State} -> {newState}");
+			EmitSignal(SignalName.StateChanged, Variant.From(State), Variant.From(newState));
+		}
+
 		State = newState;
-		QueueRedraw();
-	}
-
-	public override void _Draw()
-	{
-		const float lightRadius = 2.4f;
-		const float offset = 5.5f;
-
-		DrawCircle(Vector2.Up * offset, lightRadius, new Color(1f, 0f, 0f, State == TrafficLightState.Red ? 1f : 0.4f),
-			antialiased: State == TrafficLightState.Red);
-
-		DrawCircle(Vector2.Zero, lightRadius,
-			new Color(0.8f, 0.6f, 0.2f, State == TrafficLightState.Orange ? 1f : 0.4f),
-			antialiased: State == TrafficLightState.Orange);
-
-		DrawCircle(Vector2.Down * offset, lightRadius,
-			new Color(0f, 1f, 0f, State == TrafficLightState.Green ? 1f : 0.4f),
-			antialiased: State == TrafficLightState.Green);
-
-		base._Draw();
-	}
-
-	public override void _Process(double delta)
-	{
-		var collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
-		collisionShape.Disabled = State == TrafficLightState.Green;
 	}
 
 	public override void _Ready()
 	{
+		CollisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+
+		if (CollisionShape != null)
+		{
+			StateChanged += SetCollider;
+		}
+
 		var master = GetParent<TrafficLightMaster>();
 		master.BindTrafficLight(this);
+	}
+
+	private void SetCollider(TrafficLightState oldState, TrafficLightState newState)
+	{
+		CollisionShape!.Disabled = newState == TrafficLightState.Green;
 	}
 }
 
 //todo: move to a more sensible place
 public enum TrafficLightState
 {
-	[EnumMember(Value = "groen")] 
-	Green,
-	[EnumMember(Value = "oranje")]
-	Orange,
-	[EnumMember(Value = "rood")]
-	Red
+	[EnumMember(Value = "groen")] Green,
+	[EnumMember(Value = "oranje")] Orange,
+	[EnumMember(Value = "rood")] Red
 }
