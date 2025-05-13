@@ -27,7 +27,7 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 		
 		simStartTime = DateTime.Now;
 		sendTimer = new Timer();
-		sendTimer.WaitTime = 1.0; // elke seconde
+		sendTimer.WaitTime = 0.07; // elke seconde
 		sendTimer.OneShot = false;
 		sendTimer.Autostart = true;
 		AddChild(sendTimer);
@@ -38,9 +38,7 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 	{
 		liveSimTime = (DateTime.Now - simStartTime).ToString();
 		parsedSimTime = ParseTime(liveSimTime);
-		GD.Print(parsedSimTime);
 
-		Send("sensoren_bruggen", "{\"81.1\":{\"state\":\"dicht\"}}");
 		Send("tijd", $"{{\"simulatie_tijd_ms\":{parsedSimTime}}}");
 	}
 	

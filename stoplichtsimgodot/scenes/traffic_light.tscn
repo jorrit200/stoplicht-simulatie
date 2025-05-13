@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/Control/TrafficLight.cs" id="1_uttgq"]
 [ext_resource type="Texture2D" uid="uid://x6m8kbdqbo6l" path="res://art/verkeerslicht/verkeerslight_plain.svg" id="2_va7ut"]
-[ext_resource type="Script" uid="uid://bt65rkhydb2hr" path="res://scripts/Control/LightDrawer.cs" id="3_mfnwl"]
+[ext_resource type="Script" uid="uid://do3j22xfuyy2x" path="res://scripts/Control/LightDrawer.cs" id="3_mfnwl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_va7ut"]
 size = Vector2(8, 8)

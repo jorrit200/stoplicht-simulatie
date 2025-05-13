@@ -1,11 +1,10 @@
-[gd_scene load_steps=58 format=3 uid="uid://bp7gt715smulk"]
-
+[gd_scene load_steps=64 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
 [ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/Control/ZmqSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/Control/VehicleSpawner.cs" id="3_67ex8"]
-[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
@@ -16,11 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://ce3ewuuigrt3" path="res://scenes/traffic_light.tscn" id="11_e4muc"]
 [ext_resource type="PackedScene" uid="uid://d36kxjv3hlte2" path="res://scenes/pedestrian.tscn" id="11_r54nr"]
 [ext_resource type="Script" uid="uid://cktubudfv0co6" path="res://scripts/Control/TrafficLightMaster.cs" id="11_wl330"]
-[ext_resource type="Texture2D" uid="uid://br4avxlbg8ogn" path="res://art/Backgrounds/brug.png" id="16_fwia5"]
-[ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/Control/TrafficLight.cs" id="16_q3d0v"]
-[ext_resource type="Script" uid="uid://wu4wcq8dv2k2" path="res://scripts/Control/BridgeDrawer.cs" id="18_nlmth"]
 [ext_resource type="Script" uid="uid://ddegho1m0po4e" path="res://scripts/Control/VoorrangsQueueManager.cs" id="12_c24n3"]
 [ext_resource type="Script" uid="uid://cdj56khktwh2x" path="res://scripts/Control/SensorenSpeciaal.cs" id="14_fwia5"]
+[ext_resource type="Texture2D" uid="uid://deag4f052i1m6" path="res://art/Backgrounds/brug.png" id="16_fwia5"]
+[ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/Control/TrafficLight.cs" id="16_q3d0v"]
+[ext_resource type="Script" uid="uid://qh42y8j0225e" path="res://scripts/Control/BridgeDrawer.cs" id="18_nlmth"]
 [ext_resource type="Script" uid="uid://dilfo4ay7wtca" path="res://scripts/Control/TrafficModes.cs" id="18_q3d0v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
@@ -34,6 +33,15 @@ size = Vector2(5.125, 5.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tdxnf"]
 size = Vector2(20, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwia5"]
+size = Vector2(36.3942, 121.711)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c24n3"]
+size = Vector2(36.3093, 122.738)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3d0v"]
+size = Vector2(64, 32)
 
 [sub_resource type="Animation" id="Animation_7byyn"]
 resource_name = "BridgeOpen"
@@ -166,16 +174,6 @@ _data = {
 &"BridgeOpen": SubResource("Animation_7byyn"),
 &"RESET": SubResource("Animation_p7ve8")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwia5"]
-size = Vector2(36.3942, 121.711)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c24n3"]
-size = Vector2(36.3093, 122.738)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3d0v"]
-size = Vector2(64, 32)
-
 
 [sub_resource type="Curve2D" id="Curve2D_qbjlm"]
 _data = {
@@ -374,7 +372,7 @@ script = ExtResource("1_6sd47")
 
 [node name="ZMQPublisher" type="Node" parent="."]
 script = ExtResource("1_qbjlm")
-_ip = "10.121.17.6"
+_ip = "10.121.17.54"
 _port = 5556
 
 [node name="ZMQSubscriber" type="Node" parent="."]
@@ -472,8 +470,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/4_1_achter"]
-rotation = 0.101229
 position = Vector2(-216, 220)
+rotation = 0.101229
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="5_1_voor" type="Area2D" parent="Sensors"]
@@ -487,8 +485,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/5_1_achter"]
-rotation = 0.101229
 position = Vector2(-231, 220)
+rotation = 0.101229
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="6_1_voor" type="Area2D" parent="Sensors"]
@@ -502,8 +500,8 @@ shape = SubResource("RectangleShape2D_6sd47")
 position = Vector2(521, 278)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/6_1_achter"]
-rotation = 0.101229
 position = Vector2(-247, 220)
+rotation = 0.101229
 shape = SubResource("RectangleShape2D_6sd47")
 
 [node name="7_1_voor" type="Area2D" parent="Sensors"]
@@ -714,7 +712,7 @@ shape = SubResource("RectangleShape2D_r54nr")
 [node name="36_2_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/36_2_voor"]
-position = Vector2(174, 230)
+position = Vector2(175, 231)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="37_1_voor" type="Area2D" parent="Sensors"]
@@ -780,7 +778,7 @@ shape = SubResource("RectangleShape2D_c24n3")
 position = Vector2(766, 319)
 shape = SubResource("RectangleShape2D_q3d0v")
 
-[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("subscriber")]
+[node name="TrafficLightMaster" type="Node" parent="." node_paths=PackedStringArray("_subscriber")]
 script = ExtResource("11_wl330")
 _subscriber = NodePath("../ZMQSubscriber")
 
@@ -886,12 +884,12 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath1")]
 
 [node name="31_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(370, 280)
+position = Vector2(370, 276)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath2")]
 
 [node name="32_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(362, 292)
+position = Vector2(362, 296)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath1")]
 
@@ -906,12 +904,12 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath6")]
 
 [node name="33_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(272, 388)
+position = Vector2(275, 388)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath5")]
 
 [node name="34_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(262, 381)
+position = Vector2(260, 381)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath6")]
 
@@ -926,17 +924,17 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath7")]
 
 [node name="35_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(175, 280)
+position = Vector2(175, 283)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath8")]
 
 [node name="36_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(182, 268)
+position = Vector2(181, 265)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath7")]
 
 [node name="36_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(174, 236)
+position = Vector2(175, 238)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath8")]
 
@@ -946,12 +944,12 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath4")]
 
 [node name="37_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(271, 171)
+position = Vector2(268, 171)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath3")]
 
 [node name="38_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(278, 178)
+position = Vector2(282, 178)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath4")]
 
