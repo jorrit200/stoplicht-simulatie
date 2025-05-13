@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
-using StoplichtSimGodot.scripts;
+using StoplichtSimGodot.scripts.Control;
 
 namespace StoplichtSimGodot.dto;
 

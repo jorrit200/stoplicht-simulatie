@@ -1,3 +1,5 @@
+using StoplichtSimGodot.scripts.Control;
+
 namespace StoplichtSimGodot.scripts;
 using System;
 using Godot;

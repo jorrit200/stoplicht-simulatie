@@ -12,7 +12,6 @@ public partial class TrafficLight : Area2D
 
 	[Signal]
 	public delegate void StateChangedEventHandler(TrafficLightState oldState, TrafficLightState newState);
-	private TrafficLightState State { get; set; } = TrafficLightState.Red;
 
 	[Export]
 	public Godot.Collections.Array<Path2D> AffectedPaths { get; set; } = new();
