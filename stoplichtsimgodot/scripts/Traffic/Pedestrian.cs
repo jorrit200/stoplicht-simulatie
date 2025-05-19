@@ -8,7 +8,7 @@ public partial class Pedestrian : Vehicle
 {
 	public Pedestrian()
 	{
-		Speed = 6;
+		Speed = 9;
 		RoadToUse = "PedRoad";
 		IsMoving = true;
 		SpawnChance = 5;
