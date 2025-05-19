@@ -6,11 +6,16 @@ using StoplichtSimGodot.dto;
 using StoplichtSimGodot.interfaces;
 
 namespace StoplichtSimGodot.scripts;
+
 public partial class SensorenSpeciaal : Node2D
 {
 	private Dictionary<string, dto.SensorenSpeciaal> _sensoren;
 	private string _topicName = "sensoren_speciaal";
 	private IMessagePublisher _publisher;
+
+	private int _wegdekCounter = 0;
+	private int _waterCounter = 0;
+	private int _fileCounter = 0;
 
 	public override void _Ready()
 	{
@@ -33,14 +38,17 @@ public partial class SensorenSpeciaal : Node2D
 	{
 		if (sensor.Name == "brug_wegdek" && body is Vehicle && body is not Boat)
 		{
+			_wegdekCounter++;
 			_sensoren[sensor.Name].Status = true;
 		}
 		else if (sensor.Name == "brug_water" && body is Boat)
 		{
+			_waterCounter++;
 			_sensoren[sensor.Name].Status = true;
 		}
 		else if (sensor.Name == "brug_file" && body is Vehicle)
 		{
+			_fileCounter++;
 			_sensoren[sensor.Name].Status = true;
 		}
 		PublishStatus();
@@ -48,11 +56,23 @@ public partial class SensorenSpeciaal : Node2D
 
 	private void OnSensorBodyExited(Area2D sensor, Node2D body)
 	{
-		if (_sensoren.ContainsKey(sensor.Name))
+		if (sensor.Name == "brug_wegdek" && body is Vehicle && body is not Boat)
 		{
-			_sensoren[sensor.Name].Status = false;
-			PublishStatus();
+			_wegdekCounter = Math.Max(0, _wegdekCounter - 1);
+			_sensoren[sensor.Name].Status = _wegdekCounter > 0;
 		}
+		else if (sensor.Name == "brug_water" && body is Boat)
+		{
+			_waterCounter = Math.Max(0, _waterCounter - 1);
+			_sensoren[sensor.Name].Status = _waterCounter > 0;
+		}
+		else if (sensor.Name == "brug_file" && body is Vehicle)
+		{
+			_fileCounter = Math.Max(0, _fileCounter - 1);
+			_sensoren[sensor.Name].Status = _fileCounter > 0;
+		}
+
+		PublishStatus();
 	}
 
 	private void PublishStatus()
