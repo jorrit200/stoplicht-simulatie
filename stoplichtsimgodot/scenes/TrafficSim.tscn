@@ -297,9 +297,9 @@ point_count = 30
 
 [sub_resource type="Curve2D" id="Curve2D_vj1ca"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -4, 360, 0, 0, 0, 0, 175, 363, 0, 0, 0, 0, 186, 364, 0, 0, 0, 0, 197, 362, 0, 0, 0, 0, 197, 276, 0, 0, 0, 0, 200, 214, 0, 0, 0, 0, 198, 179, 0, 0, 0, 0, 217, 156, 0, 0, 0, 0, 225, 132, 0, 0, 0, 0, 228, 105, 0, 0, 0, 0, 228, -6)
+"points": PackedVector2Array(0, 0, 0, 0, -4, 360, 0, 0, 0, 0, 175, 363, 0, 0, 0, 0, 186, 364, 0, 0, 0, 0, 197, 362, 0, 0, 0, 0, 197, 354, 0, 0, 0, 0, 197, 276, 0, 0, 0, 0, 200, 214, 0, 0, 0, 0, 198, 179, 0, 0, 0, 0, 217, 156, 0, 0, 0, 0, 225, 132, 0, 0, 0, 0, 228, 105, 0, 0, 0, 0, 228, -6)
 }
-point_count = 11
+point_count = 12
 
 [sub_resource type="Curve2D" id="Curve2D_a8x3r"]
 _data = {
@@ -859,7 +859,7 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../BikePaths/BikePath4")]
 
 [node name="25_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(197, 338)
+position = Vector2(197, 336)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../BikePaths/BikePath5")]
 
@@ -924,7 +924,7 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath7")]
 
 [node name="35_2" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(175, 283)
+position = Vector2(175, 285)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath8")]
 

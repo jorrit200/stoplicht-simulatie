@@ -68,6 +68,7 @@ public partial class Vehicle : CharacterBody2D
 		if (_overlapCount != 0) return;
 		_speedTween?.Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
 
+		if (_lightOverlapCount != 0 && _overlapCount != 0) return;
 		// Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
 		_speedTween = CreateTween();
 		_speedTween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
@@ -109,7 +110,7 @@ public partial class Vehicle : CharacterBody2D
 			return;
 
 		_lightOverlapCount = Math.Max(0, _lightOverlapCount - 1);
-		if (_lightOverlapCount != 0) return;
+		if (_lightOverlapCount != 0 && _overlapCount != 0) return;
 
 		_speedTween?.Kill();
 

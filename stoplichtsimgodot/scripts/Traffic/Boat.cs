@@ -4,7 +4,7 @@ public partial class Boat : Vehicle
 {
 	public Boat()
 	{
-		Speed = 10;
+		Speed = 20;
 		RoadToUse = "Water";
 		IsMoving = true;
 		SpawnChance = 1f;
