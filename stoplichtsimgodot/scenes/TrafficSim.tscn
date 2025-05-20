@@ -377,7 +377,7 @@ _port = 5556
 
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
-_ip = "10.121.17.99"
+_ip = "10.121.17.45"
 _port = 5555
 _topics = PackedStringArray("stoplichten")
 
@@ -694,7 +694,7 @@ shape = SubResource("RectangleShape2D_r54nr")
 [node name="35_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/35_1_voor"]
-position = Vector2(182, 338)
+position = Vector2(182, 342)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="35_2_voor" type="Area2D" parent="Sensors"]
@@ -919,7 +919,7 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath5")]
 
 [node name="35_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(182, 333)
+position = Vector2(182, 337)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath7")]
 

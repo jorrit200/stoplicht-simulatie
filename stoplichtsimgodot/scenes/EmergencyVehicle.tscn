@@ -7,7 +7,7 @@
 size = Vector2(48, 13.25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hsmt"]
-size = Vector2(25, 11.6875)
+size = Vector2(12.25, 11.6875)
 
 [node name="EmergencyVehicle" type="CharacterBody2D"]
 modulate = Color(0.937847, 0.995327, 2.31028e-06, 1)
@@ -28,7 +28,8 @@ shape = SubResource("RectangleShape2D_c35m8")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensor"]
-position = Vector2(36.5, 0)
+position = Vector2(30.125, 0)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_2hsmt")
 
 [connection signal="area_entered" from="VoorSensor" to="." method="_on_voor_sensor_area_entered"]

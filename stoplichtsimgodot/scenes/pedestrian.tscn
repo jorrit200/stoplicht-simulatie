@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://xknj1gan01r4" path="res://art/Vehicles/Voetganger.png" id="2_ccstn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44ar1"]
-size = Vector2(17.5, 12.5)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vp5dr"]
 size = Vector2(10, 4)
@@ -19,7 +19,6 @@ scale = Vector2(0.018, 0.018)
 texture = ExtResource("2_ccstn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.25)
 shape = SubResource("RectangleShape2D_44ar1")
 
 [node name="VoorSensorPed" type="Area2D" parent="."]

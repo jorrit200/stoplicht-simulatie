@@ -1,7 +1,9 @@
 using StoplichtSimGodot.scripts.Control;
 
 namespace StoplichtSimGodot.scripts;
+
 using System;
+using System.Collections.Generic;
 using Godot;
 
 public partial class Cyclist : Vehicle
@@ -15,8 +17,8 @@ public partial class Cyclist : Vehicle
 	}
 
 	private float _originalSpeed;
-	private int _overlapCount = 0;
-	private int _lightOverlapCount = 0;
+	private HashSet<CharacterBody2D> _overlapCount = new();
+	private HashSet<Area2D> _lightOverlapCount = new();
 
 	public override void _Ready()
 	{
@@ -25,65 +27,54 @@ public partial class Cyclist : Vehicle
 
 	private void _on_voor_sensor_cyc_body_entered(CharacterBody2D body)
 	{
-		if (_lightOverlapCount > 0) return;
+		if (_lightOverlapCount.Count > 0) return;
 		if (body is not Vehicle || body == this || body is Pedestrian || body is Cyclist) return;
-		_overlapCount++;
 
-		GetTree().CreateTween().Kill();
-
-		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
-			.SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.Out);
+		if (_overlapCount.Add(body))
+		{
+			Speed = 0f;
+		}
 	}
 
 	private void _on_voor_sensor_cyc_body_exited(CharacterBody2D body)
 	{
 		if (body is not Vehicle || body == this || body is Pedestrian || body is Cyclist) return;
-		_overlapCount = Math.Max(0, _overlapCount - 1);
-		if (_overlapCount != 0) return;
-		GetTree().CreateTween().Kill(); // Stop eventuele actieve tweens om conflicten te voorkomen
 
-		// Maak een nieuwe tween aan om de snelheid te verhogen naar de originele snelheid over 1 seconde
-		var tween = CreateTween();
-		tween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
-			.SetTrans(Tween.TransitionType.Sine)
-			.SetEase(Tween.EaseType.In);
+		_overlapCount.Remove(body);
+
+		if (_overlapCount.Count == 0 && _lightOverlapCount.Count == 0)
+		{
+			Speed = _originalSpeed;
+		}
 	}
-	
+
 	private void _on_voor_sensor_area_entered(Area2D area)
-{
-	if (area is not TrafficLight trafficLight) return;
+	{
+		if (area is not TrafficLight trafficLight) return;
 
-	var currentPath = _pathFollow?.GetParent<Path2D>();
-	if (currentPath == null || !trafficLight.AffectedPaths.Contains(currentPath))
-		return;
+		var currentPath = _pathFollow?.GetParent<Path2D>();
+		if (currentPath == null || !trafficLight.AffectedPaths.Contains(currentPath))
+			return;
 
-	_lightOverlapCount++;
+		if (_lightOverlapCount.Add(area))
+		{
+			Speed = 0f;
+		}
+	}
 
-	GetTree().CreateTween().Kill();
+	private void _on_voor_sensor_area_exited(Area2D area)
+	{
+		if (area is not TrafficLight trafficLight) return;
 
-	var tween = CreateTween();
-	tween.TweenProperty(this, "Speed", 0.0f, 1.0f)
-		.SetTrans(Tween.TransitionType.Sine)
-		.SetEase(Tween.EaseType.Out);
-}
+		var currentPath = _pathFollow?.GetParent<Path2D>();
+		if (currentPath == null || !trafficLight.AffectedPaths.Contains(currentPath))
+			return;
 
-private void _on_voor_sensor_area_exited(Area2D area)
-{
-	if (area is not TrafficLight trafficLight) return;
+		_lightOverlapCount.Remove(area);
 
-	var currentPath = _pathFollow?.GetParent<Path2D>();
-	if (currentPath == null || !trafficLight.AffectedPaths.Contains(currentPath))
-		return;
-
-	_lightOverlapCount = Math.Max(0, _lightOverlapCount - 1);
-	if (_lightOverlapCount != 0) return;
-
-	GetTree().CreateTween().Kill();
-
-	var tween = CreateTween();
-	tween.TweenProperty(this, "Speed", _originalSpeed, 1.0f)
-		.SetTrans(Tween.TransitionType.Sine)
-		.SetEase(Tween.EaseType.In);
-}
+		if (_lightOverlapCount.Count == 0 && _overlapCount.Count == 0)
+		{
+			Speed = _originalSpeed;
+		}
+	}
 }
