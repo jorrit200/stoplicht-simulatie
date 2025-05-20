@@ -23,7 +23,6 @@ texture = ExtResource("2_2hsmt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.72529e-07)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_c35m8")
 
 [node name="VoorSensor" type="Area2D" parent="."]
@@ -31,7 +30,6 @@ collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensor"]
 position = Vector2(28.875, 7.45058e-08)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_2hsmt")
 
 [connection signal="area_entered" from="VoorSensor" to="." method="_on_voor_sensor_area_entered"]
