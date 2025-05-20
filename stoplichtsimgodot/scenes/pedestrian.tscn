@@ -7,7 +7,7 @@
 size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vp5dr"]
-size = Vector2(10, 4)
+size = Vector2(6, 4)
 
 [node name="Pedestrian" type="CharacterBody2D"]
 script = ExtResource("1_vp5dr")
@@ -24,7 +24,7 @@ shape = SubResource("RectangleShape2D_44ar1")
 [node name="VoorSensorPed" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensorPed"]
-position = Vector2(9, 0)
+position = Vector2(7, 0)
 shape = SubResource("RectangleShape2D_vp5dr")
 
 [connection signal="area_entered" from="VoorSensorPed" to="." method="_on_voor_sensor_area_entered"]

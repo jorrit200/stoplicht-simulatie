@@ -7,7 +7,7 @@
 size = Vector2(50, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u4s5"]
-size = Vector2(14.375, 6.25)
+size = Vector2(10, 6.25)
 
 [node name="Car" type="CharacterBody2D"]
 z_index = -1
@@ -29,7 +29,7 @@ shape = SubResource("RectangleShape2D_c35m8")
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensor"]
-position = Vector2(32.1875, 0)
+position = Vector2(30, 0)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_7u4s5")
 
