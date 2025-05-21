@@ -56,7 +56,7 @@ public partial class VoorrangsQueueManager : Node2D
 		}
 	}
 
-	private void PubliceerQueue()
+	public void PubliceerQueue()
 	{
 		var simplified = _queue.Select(q => new
 		{

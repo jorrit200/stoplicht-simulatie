@@ -7,6 +7,6 @@ public partial class Bus : Vehicle
 		Speed = 50;
 		RoadToUse = "MainRoad";
 		IsMoving = true;
-		SpawnChance = 5;
+		SpawnChance = 5f;
 	}
 }

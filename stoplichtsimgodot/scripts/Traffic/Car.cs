@@ -7,6 +7,6 @@ public partial class Car : Vehicle
 		Speed = 50;
 		RoadToUse = "MainRoad";
 		IsMoving = true;
-		SpawnChance = 75;
+		SpawnChance = 75f;
 	}
 }

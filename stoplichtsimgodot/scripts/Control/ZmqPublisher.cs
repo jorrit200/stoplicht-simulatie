@@ -1,5 +1,7 @@
 using System;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using Godot;
 using NetMQ;
 using NetMQ.Sockets;
@@ -14,7 +16,7 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 	
 	private PublisherSocket _publisher;
 	private string _socketUri;
-	private Timer sendTimer;
+	private Godot.Timer sendTimer;
 	private string liveSimTime;
 	private DateTime simStartTime;
 	private string parsedSimTime;
@@ -24,9 +26,13 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 		_publisher = new PublisherSocket();
 		_socketUri = $"tcp://{_ip}:{_port}";
 		_publisher.Bind(_socketUri);
+        Task.Run(async () => {
+            await Task.Delay(4000);
+            Send("sensoren_bruggen",$"{{\"81.1\": {{\"state\": \"dicht\"}}}}");
+        });
 		
 		simStartTime = DateTime.Now;
-		sendTimer = new Timer();
+		sendTimer = new Godot.Timer();
 		sendTimer.WaitTime = 0.07; // elke seconde
 		sendTimer.OneShot = false;
 		sendTimer.Autostart = true;
