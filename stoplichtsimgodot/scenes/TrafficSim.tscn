@@ -1,10 +1,10 @@
-[gd_scene load_steps=64 format=3 uid="uid://bp7gt715smulk"]
+[gd_scene load_steps=65 format=3 uid="uid://bp7gt715smulk"]
 
 [ext_resource type="Script" uid="uid://gs2cvuq8vwc4" path="res://scripts/Control/TrafficSim.cs" id="1_6sd47"]
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
 [ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/Control/ZmqSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/Control/VehicleSpawner.cs" id="3_67ex8"]
-[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/Control/TrafficLight.cs" id="16_q3d0v"]
 [ext_resource type="Script" uid="uid://qh42y8j0225e" path="res://scripts/Control/BridgeDrawer.cs" id="18_nlmth"]
 [ext_resource type="Script" uid="uid://dilfo4ay7wtca" path="res://scripts/Control/TrafficModes.cs" id="18_q3d0v"]
+[ext_resource type="Texture2D" uid="uid://deuayo7c7s8ba" path="res://art/slagboom/slagboom.svg" id="22_j8www"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
 size = Vector2(33.625, 6.9375)
@@ -1349,3 +1350,9 @@ offset_bottom = 94.0
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 12
 text = "Stress"
+
+[node name="Slagboom" type="Sprite2D" parent="."]
+position = Vector2(1733, 496)
+rotation = -1.21459
+scale = Vector2(0.25, 0.2)
+texture = ExtResource("22_j8www")
