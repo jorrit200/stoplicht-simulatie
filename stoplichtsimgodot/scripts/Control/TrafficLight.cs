@@ -6,17 +6,25 @@ namespace StoplichtSimGodot.scripts.Control;
 
 public partial class TrafficLight : Area2D
 {
-	public TrafficLightState State { get; private set; } = TrafficLightState.Red;
+	[Export]
+	public TrafficLightState State
+	{
+		get => _state;
+		set => ApplyState(value);
+	}
 	
-	private CollisionShape2D? CollisionShape { get; set; }
-
+	[Export]
+	public Godot.Collections.Array<Path2D> AffectedPaths { get; set; } = [];
+	
 	[Signal]
 	public delegate void StateChangedEventHandler(TrafficLightState oldState, TrafficLightState newState);
 
-	[Export]
-	public Godot.Collections.Array<Path2D> AffectedPaths { get; set; } = new();
+	
+	private TrafficLightState _state = TrafficLightState.Red;
+	private CollisionShape2D? CollisionShape { get; set; }
 
-	public void ApplyState(TrafficLightState newState)
+	
+	private void ApplyState(TrafficLightState newState)
 	{
 		CallDeferred(nameof(SetState), Variant.From(newState));
 	}
@@ -29,7 +37,7 @@ public partial class TrafficLight : Area2D
 			EmitSignal(SignalName.StateChanged, Variant.From(State), Variant.From(newState));
 		}
 
-		State = newState;
+		_state = newState;
 	}
 
 	public override void _Ready()

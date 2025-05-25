@@ -63,7 +63,7 @@ _data = {
 &"slagboom_open": SubResource("Animation_a2mbu")
 }
 
-[node name="Node2D" type="Node2D"]
+[node name="Slagboom" type="Node2D"]
 script = ExtResource("1_a2mbu")
 _closingDelay = 1.0
 
@@ -72,6 +72,7 @@ position = Vector2(100, 0)
 texture = ExtResource("1_k56ar")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

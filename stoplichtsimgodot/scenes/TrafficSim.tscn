@@ -373,12 +373,12 @@ script = ExtResource("1_6sd47")
 
 [node name="ZMQPublisher" type="Node" parent="."]
 script = ExtResource("1_qbjlm")
-_ip = "10.121.17.54"
+_ip = "127.0.0.1"
 _port = 5556
 
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
-_ip = "10.121.17.99"
+_ip = "127.0.0.1"
 _port = 5555
 _topics = PackedStringArray("stoplichten")
 
@@ -1351,7 +1351,28 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 12
 text = "Stress"
 
-[node name="Node2D" parent="." instance=ExtResource("22_j8www")]
+[node name="Slagboomen" type="Node" parent="."]
+
+[node name="Slagboom_51" parent="Slagboomen" node_paths=PackedStringArray("_trafficLight") instance=ExtResource("22_j8www")]
+position = Vector2(1770, 421)
+rotation = 2.01236
+scale = Vector2(0.24, 0.24)
+_trafficLight = NodePath("../../TrafficLightMaster/51_1")
+
+[node name="slagboom_52" parent="Slagboomen" node_paths=PackedStringArray("_trafficLight") instance=ExtResource("22_j8www")]
 position = Vector2(1721, 517)
 rotation = -1.07687
 scale = Vector2(0.235, 0.235)
+_trafficLight = NodePath("../../TrafficLightMaster/52_1")
+
+[node name="Slagboom_53" parent="Slagboomen" node_paths=PackedStringArray("_trafficLight") instance=ExtResource("22_j8www")]
+position = Vector2(1662, 503)
+rotation = -1.13446
+scale = Vector2(0.265, 0.265)
+_trafficLight = NodePath("../../TrafficLightMaster/53_1")
+
+[node name="Slagboom_54" parent="Slagboomen" node_paths=PackedStringArray("_trafficLight") instance=ExtResource("22_j8www")]
+position = Vector2(1714, 398)
+rotation = 2.02458
+scale = Vector2(0.275, 0.275)
+_trafficLight = NodePath("../../TrafficLightMaster/54_1")
