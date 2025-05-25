@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2uibre26ia0t"]
+[gd_scene load_steps=5 format=3 uid="uid://c5nmo433ssyfc"]
 
 [ext_resource type="Script" uid="uid://bmylpttkgjt3l" path="res://scripts/Traffic/Car.cs" id="1_7u4s5"]
 [ext_resource type="Texture2D" uid="uid://d0jqxkrprgk26" path="res://art/Vehicles/Auto.png" id="2_ys5ts"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
-size = Vector2(50, 17)
+size = Vector2(50, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u4s5"]
-size = Vector2(25, 12.125)
+size = Vector2(10, 6.25)
 
 [node name="Car" type="CharacterBody2D"]
 z_index = -1
@@ -21,13 +21,14 @@ scale = Vector2(0.0245801, 0.0389767)
 texture = ExtResource("2_ys5ts")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.98023e-07)
 shape = SubResource("RectangleShape2D_c35m8")
 
 [node name="VoorSensor" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensor"]
-position = Vector2(37.5, 0)
+position = Vector2(30, 0)
 shape = SubResource("RectangleShape2D_7u4s5")
 
 [connection signal="area_entered" from="VoorSensor" to="." method="_on_voor_sensor_area_entered"]

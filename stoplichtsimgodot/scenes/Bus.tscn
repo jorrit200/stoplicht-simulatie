@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://063ytkkqu1bx" path="res://art/Vehicles/Bus.png" id="2_c8c07"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c35m8"]
-size = Vector2(50, 17)
+size = Vector2(50, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr10d"]
-size = Vector2(25, 11.75)
+size = Vector2(7.50002, 5)
 
 [node name="Bus" type="CharacterBody2D"]
 z_index = -1
@@ -22,13 +22,14 @@ texture = ExtResource("2_c8c07")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 modulate = Color(0, 0.99639, 0.648572, 1)
+position = Vector2(0, -3.72529e-07)
 shape = SubResource("RectangleShape2D_c35m8")
 
 [node name="VoorSensor" type="Area2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="VoorSensor"]
-position = Vector2(37.5, 0)
+position = Vector2(28.75, -1.49012e-07)
 shape = SubResource("RectangleShape2D_wr10d")
 
 [connection signal="area_entered" from="VoorSensor" to="." method="_on_voor_sensor_area_entered"]

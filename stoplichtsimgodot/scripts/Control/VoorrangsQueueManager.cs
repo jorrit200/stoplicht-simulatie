@@ -18,7 +18,7 @@ public class VoorrangsVoertuigEntry
 
 public partial class VoorrangsQueueManager : Node2D
 {
-	private List<VoorrangsVoertuigEntry> _queue = new();
+	public List<VoorrangsVoertuigEntry> _queue = new();
 	private IMessagePublisher _publisher;
 	private string _topic = "voorrangsvoertuig";
 	public static VoorrangsQueueManager Instance { get; private set; }
@@ -56,7 +56,7 @@ public partial class VoorrangsQueueManager : Node2D
 		}
 	}
 
-	private void PubliceerQueue()
+	public void PubliceerQueue()
 	{
 		var simplified = _queue.Select(q => new
 		{
