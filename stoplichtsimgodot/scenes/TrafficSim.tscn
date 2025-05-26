@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dmwqq5708dd4l" path="res://scripts/Control/ZmqPublisher.cs" id="1_qbjlm"]
 [ext_resource type="Script" uid="uid://5xwc65u0d1m2" path="res://scripts/Control/ZmqSubscriber.cs" id="2_67ex8"]
 [ext_resource type="Script" uid="uid://j23cs7odwgqs" path="res://scripts/Control/VehicleSpawner.cs" id="3_67ex8"]
-[ext_resource type="PackedScene" uid="uid://c2uibre26ia0t" path="res://scenes/Car.tscn" id="4_ruvsc"]
+[ext_resource type="PackedScene" uid="uid://d2ybicssmif14" path="res://scenes/Car.tscn" id="4_ruvsc"]
 [ext_resource type="PackedScene" uid="uid://dl0wrq8imlb6q" path="res://scenes/Bus.tscn" id="5_10emi"]
 [ext_resource type="PackedScene" uid="uid://q15l7mrt2rg4" path="res://scenes/EmergencyVehicle.tscn" id="6_6tk20"]
 [ext_resource type="Texture2D" uid="uid://dev0wm2ra42hc" path="res://art/Backgrounds/cross_section.png" id="7_6tk20"]
@@ -21,8 +21,7 @@
 [ext_resource type="Script" uid="uid://cedghjckin1k7" path="res://scripts/Control/TrafficLight.cs" id="16_q3d0v"]
 [ext_resource type="Script" uid="uid://qh42y8j0225e" path="res://scripts/Control/BridgeDrawer.cs" id="18_nlmth"]
 [ext_resource type="Script" uid="uid://dilfo4ay7wtca" path="res://scripts/Control/TrafficModes.cs" id="18_q3d0v"]
-[ext_resource type="Script" uid="uid://bgr68gl0u7qqc" path="res://scripts/Control/Kruispunt.cs" id="22_j8www"]
-[ext_resource type="PackedScene" uid="uid://cbkse6aj2svwn" path="res://scenes/slagboom.tscn" id="22_j8www"]
+[ext_resource type="PackedScene" path="res://scenes/slagboom.tscn" id="22_j8www"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e4muc"]
 size = Vector2(33.625, 6.9375)
@@ -382,7 +381,7 @@ _port = 5556
 
 [node name="ZMQSubscriber" type="Node" parent="."]
 script = ExtResource("2_67ex8")
-_ip = "10.121.17.89"
+_ip = "10.121.17.221"
 _port = 5555
 _topics = PackedStringArray("stoplichten")
 
@@ -602,49 +601,49 @@ shape = SubResource("RectangleShape2D_6sd47")
 [node name="21_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/21_1_voor"]
-position = Vector2(348, 209.75)
+position = Vector2(348, 207)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="22_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/22_1_voor"]
-position = Vector2(355, 333)
+position = Vector2(355, 337)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="23_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/23_1_voor"]
-position = Vector2(323, 363)
+position = Vector2(327, 363)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="24_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/24_1_voor"]
-position = Vector2(232, 376)
+position = Vector2(229, 376)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="25_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/25_1_voor"]
-position = Vector2(197, 347)
+position = Vector2(197, 349)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="26_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/26_1_voor"]
-position = Vector2(191, 226)
+position = Vector2(191, 223)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="27_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/27_1_voor"]
-position = Vector2(223, 193)
+position = Vector2(219, 193)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="28_1_voor" type="Area2D" parent="Sensors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/28_1_voor"]
-position = Vector2(310, 184)
+position = Vector2(314, 184)
 shape = SubResource("RectangleShape2D_r54nr")
 
 [node name="31_1_voor" type="Area2D" parent="Sensors"]
@@ -954,7 +953,7 @@ scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath3")]
 
 [node name="38_1" parent="TrafficLightMaster" node_paths=PackedStringArray("AffectedPaths") instance=ExtResource("11_e4muc")]
-position = Vector2(282, 178)
+position = Vector2(283.5, 178)
 scale = Vector2(0.475, 0.475)
 AffectedPaths = [NodePath("../../PedPaths/PedPath4")]
 
@@ -1356,13 +1355,10 @@ theme_override_font_sizes/normal_font_size = 12
 text = "Stress"
 
 [node name="Kruispunt" type="Area2D" parent="."]
-script = ExtResource("22_j8www")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Kruispunt"]
 position = Vector2(273.5, 282.5)
 shape = SubResource("RectangleShape2D_p7ve8")
-
-[connection signal="body_exited" from="Kruispunt" to="Kruispunt" method="_on_kruispunt_body_exited"]
 
 [node name="Slagboomen" type="Node" parent="."]
 
@@ -1389,3 +1385,5 @@ position = Vector2(1714, 398)
 rotation = 2.02458
 scale = Vector2(0.275, 0.275)
 _trafficLight = NodePath("../../TrafficLightMaster/54_1")
+
+[connection signal="body_exited" from="Kruispunt" to="Kruispunt" method="_on_kruispunt_body_exited"]

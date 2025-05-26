@@ -26,10 +26,10 @@ public partial class ZmqPublisher : Node, IMessagePublisher
 		_publisher = new PublisherSocket();
 		_socketUri = $"tcp://{_ip}:{_port}";
 		_publisher.Bind(_socketUri);
-        Task.Run(async () => {
-            await Task.Delay(4000);
-            Send("sensoren_bruggen",$"{{\"81.1\": {{\"state\": \"dicht\"}}}}");
-        });
+		Task.Run(async () => {
+			await Task.Delay(4000);
+			Send("sensoren_bruggen",$"{{\"81.1\": {{\"state\": \"dicht\"}}}}");
+		});
 		
 		simStartTime = DateTime.Now;
 		sendTimer = new Godot.Timer();
