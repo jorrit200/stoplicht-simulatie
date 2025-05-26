@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbkse6aj2svwn"]
+
+[ext_resource type="Script" uid="uid://c7l61pmvrc8u0" path="res://scripts/Control/Slagboom.cs" id="1_a2mbu"]
+[ext_resource type="Texture2D" uid="uid://dawxicr0fge4e" path="res://art/slagboom/slagboom.svg" id="1_k56ar"]
+
+[sub_resource type="Animation" id="Animation_a2mbu"]
+resource_name = "slagboom_open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slagboom:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.01, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Slagboom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(100, 0), Vector2(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_swdy8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Slagboom:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Slagboom:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(100, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kotbd"]
+_data = {
+&"RESET": SubResource("Animation_swdy8"),
+&"slagboom_open": SubResource("Animation_a2mbu")
+}
+
+[node name="Slagboom" type="Node2D"]
+script = ExtResource("1_a2mbu")
+_closingDelay = 1.0
+
+[node name="Slagboom" type="Sprite2D" parent="."]
+position = Vector2(100, 0)
+texture = ExtResource("1_k56ar")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kotbd")
+}
